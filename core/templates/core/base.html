@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Altair | Financial Assistant{% endblock %}</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind Play CDN (Development only) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'altair-bg': '#0d1117',
+                        'altair-card': '#161b22',
+                        'altair-primary': '#00d4ff',
+                        'altair-accent': '#7000ff',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <!-- HTMX -->
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+
+    <!-- Alpine.js -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <style type="text/tailwindcss">
+        @layer base {
+            html, body {
+                @apply m-0 p-0;
+                overscroll-behavior: none;
+                overscroll-behavior-y: none;
+            }
+            body {
+                @apply bg-altair-bg text-white min-h-screen flex flex-col font-sans;
+                background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+            }
+        }
+        @layer components {
+            .glass-card {
+                @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:border-white/20;
+            }
+            .btn-primary {
+                @apply bg-gradient-to-r from-altair-primary to-altair-accent px-8 py-3 rounded-full font-semibold transition-opacity hover:opacity-90;
+            }
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body class="dark" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+    {% include "core/header.html" %}
+
+    <main class="flex-grow">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    {% include "core/footer.html" %}
+
+    {% block extra_js %}{% endblock %}
+</body>
+
+</html>
