@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Altair - Your AI-powered financial assistant for portfolio analysis, tax optimization, and goal tracking.">
+    <meta name="description" content="Altair - Your AI-powered financial assistant for portfolio analysis, tax optimization, and goal tracking.">
     <meta name="keywords" content="finance, assistant, portfolio, tax calculator, investment tracker, django">
     <title>{% block title %}Altair | Financial Assistant{% endblock %}</title>
 
@@ -41,25 +40,51 @@
     <!-- Alpine.js -->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-    <style type="text/tailwindcss">
-        @layer base {
-            html {
-                @apply h-full;
-                overscroll-behavior: none;
-                overscroll-behavior-y: none;
-            }
-            body {
-                @apply bg-altair-bg text-white min-h-full flex flex-col font-sans m-0 p-0;
-                background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
-            }
+    <style>
+        html {
+            height: 100%;
+            overscroll-behavior: none;
+            overscroll-behavior-y: none;
         }
-        @layer components {
-            .glass-card {
-                @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:border-white/20;
-            }
-            .btn-primary {
-                @apply bg-gradient-to-r from-altair-primary to-altair-accent px-8 py-3 rounded-full font-semibold transition-opacity hover:opacity-90;
-            }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #0d1117;
+            color: white;
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+        }
+
+        .glass-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-0.25rem);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, #00d4ff, #7000ff);
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            transition: opacity 0.3s;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
         }
     </style>
     {% block extra_css %}{% endblock %}
