@@ -11,14 +11,17 @@ before:rounded-r-[3px]{% endblock %}
 <!-- Greeting Row -->
 <div class="flex items-start justify-between mb-6 gap-3">
     <div>
-        <h1 class="text-2xl font-bold text-gray-900 tracking-tight">Welcome, {{user.first_name|default:user.username }} !</h1>
+        <h1 class="text-2xl font-bold text-gray-900 tracking-tight">Welcome, {{user.first_name|default:user.username }}
+            !</h1>
         <p class="text-sm text-gray-500 mt-1">Overview of financials and recent activity.</p>
     </div>
     <div class="flex gap-2.5 items-center">
-        <button class="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+        <button
+            class="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
             This Month <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
         </button>
-        <button class="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+        <button
+            class="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
             <i data-lucide="upload" class="w-3.5 h-3.5"></i> Export
         </button>
     </div>
@@ -29,7 +32,8 @@ before:rounded-r-[3px]{% endblock %}
     <!-- Net Worth -->
     <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-5">
         <div class="flex items-center gap-3 mb-4">
-            <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-violet-600 to-indigo-500 flex items-center justify-center flex-shrink-0">
+            <div
+                class="w-11 h-11 rounded-xl bg-gradient-to-br from-violet-600 to-indigo-500 flex items-center justify-center flex-shrink-0">
                 <i data-lucide="wallet" class="w-5 h-5 text-white"></i>
             </div>
             <div>
@@ -48,7 +52,8 @@ before:rounded-r-[3px]{% endblock %}
     <!-- Monthly Income -->
     <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-5">
         <div class="flex items-center gap-3 mb-4">
-            <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-orange-500 to-amber-400 flex items-center justify-center flex-shrink-0">
+            <div
+                class="w-11 h-11 rounded-xl bg-gradient-to-br from-orange-500 to-amber-400 flex items-center justify-center flex-shrink-0">
                 <i data-lucide="trending-up" class="w-5 h-5 text-white"></i>
             </div>
             <div>
@@ -67,7 +72,8 @@ before:rounded-r-[3px]{% endblock %}
     <!-- Monthly Expenses -->
     <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-5">
         <div class="flex items-center gap-3 mb-4">
-            <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-pink-500 to-rose-500 flex items-center justify-center flex-shrink-0">
+            <div
+                class="w-11 h-11 rounded-xl bg-gradient-to-br from-pink-500 to-rose-500 flex items-center justify-center flex-shrink-0">
                 <i data-lucide="shopping-bag" class="w-5 h-5 text-white"></i>
             </div>
             <div>
@@ -86,7 +92,8 @@ before:rounded-r-[3px]{% endblock %}
     <!-- Savings -->
     <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-5">
         <div class="flex items-center gap-3 mb-4">
-            <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-blue-500 to-sky-400 flex items-center justify-center flex-shrink-0">
+            <div
+                class="w-11 h-11 rounded-xl bg-gradient-to-br from-blue-500 to-sky-400 flex items-center justify-center flex-shrink-0">
                 <i data-lucide="piggy-bank" class="w-5 h-5 text-white"></i>
             </div>
             <div>
@@ -108,10 +115,12 @@ before:rounded-r-[3px]{% endblock %}
     <!-- Transactions Chart -->
     <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-5">
         <div class="flex items-start justify-between mb-1">
-            <span class="text-[15px] font-bold text-gray-900">Transactions Overview</span>
+            <span class="text-[15px] font-bold text-gray-900">Portfolio Overview</span>
             <div class="flex bg-gray-100 rounded-lg p-0.5 gap-0.5">
-                <button id="toggle-monthly" onclick="setChartPeriod('monthly')" class="px-3.5 py-1.5 rounded-md text-xs font-semibold text-gray-500">Monthly</button>
-                <button id="toggle-yearly" onclick="setChartPeriod('yearly')" class="px-3.5 py-1.5 rounded-md text-xs font-semibold bg-gray-900 text-white">Yearly</button>
+                <button id="toggle-monthly" onclick="setChartPeriod('monthly')"
+                    class="px-3.5 py-1.5 rounded-md text-xs font-semibold text-gray-500">Monthly</button>
+                <button id="toggle-yearly" onclick="setChartPeriod('yearly')"
+                    class="px-3.5 py-1.5 rounded-md text-xs font-semibold bg-gray-900 text-white">Yearly</button>
             </div>
         </div>
         <div class="flex items-baseline gap-2 mt-2.5">
@@ -121,13 +130,12 @@ before:rounded-r-[3px]{% endblock %}
             </span>
         </div>
         <div class="flex gap-5 mt-2.5 mb-3">
-            <div class="flex items-center gap-1.5 text-xs text-gray-500 font-medium font-semibold text-indigo-500">
-                <span class="w-2 h-2 rounded-full bg-indigo-500"></span> Earning</div>
             <div class="flex items-center gap-1.5 text-xs text-gray-500 font-medium font-semibold text-emerald-500">
                 <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Spending
             </div>
             <div class="flex items-center gap-1.5 text-xs text-gray-500 font-medium">
-                <span class="w-2 h-2 rounded-full bg-gray-300"></span> Savings</div>
+                <span class="w-2 h-2 rounded-full bg-gray-300"></span> Savings
+            </div>
         </div>
         <div class="relative h-48">
             <canvas id="txnChart"></canvas>
@@ -181,19 +189,22 @@ before:rounded-r-[3px]{% endblock %}
 </div>
 
 <!-- Recent Transactions -->
-<div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-5">
+<div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-5 mt-5">
     <div class="flex items-center gap-3 mb-4">
         <div class="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center text-gray-500">
             <i data-lucide="list" class="w-4 h-4"></i>
         </div>
         <span class="text-[15px] font-bold text-gray-900 flex-1">Recent Transactions</span>
-        <div class="flex items-center gap-1.5 bg-gray-100 border border-gray-200 rounded-lg px-3 py-1.5 text-sm text-gray-400 cursor-pointer">
+        <div
+            class="flex items-center gap-1.5 bg-gray-100 border border-gray-200 rounded-lg px-3 py-1.5 text-sm text-gray-400 cursor-pointer">
             <i data-lucide="search" class="w-3.5 h-3.5"></i> Search
         </div>
-        <button class="flex items-center gap-1.5 bg-white border border-gray-200 rounded-lg px-3 py-1.5 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">
+        <button
+            class="flex items-center gap-1.5 bg-white border border-gray-200 rounded-lg px-3 py-1.5 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">
             All Category <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
         </button>
-        <button class="flex items-center gap-1.5 bg-white border border-gray-200 rounded-lg px-3 py-1.5 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">
+        <button
+            class="flex items-center gap-1.5 bg-white border border-gray-200 rounded-lg px-3 py-1.5 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">
             Filter <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5"></i>
         </button>
     </div>
@@ -201,21 +212,31 @@ before:rounded-r-[3px]{% endblock %}
         <thead>
             <tr class="border-b border-gray-100">
                 <th class="w-8 pb-2"></th>
-                <th class="text-left text-[11px] font-semibold text-gray-400 uppercase tracking-wide pb-2 px-2">Activity</th>
-                <th class="text-left text-[11px] font-semibold text-gray-400 uppercase tracking-wide pb-2 px-2">Order ID</th>
-                <th class="text-left text-[11px] font-semibold text-gray-400 uppercase tracking-wide pb-2 px-2">Date</th>
-                <th class="text-left text-[11px] font-semibold text-gray-400 uppercase tracking-wide pb-2 px-2">Time</th>
-                <th class="text-left text-[11px] font-semibold text-gray-400 uppercase tracking-wide pb-2 px-2">Amount</th>
-                <th class="text-left text-[11px] font-semibold text-gray-400 uppercase tracking-wide pb-2 px-2">Status</th>
+                <th class="text-left text-[11px] font-semibold text-gray-400 uppercase tracking-wide pb-2 px-2">Activity
+                </th>
+                <th class="text-left text-[11px] font-semibold text-gray-400 uppercase tracking-wide pb-2 px-2">Order ID
+                </th>
+                <th class="text-left text-[11px] font-semibold text-gray-400 uppercase tracking-wide pb-2 px-2">Date
+                </th>
+                <th class="text-left text-[11px] font-semibold text-gray-400 uppercase tracking-wide pb-2 px-2">Time
+                </th>
+                <th class="text-left text-[11px] font-semibold text-gray-400 uppercase tracking-wide pb-2 px-2">Amount
+                </th>
+                <th class="text-left text-[11px] font-semibold text-gray-400 uppercase tracking-wide pb-2 px-2">Status
+                </th>
                 <th class="w-8 pb-2"></th>
             </tr>
         </thead>
         <tbody>
             <tr class="border-b border-gray-50 hover:bg-gray-50 transition-colors">
-                <td class="py-3.5"><input type="checkbox" class="w-3.5 h-3.5 rounded accent-indigo-500 cursor-pointer" /></td>
+                <td class="py-3.5"><input type="checkbox"
+                        class="w-3.5 h-3.5 rounded accent-indigo-500 cursor-pointer" />
+                </td>
                 <td class="py-3.5 px-2">
                     <div class="flex items-center gap-2.5">
-                        <div class="w-8 h-8 rounded-xl bg-gray-100 flex items-center justify-center text-base flex-shrink-0">🏨</div>
+                        <div
+                            class="w-8 h-8 rounded-xl bg-gray-100 flex items-center justify-center text-base flex-shrink-0">
+                            🏨</div>
                         <span class="text-sm font-medium text-gray-800">Hotel Booking</span>
                     </div>
                 </td>
@@ -223,14 +244,22 @@ before:rounded-r-[3px]{% endblock %}
                 <td class="py-3.5 px-2 text-sm text-gray-400">17 Apr, 2026</td>
                 <td class="py-3.5 px-2 text-sm text-gray-400">03:45 PM</td>
                 <td class="py-3.5 px-2 text-sm font-semibold text-gray-800">₹25,500</td>
-                <td class="py-3.5 px-2"><span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Success</span></td>
-                <td class="py-3.5"><button class="text-gray-400 hover:text-gray-600 p-0.5 rounded hover:bg-gray-100 transition-colors"><i data-lucide="more-horizontal" class="w-4 h-4"></i></button></td>
+                <td class="py-3.5 px-2"><span
+                        class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700"><span
+                            class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Success</span></td>
+                <td class="py-3.5"><button
+                        class="text-gray-400 hover:text-gray-600 p-0.5 rounded hover:bg-gray-100 transition-colors"><i
+                            data-lucide="more-horizontal" class="w-4 h-4"></i></button></td>
             </tr>
             <tr class="border-b border-gray-50 hover:bg-gray-50 transition-colors">
-                <td class="py-3.5"><input type="checkbox" class="w-3.5 h-3.5 rounded accent-indigo-500 cursor-pointer" /></td>
+                <td class="py-3.5"><input type="checkbox"
+                        class="w-3.5 h-3.5 rounded accent-indigo-500 cursor-pointer" />
+                </td>
                 <td class="py-3.5 px-2">
                     <div class="flex items-center gap-2.5">
-                        <div class="w-8 h-8 rounded-xl bg-gray-100 flex items-center justify-center text-base flex-shrink-0">✈️</div>
+                        <div
+                            class="w-8 h-8 rounded-xl bg-gray-100 flex items-center justify-center text-base flex-shrink-0">
+                            ✈️</div>
                         <span class="text-sm font-medium text-gray-800">Flight Ticket Booking</span>
                     </div>
                 </td>
@@ -238,44 +267,59 @@ before:rounded-r-[3px]{% endblock %}
                 <td class="py-3.5 px-2 text-sm text-gray-400">15 Apr, 2026</td>
                 <td class="py-3.5 px-2 text-sm text-gray-400">11:30 AM</td>
                 <td class="py-3.5 px-2 text-sm font-semibold text-gray-800">₹32,750</td>
-                <td class="py-3.5 px-2"><span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-red-50 text-red-600"><span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> Pending</span></td>
-                <td class="py-3.5"><button class="text-gray-400 hover:text-gray-600 p-0.5 rounded hover:bg-gray-100 transition-colors"><i data-lucide="more-horizontal" class="w-4 h-4"></i></button></td>
+                <td class="py-3.5 px-2"><span
+                        class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-red-50 text-red-600"><span
+                            class="w-1.5 h-1.5 rounded-full bg-red-500"></span> Pending</span></td>
+                <td class="py-3.5"><button
+                        class="text-gray-400 hover:text-gray-600 p-0.5 rounded hover:bg-gray-100 transition-colors"><i
+                            data-lucide="more-horizontal" class="w-4 h-4"></i></button></td>
             </tr>
             <!-- More rows... -->
         </tbody>
     </table>
 </div>
 
+<!-- Monthly Earnings Bar Chart -->
+<div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-5 mt-5">
+    <div class="flex items-center justify-between mb-6">
+        <h3 class="text-[15px] font-bold text-gray-900">Monthly Earnings Overview</h3>
+        <span class="text-xs text-gray-400 font-medium">Jan 2026 - Dec 2026</span>
+    </div>
+    <div class="relative h-64">
+        <canvas id="earningsBarChart"></canvas>
+    </div>
+</div>
+
 {% endblock %}
 
 {% block extra_scripts %}
 <script>
-    const ctx = document.getElementById('txnChart').getContext('2d');
-    const yearlyData = {
+    // --- Portfolio Line Chart (Spending & Savings) ---
+    const portfolioCtx = document.getElementById('txnChart').getContext('2d');
+    const portfolioDataYearly = {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-        earning: [18000, 22000, 19000, 28000, 42000, 35000, 30000, 38000, 45000, 40000, 36000, 42000],
         spending: [8000, 10000, 9000, 14000, 18000, 12000, 10000, 15000, 20000, 18000, 14000, 16000],
         savings: [2000, 3000, 2500, 4000, 6000, 5000, 4500, 5500, 7000, 6500, 5000, 6000],
     };
-    const monthlyData = {
+    const portfolioDataMonthly = {
         labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
-        earning: [20000, 25000, 18000, 22000],
         spending: [8000, 11000, 7500, 9000],
         savings: [3000, 4000, 2500, 3500],
     };
-    function buildData(d) {
+
+    function buildPortfolioDatasets(d) {
         return {
             labels: d.labels,
             datasets: [
-                { label: 'Earning', data: d.earning, borderColor: '#6366f1', backgroundColor: 'rgba(99,102,241,0.08)', borderWidth: 2.5, tension: 0.4, fill: true, pointRadius: 0, pointHoverRadius: 5, pointHoverBackgroundColor: '#6366f1' },
                 { label: 'Spending', data: d.spending, borderColor: '#10b981', backgroundColor: 'rgba(16,185,129,0.06)', borderWidth: 2.5, tension: 0.4, fill: true, pointRadius: 0, pointHoverRadius: 5, pointHoverBackgroundColor: '#10b981' },
                 { label: 'Savings', data: d.savings, borderColor: '#d1d5db', backgroundColor: 'rgba(209,213,219,0.05)', borderWidth: 2, tension: 0.4, fill: true, pointRadius: 0, pointHoverRadius: 5, pointHoverBackgroundColor: '#d1d5db' },
             ]
         };
     }
-    const chart = new Chart(ctx, {
+
+    const portfolioChart = new Chart(portfolioCtx, {
         type: 'line',
-        data: buildData(yearlyData),
+        data: buildPortfolioDatasets(portfolioDataYearly),
         options: {
             responsive: true, maintainAspectRatio: false,
             interaction: { mode: 'index', intersect: false },
@@ -293,9 +337,10 @@ before:rounded-r-[3px]{% endblock %}
             }
         }
     });
-    function setChartPeriod(period) {
-        chart.data = buildData(period === 'yearly' ? yearlyData : monthlyData);
-        chart.update();
+
+    window.setChartPeriod = function (period) {
+        portfolioChart.data = buildPortfolioDatasets(period === 'yearly' ? portfolioDataYearly : portfolioDataMonthly);
+        portfolioChart.update();
         const my = document.getElementById('toggle-monthly');
         const yr = document.getElementById('toggle-yearly');
         if (period === 'yearly') {
@@ -306,5 +351,36 @@ before:rounded-r-[3px]{% endblock %}
             yr.classList.remove('bg-gray-900', 'text-white'); yr.classList.add('text-gray-500');
         }
     }
+
+    // --- Monthly Earnings Bar Chart ---
+    const earningsCtx = document.getElementById('earningsBarChart').getContext('2d');
+    new Chart(earningsCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            datasets: [{
+                label: 'Monthly Earnings',
+                data: [18000, 22000, 19000, 28000, 42000, 35000, 30000, 38000, 45000, 40000, 36000, 42000],
+                backgroundColor: '#6366f1',
+                borderRadius: 6,
+                hoverBackgroundColor: '#4f46e5',
+            }]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: '#1a1d23', titleColor: '#fff', bodyColor: '#d1d5db',
+                    padding: 10, cornerRadius: 8,
+                    callbacks: { label: c => ` ₹${c.raw.toLocaleString('en-IN')}` }
+                }
+            },
+            scales: {
+                x: { grid: { display: false }, border: { display: false }, ticks: { color: '#9ca3af', font: { size: 11, family: 'Inter' } } },
+                y: { grid: { color: '#f3f4f6' }, border: { display: false, dash: [4, 4] }, ticks: { color: '#9ca3af', font: { size: 11, family: 'Inter' }, callback: v => v >= 1000 ? (v / 1000) + 'k' : v } }
+            }
+        }
+    });
 </script>
 {% endblock %}
