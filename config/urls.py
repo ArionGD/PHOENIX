@@ -8,4 +8,5 @@ urlpatterns = [
     path('accounts/', include('accounts.urls', namespace='accounts')),
     path('dashboard/', include('user_dashboard.urls', namespace='user_dashboard')),
     path('manager/', include('manager_dashboard.urls', namespace='manager_dashboard')),
+    path('portfolio/', include('portfolio.urls', namespace='portfolio')),
 ]

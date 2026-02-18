@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     'core',
     'manager_dashboard',
     'user_dashboard',
+    'portfolio',
 ]
 
 MIDDLEWARE = [
