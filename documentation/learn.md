@@ -71,5 +71,49 @@ Here is every command used to connect to GitHub, explained in detail:
     *   *Concept*: Utility-first styling. We styling components directly in HTML using classes like `bg-glass` or `flex`.
 2.  **HTMX**
     *   *Concept*: Allows us to perform AJAX requests (dynamic updates without page reloads) using simple HTML attributes like `hx-get`.
-3.  **Alpine.js**
-    *   *Concept*: Lightweight reactive JavaScript for small UI tasks like mobile menu toggles and hover states.
+3.  **Alpine.js** (Standardized)
+    *   *Concept*: Used for the Portfolio "Add Asset" modal, auto-filling asset names, and handling instant calculation of "Total Amount" (Quantity x Price).
+
+---
+
+## 📈 5. Portfolio & Asset Management
+
+1.  **`python manage.py startapp portfolio`**
+    *   *Purpose*: Handles specialized logic for Stock and ETF tracking.
+2.  **Real-Time Price Scraper**
+    *   *Concept*: We use `requests` and `re` (regex) to fetch live stock prices from Google Finance. No heavy libraries like BeautifulSoup needed.
+3.  **Manual Refresh Logic**
+    *   *Command*: `path('refresh/', views.manual_refresh, name='refresh')`
+    *   *Logic*: A dedicated view that forces a re-scrape of all prices, bypassing the cache.
+
+---
+
+## 📊 6. Data Visualization (Chart.js)
+
+1.  **Multi-Dataset Line Charts**
+    *   *Implementation*: Integrated two distinct lines on one graph: **Indigo** for Stocks and **Emerald** for ETFs.
+2.  **Period Toggling (Monthly vs Yearly)**
+    *   *Monthly*: Generates a 30-day timeline with daily "closing" calculations.
+    *   *Yearly*: Generates a 12-month performance overview.
+3.  **Smart Performance Simulation**
+    *   *Concept*: Used **Linear Interpolation** to calculate historical points from a stock's "Buy Date" to today, added with a ±1.5% **Random Jitter** to simulate real market volatility.
+
+---
+
+## ⚡ 7. Performance & Optimization
+
+1.  **5-Minute Cooldown Guard**
+    *   *Logic*: `timedelta(minutes=5)`. The server only scrapes live prices if the last update was more than 5 minutes ago. This makes navigation instant while keeping data fresh.
+2.  **JSON Script Tags**
+    *   *Concept*: `{{ data|json_script:"id" }}`. A secure way to pass Python lists/dictionaries directly into browser JavaScript for rendering charts without syntax errors.
+3.  **Symbol-Name Sync**
+    *   *Concept*: Alpine.js logic in the modal that auto-populates the "Name" field once a "Symbol" (like RELIANCE) is selected, and vice-versa.
+
+---
+
+## 🚦 Current Project Status
+- ✅ User Authentication (Login/Logout)
+- ✅ Dashboard Stats (Net Worth, P/L, Savings)
+- ✅ Enhanced Line Charts (Stock/ETF performance)
+- ✅ Full Portfolio Analyzer (Categorized Assets)
+- ✅ Real-time Price Integration (Google Finance)

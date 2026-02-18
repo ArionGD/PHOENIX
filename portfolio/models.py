@@ -5,6 +5,8 @@ class Holding(models.Model):
     ASSET_TYPES = (
         ('stock', 'Stock'),
         ('etf', 'ETF'),
+        ('crypto', 'Cryptocurrency'),
+        ('index', 'Index Fund'),
     )
     
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='holdings')

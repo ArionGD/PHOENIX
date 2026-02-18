@@ -11,8 +11,9 @@ before:rounded-r-[3px]{% endblock %}
 <!-- Greeting Row -->
 <div class="flex items-start justify-between mb-6 gap-3">
     <div>
-        <h1 class="text-2xl font-bold text-gray-900 tracking-tight">Welcome, {{user.first_name|default:user.username }}
-            !</h1>
+        <h1 class="text-2xl font-bold text-gray-900 tracking-tight">Welcome,
+            {{ user.first_name|default:user.username}}!
+        </h1>
         <p class="text-sm text-gray-500 mt-1">Overview of financials and recent activity.</p>
     </div>
     <div class="flex gap-2.5 items-center">
@@ -29,20 +30,20 @@ before:rounded-r-[3px]{% endblock %}
 
 <!-- Stat Cards -->
 <div class="grid grid-cols-4 gap-4 mb-5">
-    <!-- Net Worth -->
+    <!-- Initial Investment -->
     <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-5">
         <div class="flex items-center gap-3 mb-4">
             <div
-                class="w-11 h-11 rounded-xl bg-gradient-to-br from-violet-600 to-indigo-500 flex items-center justify-center flex-shrink-0">
+                class="w-11 h-11 rounded-xl bg-gradient-to-br from-violet-500 to-indigo-500 flex items-center justify-center flex-shrink-0">
                 <i data-lucide="wallet" class="w-5 h-5 text-white"></i>
             </div>
             <div>
-                <div class="text-xl font-bold text-gray-900 tracking-tight">₹0</div>
-                <div class="text-xs text-gray-500 mt-0.5">Net worth across all accounts</div>
+                <div class="text-xl font-bold text-gray-900 tracking-tight">₹{{ total_investment|floatformat:2 }}</div>
+                <div class="text-xs text-gray-500 mt-0.5">Total capital invested</div>
             </div>
         </div>
         <div class="flex items-center justify-between pt-3 border-t border-gray-100">
-            <span class="text-sm font-medium text-gray-500">Total Balance</span>
+            <span class="text-sm font-medium text-gray-500">Initial Investment</span>
             <button class="text-gray-400 hover:text-gray-600 p-0.5 rounded hover:bg-gray-100 transition-colors">
                 <i data-lucide="more-horizontal" class="w-4 h-4"></i>
             </button>
@@ -69,20 +70,21 @@ before:rounded-r-[3px]{% endblock %}
         </div>
     </div>
 
-    <!-- Monthly Expenses -->
+    <!-- Net Worth -->
     <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-5">
         <div class="flex items-center gap-3 mb-4">
             <div
-                class="w-11 h-11 rounded-xl bg-gradient-to-br from-pink-500 to-rose-500 flex items-center justify-center flex-shrink-0">
-                <i data-lucide="shopping-bag" class="w-5 h-5 text-white"></i>
+                class="w-11 h-11 rounded-xl bg-gradient-to-br from-emerald-600 to-teal-500 flex items-center justify-center flex-shrink-0">
+                <i data-lucide="briefcase" class="w-5 h-5 text-white"></i>
             </div>
             <div>
-                <div class="text-xl font-bold text-gray-900 tracking-tight">₹0</div>
-                <div class="text-xs text-gray-500 mt-0.5">Total expenses this month</div>
+                <div class="text-xl font-bold text-gray-900 tracking-tight">₹{{ total_market_value|floatformat:2 }}
+                </div>
+                <div class="text-xs text-gray-500 mt-0.5">Net worth across all assets</div>
             </div>
         </div>
         <div class="flex items-center justify-between pt-3 border-t border-gray-100">
-            <span class="text-sm font-medium text-gray-500">Monthly Expenses</span>
+            <span class="text-sm font-medium text-gray-500">Total Balance</span>
             <button class="text-gray-400 hover:text-gray-600 p-0.5 rounded hover:bg-gray-100 transition-colors">
                 <i data-lucide="more-horizontal" class="w-4 h-4"></i>
             </button>
@@ -118,23 +120,32 @@ before:rounded-r-[3px]{% endblock %}
             <span class="text-[15px] font-bold text-gray-900">Portfolio Overview</span>
             <div class="flex bg-gray-100 rounded-lg p-0.5 gap-0.5">
                 <button id="toggle-monthly" onclick="setChartPeriod('monthly')"
-                    class="px-3.5 py-1.5 rounded-md text-xs font-semibold text-gray-500">Monthly</button>
+                    class="px-3.5 py-1.5 rounded-md text-xs font-semibold {% if active_period == 'monthly' %}bg-gray-900 text-white{% else %}text-gray-500 hover:text-gray-900{% endif %}">Monthly</button>
                 <button id="toggle-yearly" onclick="setChartPeriod('yearly')"
-                    class="px-3.5 py-1.5 rounded-md text-xs font-semibold bg-gray-900 text-white">Yearly</button>
+                    class="px-3.5 py-1.5 rounded-md text-xs font-semibold {% if active_period == 'yearly' %}bg-gray-900 text-white{% else %}text-gray-500 hover:text-gray-900{% endif %}">Yearly</button>
             </div>
         </div>
         <div class="flex items-baseline gap-2 mt-2.5">
-            <span class="text-3xl font-bold text-gray-900 tracking-tight">₹0</span>
-            <span class="flex items-center gap-1 text-xs font-semibold text-gray-400">
-                <i data-lucide="trending-up" class="w-3 h-3"></i> 0.0%
+            <span class="text-3xl font-bold text-gray-900 tracking-tight">₹{{ total_market_value|floatformat:2 }}</span>
+            <span
+                class="flex items-center gap-1 text-xs font-semibold {% if total_profit_loss >= 0 %}text-emerald-500{% else %}text-rose-500{% endif %}">
+                <i data-lucide="{% if total_profit_loss >= 0 %}trending-up{% else %}trending-down{% endif %}"
+                    class="w-3 h-3"></i>
+                {{ total_profit_loss_pct|floatformat:2 }}%
             </span>
         </div>
-        <div class="flex gap-5 mt-2.5 mb-3">
-            <div class="flex items-center gap-1.5 text-xs text-gray-500 font-medium font-semibold text-emerald-500">
-                <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Spending
+        <div class="flex gap-4 mt-2.5 mb-3">
+            <div class="flex items-center gap-1.5 text-[10px] text-gray-500 font-bold uppercase tracking-wider">
+                <span class="w-2 h-2 rounded-full bg-indigo-500"></span> Stocks
             </div>
-            <div class="flex items-center gap-1.5 text-xs text-gray-500 font-medium">
-                <span class="w-2 h-2 rounded-full bg-gray-300"></span> Savings
+            <div class="flex items-center gap-1.5 text-[10px] text-gray-500 font-bold uppercase tracking-wider">
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span> ETFs
+            </div>
+            <div class="flex items-center gap-1.5 text-[10px] text-gray-500 font-bold uppercase tracking-wider">
+                <span class="w-2 h-2 rounded-full bg-orange-500"></span> Crypto
+            </div>
+            <div class="flex items-center gap-1.5 text-[10px] text-gray-500 font-bold uppercase tracking-wider">
+                <span class="w-2 h-2 rounded-full bg-blue-500"></span> Index
             </div>
         </div>
         <div class="relative h-48">
@@ -142,48 +153,47 @@ before:rounded-r-[3px]{% endblock %}
         </div>
     </div>
 
-    <!-- My Cards Widget -->
+    <!-- Asset Allocation Doughnut Chart -->
     <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-5">
-        <div class="flex items-center justify-between mb-0.5">
-            <span class="text-[15px] font-bold text-gray-900">My Cards</span>
+        <div class="flex items-center justify-between mb-2">
+            <span class="text-[15px] font-bold text-gray-900">Asset Allocation</span>
             <button class="text-gray-400 hover:text-gray-600 p-0.5 rounded hover:bg-gray-100 transition-colors">
-                <i data-lucide="more-horizontal" class="w-4 h-4"></i>
+                <i data-lucide="pie-chart" class="w-4 h-4"></i>
             </button>
         </div>
-        <p class="text-xs text-gray-400 mb-3.5">Total 3 accounts</p>
-        <div class="rounded-2xl bg-gradient-to-br from-indigo-600 to-violet-600 p-4 text-white mb-4 min-h-[130px]">
-            <div class="flex justify-between items-center mb-6">
+        <p class="text-xs text-gray-400 mb-6">Distribution by asset type (%)</p>
+        <div class="relative h-48 mb-4">
+            <canvas id="allocationChart"></canvas>
+        </div>
+        <div class="space-y-3 pt-2 border-t border-gray-50">
+            <div class="flex items-center justify-between">
                 <div class="flex items-center gap-2">
-                    <div class="w-7 h-5 bg-white/25 rounded"></div>
-                    <span class="text-[11px] bg-white/20 px-2.5 py-0.5 rounded-full font-semibold">Active</span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-indigo-500"></span>
+                    <span class="text-xs font-semibold text-gray-600">Stocks</span>
                 </div>
-                <div class="flex">
-                    <div class="w-6 h-6 rounded-full bg-red-500"></div>
-                    <div class="w-6 h-6 rounded-full bg-amber-400 -ml-2.5 opacity-90"></div>
-                </div>
+                <span class="text-xs font-bold text-gray-900">{{ distribution_data.0 }}%</span>
             </div>
-            <div class="grid grid-cols-3 gap-3 items-end">
-                <div>
-                    <p class="text-[9px] uppercase tracking-wider opacity-60 mb-0.5">Card Number</p>
-                    <p class="text-xs font-semibold">•••• •••• •••• 6782</p>
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+                    <span class="text-xs font-semibold text-gray-600">ETFs</span>
                 </div>
-                <div>
-                    <p class="text-[9px] uppercase tracking-wider opacity-60 mb-0.5">EXP</p>
-                    <p class="text-xs font-semibold">09/29</p>
-                </div>
-                <div>
-                    <p class="text-[9px] uppercase tracking-wider opacity-60 mb-0.5">CVV</p>
-                    <p class="text-xs font-semibold">•••</p>
-                </div>
+                <span class="text-xs font-bold text-gray-900">{{ distribution_data.1 }}%</span>
             </div>
-        </div>
-        <p class="text-xs text-gray-500 mb-1.5">Spending limit</p>
-        <div class="flex items-baseline gap-1.5">
-            <span class="text-xl font-bold text-gray-900 tracking-tight">₹3,884</span>
-            <span class="text-xs text-gray-400">used from ₹20,638</span>
-        </div>
-        <div class="h-1.5 bg-gray-100 rounded-full mt-2 overflow-hidden">
-            <div class="h-full w-[19%] bg-gradient-to-r from-red-500 to-orange-400 rounded-full"></div>
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-orange-500"></span>
+                    <span class="text-xs font-semibold text-gray-600">Crypto</span>
+                </div>
+                <span class="text-xs font-bold text-gray-900">{{ distribution_data.2 }}%</span>
+            </div>
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span>
+                    <span class="text-xs font-semibold text-gray-600">Index</span>
+                </div>
+                <span class="text-xs font-bold text-gray-900">{{ distribution_data.3 }}%</span>
+            </div>
         </div>
     </div>
 </div>
@@ -199,48 +209,83 @@ before:rounded-r-[3px]{% endblock %}
             class="flex items-center gap-1.5 bg-gray-100 border border-gray-200 rounded-lg px-3 py-1.5 text-sm text-gray-400 cursor-pointer">
             <i data-lucide="search" class="w-3.5 h-3.5"></i> Search
         </div>
-        <button
-            class="flex items-center gap-1.5 bg-white border border-gray-200 rounded-lg px-3 py-1.5 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">
-            All Category <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
-        </button>
-        <button
-            class="flex items-center gap-1.5 bg-white border border-gray-200 rounded-lg px-3 py-1.5 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">
-            Filter <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5"></i>
-        </button>
     </div>
-    <table class="w-full">
-        <thead>
-            <tr class="border-b border-gray-100">
-                <th class="w-8 pb-2"></th>
-                <th class="text-left text-[11px] font-semibold text-gray-400 uppercase tracking-wide pb-2 px-2">Activity
-                </th>
-                <th class="text-left text-[11px] font-semibold text-gray-400 uppercase tracking-wide pb-2 px-2">Order ID
-                </th>
-                <th class="text-left text-[11px] font-semibold text-gray-400 uppercase tracking-wide pb-2 px-2">Date
-                </th>
-                <th class="text-left text-[11px] font-semibold text-gray-400 uppercase tracking-wide pb-2 px-2">Time
-                </th>
-                <th class="text-left text-[11px] font-semibold text-gray-400 uppercase tracking-wide pb-2 px-2">Amount
-                </th>
-                <th class="text-left text-[11px] font-semibold text-gray-400 uppercase tracking-wide pb-2 px-2">Status
-                </th>
-                <th class="w-8 pb-2"></th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Empty state -->
-            <tr>
-                <td colspan="8" class="py-12 text-center text-sm text-gray-400">No recent transactions.</td>
-            </tr>
-            <!-- More rows... -->
-        </tbody>
-    </table>
+    <div class="overflow-x-auto">
+        <table class="w-full">
+            <thead>
+                <tr class="border-b border-gray-100">
+                    <th class="w-8 pb-3 pl-2"></th>
+                    <th class="text-left text-[11px] font-bold text-gray-400 uppercase tracking-widest pb-3 px-2">Asset
+                    </th>
+                    <th class="text-left text-[11px] font-bold text-gray-400 uppercase tracking-widest pb-3 px-2">ID
+                    </th>
+                    <th class="text-left text-[11px] font-bold text-gray-400 uppercase tracking-widest pb-3 px-2">Date
+                    </th>
+                    <th class="text-left text-[11px] font-bold text-gray-400 uppercase tracking-widest pb-3 px-2">Time
+                    </th>
+                    <th class="text-left text-[11px] font-bold text-gray-400 uppercase tracking-widest pb-3 px-2">Market
+                        Value</th>
+                    <th class="text-left text-[11px] font-bold text-gray-400 uppercase tracking-widest pb-3 px-2">Status
+                    </th>
+                    <th class="w-8 pb-3"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for holding in top_holdings %}
+                <tr class="border-b border-gray-50 hover:bg-gray-50/50 transition-colors group">
+                    <td class="w-8 py-3.5 pl-2">
+                        <div
+                            class="w-7 h-7 rounded bg-indigo-50 flex items-center justify-center text-[10px] font-bold text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                            {{ holding.symbol.0|upper }}
+                        </div>
+                    </td>
+                    <td class="py-3.5 px-2">
+                        <div class="text-sm font-bold text-gray-900 tracking-tight">{{ holding.symbol|upper }}</div>
+                    </td>
+                    <td class="py-3.5 px-2">
+                        <div
+                            class="text-[10px] font-bold text-gray-400 bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100 w-fit">
+                            #H-{{ holding.id }}</div>
+                    </td>
+                    <td class="py-3.5 px-2 text-xs font-semibold text-gray-500">{{ holding.last_updated|date:"d M Y" }}
+                    </td>
+                    <td class="py-3.5 px-2 text-xs font-semibold text-gray-500">{{ holding.last_updated|date:"H:i" }}
+                    </td>
+                    <td class="py-3.5 px-2 text-sm font-bold text-gray-900">₹{{ holding.market_value|floatformat:2 }}
+                    </td>
+                    <td class="py-3.5 px-2">
+                        <span
+                            class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider {% if holding.profit_loss >= 0 %}bg-emerald-50 text-emerald-600{% else %}bg-rose-50 text-rose-600{% endif %}">
+                            {% if holding.profit_loss >= 0 %}+{% endif %}{{ holding.profit_loss_pct|floatformat:1 }}%
+                        </span>
+                    </td>
+                    <td class="w-8 py-3.5 text-right pr-2">
+                        <i data-lucide="chevron-right"
+                            class="w-3.5 h-3.5 text-gray-300 group-hover:text-indigo-400 transition-colors"></i>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="8" class="py-16 text-center">
+                        <div class="flex flex-col items-center">
+                            <div class="w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center mb-3">
+                                <i data-lucide="inbox" class="w-6 h-6 text-gray-300"></i>
+                            </div>
+                            <p class="text-sm font-bold text-gray-400 uppercase tracking-widest">No active assets found
+                            </p>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <!-- Monthly Earnings Bar Chart -->
 <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-5 mt-5">
     <div class="flex items-center justify-between mb-6">
-        <h3 class="text-[15px] font-bold text-gray-900">Monthly Earnings Overview</h3>
+        <h3 class="text-[15px] font-bold text-gray-900">Monthly Performance Overview</h3>
         <span class="text-xs text-gray-400 font-medium">Jan 2026 - Dec 2026</span>
     </div>
     <div class="relative h-64">
@@ -248,95 +293,276 @@ before:rounded-r-[3px]{% endblock %}
     </div>
 </div>
 
+<!-- My Cards Widget (Shifted) -->
+<div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 mt-5">
+    <div class="flex items-center justify-between mb-4">
+        <div>
+            <span class="text-[15px] font-bold text-gray-900">My Cards</span>
+            <p class="text-xs text-gray-400 mt-1">Total {{ holdings_count|default:0 }} active assets</p>
+        </div>
+        <button class="text-gray-400 hover:text-gray-600 p-0.5 rounded hover:bg-gray-100 transition-colors">
+            <i data-lucide="more-horizontal" class="w-5 h-5"></i>
+        </button>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+        <div
+            class="rounded-2xl bg-gradient-to-br from-indigo-600 to-violet-600 p-6 text-white min-h-[180px] shadow-lg shadow-indigo-500/20">
+            <div class="flex justify-between items-center mb-10">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-7 bg-white/20 rounded-lg backdrop-blur-sm border border-white/20"></div>
+                    <span
+                        class="text-[11px] bg-white/20 px-3 py-1 rounded-full font-bold uppercase tracking-wider">Active</span>
+                </div>
+                <div class="flex">
+                    <div class="w-8 h-8 rounded-full bg-rose-500 border-2 border-white/10"></div>
+                    <div class="w-8 h-8 rounded-full bg-amber-400 -ml-3 border-2 border-white/10"></div>
+                </div>
+            </div>
+            <div class="flex flex-col gap-6">
+                <p class="text-xl font-medium tracking-[0.2em] mb-2">•••• •••• •••• 6782</p>
+                <div class="flex justify-between items-end">
+                    <div>
+                        <p class="text-[10px] uppercase tracking-widest opacity-60 mb-1">Card Holder</p>
+                        <p class="text-sm font-semibold uppercase">{{ user.get_full_name|default:user.username }}</p>
+                    </div>
+                    <div class="flex gap-6">
+                        <div>
+                            <p class="text-[10px] uppercase tracking-widest opacity-60 mb-1">EXP</p>
+                            <p class="text-sm font-semibold">09/29</p>
+                        </div>
+                        <div>
+                            <p class="text-[10px] uppercase tracking-widest opacity-60 mb-1">CVV</p>
+                            <p class="text-sm font-semibold">•••</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-col justify-center h-full pt-2">
+            <p class="text-sm text-gray-500 mb-2 font-medium">Spending limit</p>
+            <div class="flex items-baseline gap-2 mb-4">
+                <span class="text-3xl font-bold text-gray-900 tracking-tight">₹3,884</span>
+                <span class="text-sm text-gray-400">used from <span
+                        class="font-bold text-gray-600">₹20,638</span></span>
+            </div>
+            <div class="relative">
+                <div class="h-3 bg-gray-100 rounded-full overflow-hidden">
+                    <div
+                        class="h-full w-[19%] bg-gradient-to-r from-violet-500 to-indigo-500 rounded-full transition-all duration-1000">
+                    </div>
+                </div>
+                <div class="flex justify-between mt-3">
+                    <span class="text-xs font-bold text-indigo-600">19% Used</span>
+                    <span class="text-xs font-bold text-gray-400">81% Available</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
 
 {% block extra_scripts %}
+{{ chart_labels|json_script:"chart-labels-data" }}
+{{ stock_values|json_script:"stock-values-data" }}
+{{ etf_values|json_script:"etf-values-data" }}
+{{ crypto_values|json_script:"crypto-values-data" }}
+{{ index_values|json_script:"index-values-data" }}
+{{ distribution_data|json_script:"distribution-data" }}
 <script>
-    // --- Portfolio Line Chart (Spending & Savings) ---
+    // --- Portfolio Asset Allocation Chart ---
     const portfolioCtx = document.getElementById('txnChart').getContext('2d');
-    const portfolioDataYearly = {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-        spending: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        savings: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    };
-    const portfolioDataMonthly = {
-        labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
-        spending: [0, 0, 0, 0],
-        savings: [0, 0, 0, 0],
-    };
-
-    function buildPortfolioDatasets(d) {
-        return {
-            labels: d.labels,
-            datasets: [
-                { label: 'Spending', data: d.spending, borderColor: '#10b981', backgroundColor: 'rgba(16,185,129,0.06)', borderWidth: 2.5, tension: 0.4, fill: true, pointRadius: 0, pointHoverRadius: 5, pointHoverBackgroundColor: '#10b981' },
-                { label: 'Savings', data: d.savings, borderColor: '#d1d5db', backgroundColor: 'rgba(209,213,219,0.05)', borderWidth: 2, tension: 0.4, fill: true, pointRadius: 0, pointHoverRadius: 5, pointHoverBackgroundColor: '#d1d5db' },
-            ]
-        };
-    }
+    const chartLabels = JSON.parse(document.getElementById('chart-labels-data').textContent);
+    const stockValues = JSON.parse(document.getElementById('stock-values-data').textContent);
+    const etfValues = JSON.parse(document.getElementById('etf-values-data').textContent);
+    const cryptoValues = JSON.parse(document.getElementById('crypto-values-data').textContent);
+    const indexValues = JSON.parse(document.getElementById('index-values-data').textContent);
 
     const portfolioChart = new Chart(portfolioCtx, {
         type: 'line',
-        data: buildPortfolioDatasets(portfolioDataYearly),
+        data: {
+            labels: chartLabels,
+            datasets: [
+                {
+                    label: 'Stocks',
+                    data: stockValues,
+                    borderColor: '#6366f1',
+                    backgroundColor: 'rgba(99,102,241,0.05)',
+                    borderWidth: 2.5,
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 3,
+                    pointBackgroundColor: '#6366f1',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 1,
+                    spanGaps: true
+                },
+                {
+                    label: 'ETFs',
+                    data: etfValues,
+                    borderColor: '#10b981',
+                    backgroundColor: 'rgba(16,185,129,0.05)',
+                    borderWidth: 2.5,
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 3,
+                    pointBackgroundColor: '#10b981',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 1,
+                    spanGaps: true
+                },
+                {
+                    label: 'Crypto',
+                    data: cryptoValues,
+                    borderColor: '#f59e0b',
+                    backgroundColor: 'rgba(245,158,11,0.05)',
+                    borderWidth: 2.5,
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 3,
+                    pointBackgroundColor: '#f59e0b',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 1,
+                    spanGaps: true
+                },
+                {
+                    label: 'Index',
+                    data: indexValues,
+                    borderColor: '#3b82f6',
+                    backgroundColor: 'rgba(59,130,246,0.05)',
+                    borderWidth: 2.5,
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 3,
+                    pointBackgroundColor: '#3b82f6',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 1,
+                    spanGaps: true
+                }
+            ]
+        },
         options: {
-            responsive: true, maintainAspectRatio: false,
+            responsive: true,
+            maintainAspectRatio: false,
             interaction: { mode: 'index', intersect: false },
             plugins: {
                 legend: { display: false },
                 tooltip: {
-                    backgroundColor: '#1a1d23', titleColor: '#fff', bodyColor: '#d1d5db',
-                    padding: 10, cornerRadius: 8,
+                    backgroundColor: '#1a1d23',
+                    titleColor: '#fff',
+                    bodyColor: '#d1d5db',
+                    padding: 12,
+                    cornerRadius: 10,
+                    bodyFont: { family: 'Inter', size: 12 },
                     callbacks: { label: c => ` ₹${c.raw.toLocaleString('en-IN')}` }
                 }
             },
             scales: {
-                x: { grid: { display: false }, border: { display: false }, ticks: { color: '#9ca3af', font: { size: 11, family: 'Inter' } } },
-                y: { grid: { color: '#f3f4f6' }, border: { display: false, dash: [4, 4] }, ticks: { color: '#9ca3af', font: { size: 11, family: 'Inter' }, callback: v => v >= 1000 ? (v / 1000) + 'k' : v } }
+                x: {
+                    grid: { display: false },
+                    border: { display: false },
+                    ticks: { color: '#9ca3af', font: { size: 11, family: 'Inter', weight: 500 } }
+                },
+                y: {
+                    grid: { color: '#f3f4f6' },
+                    border: { display: false, dash: [4, 4] },
+                    ticks: {
+                        color: '#9ca3af',
+                        font: { size: 11, family: 'Inter', weight: 500 },
+                        callback: v => v >= 1000 ? (v / 1000) + 'k' : v
+                    }
+                }
             }
         }
     });
 
     window.setChartPeriod = function (period) {
-        portfolioChart.data = buildPortfolioDatasets(period === 'yearly' ? portfolioDataYearly : portfolioDataMonthly);
-        portfolioChart.update();
-        const my = document.getElementById('toggle-monthly');
-        const yr = document.getElementById('toggle-yearly');
-        if (period === 'yearly') {
-            yr.classList.add('bg-gray-900', 'text-white'); yr.classList.remove('text-gray-500');
-            my.classList.remove('bg-gray-900', 'text-white'); my.classList.add('text-gray-500');
-        } else {
-            my.classList.add('bg-gray-900', 'text-white'); my.classList.remove('text-gray-500');
-            yr.classList.remove('bg-gray-900', 'text-white'); yr.classList.add('text-gray-500');
-        }
-    }
+        const url = new URL(window.location.href);
+        url.searchParams.set('period', period);
+        window.location.href = url.href;
+    };
 
-    // --- Monthly Earnings Bar Chart ---
+    // --- Performance Overview Bar Chart ---
     const earningsCtx = document.getElementById('earningsBarChart').getContext('2d');
     new Chart(earningsCtx, {
         type: 'bar',
         data: {
             labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
             datasets: [{
-                label: 'Monthly Earnings',
+                label: 'Performance',
                 data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                 backgroundColor: '#6366f1',
-                borderRadius: 6,
+                borderRadius: 8,
                 hoverBackgroundColor: '#4f46e5',
+                barThickness: 32
             }]
         },
         options: {
-            responsive: true, maintainAspectRatio: false,
+            responsive: true,
+            maintainAspectRatio: false,
             plugins: {
                 legend: { display: false },
                 tooltip: {
-                    backgroundColor: '#1a1d23', titleColor: '#fff', bodyColor: '#d1d5db',
-                    padding: 10, cornerRadius: 8,
+                    backgroundColor: '#1a1d23',
+                    titleColor: '#fff',
+                    bodyColor: '#d1d5db',
+                    padding: 12,
+                    cornerRadius: 10,
+                    bodyFont: { family: 'Inter', size: 12 },
                     callbacks: { label: c => ` ₹${c.raw.toLocaleString('en-IN')}` }
                 }
             },
             scales: {
-                x: { grid: { display: false }, border: { display: false }, ticks: { color: '#9ca3af', font: { size: 11, family: 'Inter' } } },
-                y: { grid: { color: '#f3f4f6' }, border: { display: false, dash: [4, 4] }, ticks: { color: '#9ca3af', font: { size: 11, family: 'Inter' }, callback: v => v >= 1000 ? (v / 1000) + 'k' : v } }
+                x: {
+                    grid: { display: false },
+                    border: { display: false },
+                    ticks: { color: '#9ca3af', font: { size: 11, family: 'Inter', weight: 500 } }
+                },
+                y: {
+                    grid: { color: '#f3f4f6' },
+                    border: { display: false, dash: [4, 4] },
+                    ticks: {
+                        color: '#9ca3af',
+                        font: { size: 11, family: 'Inter', weight: 500 },
+                        callback: v => v >= 1000 ? (v / 1000) + 'k' : v
+                    }
+                }
+            }
+        }
+    });
+
+    // --- Asset Allocation Doughnut Chart ---
+    const allocationCtx = document.getElementById('allocationChart').getContext('2d');
+    const distributionData = JSON.parse(document.getElementById('distribution-data').textContent);
+
+    new Chart(allocationCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Stocks', 'ETFs', 'Crypto', 'Index'],
+            datasets: [{
+                data: distributionData,
+                backgroundColor: ['#6366f1', '#10b981', '#f59e0b', '#3b82f6'],
+                hoverBackgroundColor: ['#4f46e5', '#059669', '#d97706', '#2563eb'],
+                borderWidth: 0,
+                spacing: 2
+            }]
+        },
+        options: {
+            cutout: '78%',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: '#1a1d23',
+                    padding: 12,
+                    cornerRadius: 10,
+                    callbacks: {
+                        label: (c) => ` ${c.label}: ${c.raw}%`
+                    }
+                }
             }
         }
     });
