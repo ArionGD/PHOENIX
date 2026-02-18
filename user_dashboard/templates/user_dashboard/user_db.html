@@ -11,18 +11,14 @@ before:rounded-r-[3px]{% endblock %}
 <!-- Greeting Row -->
 <div class="flex items-start justify-between mb-6 gap-3">
     <div>
-        <h1 class="text-2xl font-bold text-gray-900 tracking-tight">Good Morning, 
-            {{
-            user.first_name|default:user.username }} 👋</h1>
-        <p class="text-sm text-gray-500 mt-1">Here's an overview of your financial health and recent activity.</p>
+        <h1 class="text-2xl font-bold text-gray-900 tracking-tight">Welcome, {{user.first_name|default:user.username }} !</h1>
+        <p class="text-sm text-gray-500 mt-1">Overview of financials and recent activity.</p>
     </div>
     <div class="flex gap-2.5 items-center">
-        <button
-            class="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+        <button class="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
             This Month <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
         </button>
-        <button
-            class="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+        <button class="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
             <i data-lucide="upload" class="w-3.5 h-3.5"></i> Export
         </button>
     </div>
