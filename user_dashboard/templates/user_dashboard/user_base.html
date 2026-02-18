@@ -15,11 +15,12 @@
 
     <!--Side Nav Bar-->
     <aside class="w-64 min-h-screen bg-white border-r border-gray-200 flex flex-col fixed top-0 left-0 z-50">
-        <a href="{% url 'home' %}" class="flex items-center gap-2.5 px-5 py-5 border-b border-gray-200 no-underline">
-            <div class="w-9 h-9 rounded-xl overflow-hidden flex-shrink-0">
-                <img src="{% static 'img/logo.jpg' %}" alt="Logo" class="w-full h-full object-cover">
+        <a href="{% url 'home' %}" class="flex items-center gap-2 px-4 py-4 border-b border-gray-200 no-underline">
+            <div class="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0">
+                <img src="{% static 'img/logo.jpg' %}" alt="Logo" class="w-full h-full object-cover w-12 h-12">
             </div>
-            <span class="text-lg font-bold text-gray-900 tracking-tight">Altair</span>
+            <span
+                class="text-lg font-extrabold text-blue-600 bg-white px-2 py-1 rounded-lg tracking-[0.2em] uppercase">ALTAIR</span>
         </a>
 
         <nav class="flex-1 px-3 py-4 overflow-y-auto">
