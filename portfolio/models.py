@@ -14,6 +14,7 @@ class Holding(models.Model):
     quantity = models.DecimalField(max_digits=15, decimal_places=4)
     purchase_price = models.DecimalField(max_digits=15, decimal_places=2)
     current_price = models.DecimalField(max_digits=15, decimal_places=2)
+    purchase_date = models.DateField(null=True, blank=True)
     last_updated = models.DateTimeField(auto_now=True)
 
     def total_cost(self):
