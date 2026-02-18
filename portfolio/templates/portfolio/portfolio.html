@@ -192,6 +192,10 @@ before:rounded-r-[3px]{% endblock %}
                     </td>
                     <td class="px-6 py-4 text-right">
                         <div class="flex items-center justify-end gap-1">
+                            <a href="{% url 'portfolio:book_profit' holding.pk %}" title="Book Profit / Loss"
+                                class="p-2 text-gray-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition-all">
+                                <i data-lucide="banknote" class="w-4 h-4"></i>
+                            </a>
                             <button @click='openEditModal({
                                     id: {{ holding.pk }},
                                     type: "{{ holding.asset_type }}",
@@ -296,6 +300,10 @@ before:rounded-r-[3px]{% endblock %}
                     </td>
                     <td class="px-6 py-4 text-right">
                         <div class="flex items-center justify-end gap-1">
+                            <a href="{% url 'portfolio:book_profit' holding.pk %}" title="Book Profit / Loss"
+                                class="p-2 text-gray-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition-all">
+                                <i data-lucide="banknote" class="w-4 h-4"></i>
+                            </a>
                             <button @click='openEditModal({
                                     id: {{ holding.pk }},
                                     type: "{{ holding.asset_type }}",
@@ -399,6 +407,10 @@ before:rounded-r-[3px]{% endblock %}
                     </td>
                     <td class="px-6 py-4 text-right">
                         <div class="flex items-center justify-end gap-1">
+                            <a href="{% url 'portfolio:book_profit' holding.pk %}" title="Book Profit / Loss"
+                                class="p-2 text-gray-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition-all">
+                                <i data-lucide="banknote" class="w-4 h-4"></i>
+                            </a>
                             <button @click='openEditModal({
                                     id: {{ holding.pk }},
                                     type: "{{ holding.asset_type }}",
@@ -502,6 +514,10 @@ before:rounded-r-[3px]{% endblock %}
                     </td>
                     <td class="px-6 py-4 text-right">
                         <div class="flex items-center justify-end gap-1">
+                            <a href="{% url 'portfolio:book_profit' holding.pk %}" title="Book Profit / Loss"
+                                class="p-2 text-gray-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition-all">
+                                <i data-lucide="banknote" class="w-4 h-4"></i>
+                            </a>
                             <button @click='openEditModal({
                                     id: {{ holding.pk }},
                                     type: "{{ holding.asset_type }}",

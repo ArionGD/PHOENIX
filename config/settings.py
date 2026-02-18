@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     'manager_dashboard',
     'user_dashboard',
     'portfolio',
+    'transactions.apps.TransactionsConfig',
 ]
 
 MIDDLEWARE = [

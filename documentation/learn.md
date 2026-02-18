@@ -117,3 +117,9 @@ Here is every command used to connect to GitHub, explained in detail:
 - ✅ Enhanced Line Charts (Stock/ETF performance)
 - ✅ Full Portfolio Analyzer (Categorized Assets)
 - ✅ Real-time Price Integration (Google Finance)
+
+
+## CMD
+-> so start by creating the ai_analysis app and set it with makret explanation logic and add a template as explain.html which will have a get explanation button with the user can select the timeline from where to where or today if he wants the explanation from gemini of his portfolio and current market scenarios -> gemini api key = "AIzaSyBzzyqz3m2D9BsyWBIAEBshock_9K24C0s".
+-> now create a new app as analytics which will have a analytics.html template to show all the analysis in cards and through charts and graph and dognut chart and distribution of asset type wise, sector wise and fund amount wise. also add the benchmarking with the nifty 50 index of the total portfolio f an investor compared with the nifty 50 index.
+-> now we need to add the tax app and tax.html page where the person can add details like his income (type wise like salary, other sources he can specify) then the portfolio wise and the slab wise what tax does he need to pay and for simplyfy things will go with the new tax regim with the latest tax slab and exemptions for salary employee or individuals upto 12.75 no tax and other tax slabs as how are they calculated listing all these things.

@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.utils import timezone
 from .models import Holding
+from transactions.models import Transaction
 import json
 import requests
 import re
@@ -139,17 +140,32 @@ def add_asset(request):
     if not curr_price:
         curr_price = Decimal(purchase_price) # Fallback to purchase price
     
-    Holding.objects.create(
+    qty = Decimal(str(quantity))
+    price = Decimal(str(purchase_price))
+
+    holding = Holding.objects.create(
         user=request.user,
         symbol=symbol,
         name=name or symbol,
-        quantity=quantity,
-        purchase_price=purchase_price,
+        quantity=qty,
+        purchase_price=price,
         current_price=curr_price,
         purchase_date=purchase_date if purchase_date else None,
         asset_type=asset_type
     )
-    
+
+    # Auto-log a BUY transaction
+    Transaction.objects.create(
+        user=request.user,
+        transaction_type='buy',
+        asset_type=asset_type,
+        symbol=symbol,
+        name=name or symbol,
+        quantity=qty,
+        price=price,
+        total_value=qty * price,
+    )
+
     return redirect('portfolio:overview')
 
 @login_required
@@ -192,3 +208,41 @@ def search_stocks(request):
     q = request.GET.get('q', '').upper()
     results = [s for s in NSE_STOCKS if q in s['symbol'] or q in s['name'].upper()]
     return JsonResponse(results[:10], safe=False)
+
+@login_required
+def book_profit(request, pk):
+    """Render the Book Profit / Loss page for a specific holding."""
+    holding = get_object_or_404(Holding, pk=pk, user=request.user)
+
+    if request.method == 'POST':
+        sell_price = Decimal(str(request.POST.get('sell_price', '0')))
+        sell_qty   = Decimal(str(request.POST.get('sell_quantity', '0')))
+
+        if sell_price > 0 and sell_qty > 0:
+            realized = (sell_price - holding.purchase_price) * sell_qty
+
+            # Log the Book Profit transaction
+            Transaction.objects.create(
+                user=request.user,
+                transaction_type='book_profit',
+                asset_type=holding.asset_type,
+                symbol=holding.symbol,
+                name=holding.name,
+                quantity=sell_qty,
+                price=sell_price,
+                total_value=sell_qty * sell_price,
+                realized_pl=realized,
+                notes=f"Booked from holding #{holding.pk}",
+            )
+
+            # Reduce or delete the holding
+            if sell_qty >= holding.quantity:
+                holding.delete()
+            else:
+                holding.quantity -= sell_qty
+                holding.save()
+
+        return redirect('portfolio:overview')
+
+    context = {'holding': holding}
+    return render(request, 'portfolio/book_profit.html', context)

@@ -40,7 +40,7 @@
                 class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition-colors mb-0.5 {% block nav_portfolio %}{% endblock %}">
                 <i data-lucide="briefcase" class="w-4 h-4 flex-shrink-0"></i> Portfolio
             </a>
-            <a href="#" id="nav-transactions"
+            <a href="{% url 'transactions:list' %}" id="nav-transactions"
                 class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition-colors mb-0.5 {% block nav_transactions %}{% endblock %}">
                 <i data-lucide="arrow-left-right" class="w-4 h-4 flex-shrink-0"></i> Transactions
             </a>
