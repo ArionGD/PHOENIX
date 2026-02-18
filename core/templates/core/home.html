@@ -4,18 +4,15 @@
 <!-- Hero Section -->
 <section class="py-24 text-center bg-[radial-gradient(circle_at_center,_rgba(112,0,255,0.15)_0%,_transparent_70%)]">
     <div class="container mx-auto px-6">
-        <h1
-            class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white to-altair-primary bg-clip-text text-transparent">
-            Financial Intelligence, Reimagined.
+        <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white to-[#00d4ff] bg-clip-text text-transparent">
+            Financial Intelligence
         </h1>
         <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-10">
-            Altair is your all-in-one assistant for tax optimization, portfolio analysis, and intelligent goal tracking.
+            Altair - all-in-one assistant for tax optimization, portfolio analysis, and intelligent goal tracking.
         </p>
         <div class="flex flex-wrap justify-center gap-4">
-            <a href="{% url 'accounts:login' %}" class="btn-primary">Get Started Free</a>
-            <a href="#"
-                class="px-8 py-3 rounded-full border border-white/10 font-semibold hover:bg-white/5 transition-colors">Learn
-                More</a>
+            <a href="{% url 'accounts:login' %}" class="bg-gradient-to-r from-[#00d4ff] to-[#7000ff] px-8 py-3 rounded-full font-semibold transition-opacity hover:opacity-90">Start Now!</a>
+            <a href="#" class="px-8 py-3 rounded-full border border-white/10 font-semibold hover:bg-white/5 transition-colors">Learn More</a>
         </div>
     </div>
 </section>
@@ -25,15 +22,15 @@
     <div class="container mx-auto px-6">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <!-- Portfolio Card -->
-            <div class="glass-card group" x-data="{ hovered: false }" @mouseenter="hovered = true"
-                @mouseleave="hovered = false">
+            <div class="bg-white/5 backdrop-blur-[24px] border border-white/10 rounded-2xl p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] hover:border-white/20 group"
+                x-data="{ hovered: false }" @mouseenter="hovered = true" @mouseleave="hovered = false">
                 <div class="text-4xl mb-4 transition-transform duration-300" :class="hovered ? 'scale-110' : ''">📈
                 </div>
                 <h3 class="text-xl font-bold mb-4">Portfolio Analyzer</h3>
                 <p class="text-gray-400 text-sm leading-relaxed">
                     Deep dive into your asset allocation and risk profile with real-time insights across all accounts.
                 </p>
-                <div class="mt-8 flex items-center text-altair-primary text-sm font-semibold">
+                <div class="mt-8 flex items-center text-[#00d4ff] text-sm font-semibold">
                     <span>Explore Analytics</span>
                     <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none"
                         stroke="currentColor" viewBox="0 0 24 24">
@@ -44,8 +41,8 @@
             </div>
 
             <!-- Tax Card -->
-            <div class="glass-card group" x-data="{ hovered: false }" @mouseenter="hovered = true"
-                @mouseleave="hovered = false">
+            <div class="bg-white/5 backdrop-blur-[24px] border border-white/10 rounded-2xl p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] hover:border-white/20 group"
+                x-data="{ hovered: false }" @mouseenter="hovered = true" @mouseleave="hovered = false">
                 <div class="text-4xl mb-4 transition-transform duration-300" :class="hovered ? 'scale-110' : ''">⚖️
                 </div>
                 <h3 class="text-xl font-bold mb-4">Tax Calculator</h3>
@@ -53,7 +50,7 @@
                     Optimize your taxes and minimize liabilities with our smart estimation engine tailored for your
                     region.
                 </p>
-                <div class="mt-8 flex items-center text-altair-primary text-sm font-semibold">
+                <div class="mt-8 flex items-center text-[#00d4ff] text-sm font-semibold">
                     <span>Calculate Tax</span>
                     <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none"
                         stroke="currentColor" viewBox="0 0 24 24">
@@ -64,15 +61,15 @@
             </div>
 
             <!-- Goal Card -->
-            <div class="glass-card group" x-data="{ hovered: false }" @mouseenter="hovered = true"
-                @mouseleave="hovered = false">
+            <div class="bg-white/5 backdrop-blur-[24px] border border-white/10 rounded-2xl p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] hover:border-white/20 group"
+                x-data="{ hovered: false }" @mouseenter="hovered = true" @mouseleave="hovered = false">
                 <div class="text-4xl mb-4 transition-transform duration-300" :class="hovered ? 'scale-110' : ''">🎯
                 </div>
                 <h3 class="text-xl font-bold mb-4">Goal Tracker</h3>
                 <p class="text-gray-400 text-sm leading-relaxed">
                     Set clear financial milestones and watch your progress with automated projections and smart alerts.
                 </p>
-                <div class="mt-8 flex items-center text-altair-primary text-sm font-semibold">
+                <div class="mt-8 flex items-center text-[#00d4ff] text-sm font-semibold">
                     <span>Set New Goal</span>
                     <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none"
                         stroke="currentColor" viewBox="0 0 24 24">
