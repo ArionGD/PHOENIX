@@ -12,4 +12,5 @@ urlpatterns = [
     path('transactions/', include('transactions.urls', namespace='transactions')),
     path('analysis/', include('analysis.urls', namespace='analysis')),
     path('analytics/', include('analytics.urls', namespace='analytics')),
+    path('tax/', include('tax.urls', namespace='tax')),
 ]

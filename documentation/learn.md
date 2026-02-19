@@ -120,4 +120,4 @@ Here is every command used to connect to GitHub, explained in detail:
 
 
 ## CMD
--> now we need to add the tax app and tax.html page where the person can add details like his income (type wise like salary, other sources he can specify) then the portfolio wise and the slab wise what tax does he need to pay and for simplyfy things will go with the new tax regim with the latest tax slab and exemptions for salary employee or individuals upto 12.75 no tax and other tax slabs as how are they calculated listing all these things.
+-> 

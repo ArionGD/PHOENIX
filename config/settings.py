@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'transactions.apps.TransactionsConfig',
     'analysis.apps.AnalysisConfig',
     'analytics.apps.AnalyticsConfig',
+    'tax.apps.TaxConfig',
 ]
 
 GEMINI_API_KEY = "AIzaSyBzzyqz3m2D9BsyWBIAEBshock_9K24C0s"

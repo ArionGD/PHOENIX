@@ -48,7 +48,7 @@
                 class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition-colors mb-0.5 {% block nav_analytics_advanced %}{% endblock %}">
                 <i data-lucide="bar-chart-3" class="w-4 h-4 flex-shrink-0"></i> Analytics
             </a>
-            <a href="#" id="nav-tax"
+            <a href="{% url 'tax:calculator' %}" id="nav-tax"
                 class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition-colors mb-0.5 {% block nav_tax %}{% endblock %}">
                 <i data-lucide="receipt" class="w-4 h-4 flex-shrink-0"></i> Tax
             </a>

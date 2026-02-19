@@ -13,11 +13,15 @@ genai.configure(api_key=settings.GEMINI_API_KEY)
 
 @login_required
 def explain_market(request):
-    explanation_html = ""
+    # Initialize variables
     error = ""
-    timeline = request.GET.get('timeline', 'today')
-    date_from = request.GET.get('date_from', '')
-    date_to = request.GET.get('date_to', '')
+    
+    # Try to load from session first (for persistence across navigation)
+    cached_data = request.session.get('last_ai_analysis', {})
+    explanation_html = cached_data.get('explanation', '')
+    timeline = cached_data.get('timeline', 'today')
+    date_from = cached_data.get('date_from', '')
+    date_to = cached_data.get('date_to', '')
 
     if request.method == "POST":
         timeline = request.POST.get('timeline', 'today')
@@ -86,19 +90,26 @@ def explain_market(request):
                 Formatting: Use bold text, bullet points, and clean headers. Be specific to the symbols (e.g., RELIANCE, NIFTY_50).
                 """
 
-                # Call Gemini with robust fallback logic
-                # Based on list_models(), gemini-2.0-flash is available
+                # Call Gemini
                 model_name = 'gemini-2.0-flash'
                 try:
                     model = genai.GenerativeModel(model_name)
                     response = model.generate_content(prompt)
                 except Exception:
-                    # Fallback to the generic latest alias if explicit version fails
                     model = genai.GenerativeModel('gemini-flash-latest')
                     response = model.generate_content(prompt)
                 
                 # Convert Markdown to HTML
                 explanation_html = markdown.markdown(response.text, extensions=['extra', 'nl2br'])
+                
+                # PERSIST TO SESSION: Save the analysis so it stays when navigating back
+                request.session['last_ai_analysis'] = {
+                    'explanation': explanation_html,
+                    'timeline': timeline,
+                    'date_from': date_from,
+                    'date_to': date_to,
+                    'generated_at': now.isoformat()
+                }
             
         except Exception as e:
             error = f"Error generating explanation: {str(e)}"
