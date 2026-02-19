@@ -10,4 +10,5 @@ urlpatterns = [
     path('manager/', include('manager_dashboard.urls', namespace='manager_dashboard')),
     path('portfolio/', include('portfolio.urls', namespace='portfolio')),
     path('transactions/', include('transactions.urls', namespace='transactions')),
+    path('analysis/', include('analysis.urls', namespace='analysis')),
 ]

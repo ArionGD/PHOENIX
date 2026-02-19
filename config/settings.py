@@ -22,7 +22,10 @@ INSTALLED_APPS = [
     'user_dashboard',
     'portfolio',
     'transactions.apps.TransactionsConfig',
+    'analysis.apps.AnalysisConfig',
 ]
+
+GEMINI_API_KEY = "AIzaSyBzzyqz3m2D9BsyWBIAEBshock_9K24C0s"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
