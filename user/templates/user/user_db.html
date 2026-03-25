@@ -537,6 +537,55 @@ before:rounded-r-[3px]{% endblock %}
     </div>
 </div>
 
+<!-- Compound Growth Hub -->
+<div class="mt-8 mb-10 flex flex-col gap-5">
+    <!-- CAGR Projection Oracle -->
+    <a href="{% url 'user:cagr_calculator' %}" 
+        class="group block bg-gradient-to-r from-indigo-900 via-slate-900 to-slate-900 rounded-3xl p-1 border border-white/10 hover:border-indigo-500/50 transition-all shadow-2xl shadow-indigo-500/20">
+        <div class="bg-slate-900/40 backdrop-blur-3xl rounded-[calc(1.5rem-2px)] p-8 h-full flex items-center justify-between overflow-hidden relative">
+            <div class="absolute right-0 top-0 w-48 h-48 bg-indigo-500/10 rounded-full -mr-24 -mt-24 blur-3xl group-hover:bg-indigo-500/20 transition-all"></div>
+            
+            <div class="flex items-center gap-6 relative z-10 w-full">
+                <div class="w-16 h-16 shrink-0 rounded-2xl bg-indigo-600 flex items-center justify-center text-white shadow-xl shadow-indigo-500/30 group-hover:scale-110 transition-transform">
+                    <i data-lucide="line-chart" class="w-8 h-8"></i>
+                </div>
+                <div class="flex-1">
+                    <h3 class="text-xl font-black text-white tracking-tight leading-none mb-2 uppercase">Amount Predictor</h3>
+                    <p class="text-[11px] text-gray-400 font-medium opacity-80 group-hover:opacity-100 transition-opacity">Audit your wealth curve based on given return rates and capital strikes.</p>
+                </div>
+                <div class="hidden md:flex flex-col items-center">
+                    <div class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white group-hover:bg-indigo-600 group-hover:border-indigo-600 transition-all">
+                        <i data-lucide="chevron-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+
+    <!-- CAGR Target Oracle -->
+    <a href="{% url 'user:cagr_target' %}" 
+        class="group block bg-gradient-to-r from-emerald-900 via-slate-900 to-slate-900 rounded-3xl p-1 border border-white/10 hover:border-emerald-500/50 transition-all shadow-2xl shadow-emerald-500/20">
+        <div class="bg-slate-900/40 backdrop-blur-3xl rounded-[calc(1.5rem-2px)] p-8 h-full flex items-center justify-between overflow-hidden relative">
+            <div class="absolute right-0 top-0 w-48 h-48 bg-emerald-500/10 rounded-full -mr-24 -mt-24 blur-3xl group-hover:bg-emerald-500/20 transition-all"></div>
+            
+            <div class="flex items-center gap-6 relative z-10 w-full">
+                <div class="w-16 h-16 shrink-0 rounded-2xl bg-emerald-600 flex items-center justify-center text-white shadow-xl shadow-emerald-500/30 group-hover:scale-110 transition-transform">
+                    <i data-lucide="crosshair" class="w-8 h-8"></i>
+                </div>
+                <div class="flex-1">
+                    <h3 class="text-xl font-black text-white tracking-tight leading-none mb-2 uppercase">Rate Target Oracle</h3>
+                    <p class="text-[11px] text-gray-400 font-medium opacity-80 group-hover:opacity-100 transition-opacity">Input your initial/target wealth goals to extract the exact required CAGR.</p>
+                </div>
+                <div class="hidden md:flex flex-col items-center">
+                    <div class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white group-hover:bg-emerald-600 group-hover:border-emerald-600 transition-all">
+                        <i data-lucide="chevron-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
 {% endblock %}
 
 {% block extra_scripts %}

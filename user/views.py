@@ -199,3 +199,11 @@ def update_budget(request):
         return JsonResponse({'status': 'success'})
     except Exception as e:
         return JsonResponse({'status': 'error', 'message': str(e)}, status=400)
+
+@login_required
+def cagr_calculator(request):
+    return render(request, 'user/cagr_calc.html')
+
+@login_required
+def cagr_target(request):
+    return render(request, 'user/cagr_target.html')
