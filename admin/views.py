@@ -3,4 +3,4 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def overview(request):
-    return render(request, 'manager_dashboard/overview.html')
+    return render(request, 'admin/overview.html')

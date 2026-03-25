@@ -10,7 +10,7 @@ def dashboard(request):
     
     total_market_value = sum(h.market_value() for h in holdings)
     total_cost = sum(h.total_cost() for h in holdings)
-    total_profit_loss = total_market_value - total_cost
+    total_profit_loss = sum(h.profit_loss() for h in holdings) # Correctly sums Long + Short P/L
     
     if total_cost > 0:
         total_profit_loss_pct = (total_profit_loss / total_cost) * 100
@@ -53,7 +53,13 @@ def dashboard(request):
                     jitter = base_price * (random.uniform(-0.015, 0.015))
                     daily_price = max(0, base_price + jitter)
                     
-                    val = daily_price * float(h.quantity)
+                    if h.position_type == 'short':
+                        # Profit = Cost - Market Value
+                        # Value to show on chart = Cost + (Cost - Simulated_MV)
+                        val = float(h.total_cost()) + (float(h.total_cost()) - (daily_price * float(h.quantity)))
+                    else:
+                        val = daily_price * float(h.quantity)
+                        
                     if h.asset_type == 'stock':
                         day_stock_total += val
                     elif h.asset_type == 'etf':
@@ -68,14 +74,21 @@ def dashboard(request):
             crypto_values.append(round(day_crypto_total, 2))
             index_values.append(round(day_index_total, 2))
     else:
-        # Yearly Timeline: Last 12 Months
+        # Yearly Timeline: Last 12 Months (Accurate)
         end_date = datetime.now().date()
         date_list = []
-        for i in range(11, -1, -1):
-            # First day of the month i months ago
-            d = (end_date.replace(day=1) - timedelta(days=i*30)).replace(day=1)
-            date_list.append(d)
         
+        current_date = end_date.replace(day=1)
+        for _ in range(12):
+            date_list.append(current_date)
+            # Move to the first day of the PREVIOUS month
+            if current_date.month == 1:
+                current_date = current_date.replace(year=current_date.year-1, month=12)
+            else:
+                current_date = current_date.replace(month=current_date.month-1)
+        
+        # Reverse to get chronological order (past to present)
+        date_list.reverse()
         chart_labels = [d.strftime('%b') for d in date_list]
         
         stock_values = []
@@ -84,11 +97,12 @@ def dashboard(request):
         index_values = []
         
         for d in date_list:
-            # Get the last day of that month for "closing" price
+            # Safely find the last day of the month
             if d.month == 12:
-                last_day = d.replace(day=31)
+                next_month = d.replace(year=d.year+1, month=1)
             else:
-                last_day = (d.replace(month=d.month+1, day=1) - timedelta(days=1))
+                next_month = d.replace(month=d.month+1)
+            last_day = next_month - timedelta(days=1)
             
             # Don't simulate future months
             check_date = min(last_day, end_date)
@@ -110,7 +124,13 @@ def dashboard(request):
                     jitter = base_price * (random.uniform(-0.03, 0.03)) 
                     daily_price = max(0, base_price + jitter)
                     
-                    val = daily_price * float(h.quantity)
+                    if h.position_type == 'short':
+                        # Profit = Cost - Market Value
+                        # Value to show on chart = Cost + (Cost - Simulated_MV)
+                        val = float(h.total_cost()) + (float(h.total_cost()) - (daily_price * float(h.quantity)))
+                    else:
+                        val = daily_price * float(h.quantity)
+                        
                     if h.asset_type == 'stock':
                         month_stock_total += val
                     elif h.asset_type == 'etf':
@@ -155,4 +175,4 @@ def dashboard(request):
         'distribution_data': distribution_data,
     }
     
-    return render(request, 'user_dashboard/user_db.html', context)
+    return render(request, 'user/user_db.html', context)

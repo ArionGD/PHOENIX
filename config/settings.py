@@ -18,8 +18,8 @@ INSTALLED_APPS = [
     #Custom Apps
     'accounts',
     'core',
-    'manager_dashboard',
-    'user_dashboard',
+    'admin',
+    'user',
     'portfolio',
     'transactions.apps.TransactionsConfig',
     'analysis.apps.AnalysisConfig',
@@ -62,6 +62,14 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
+# High-Performance "Redis-Lite" Local Memory Cache
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'phoenix-oracle-cache',
     }
 }
 

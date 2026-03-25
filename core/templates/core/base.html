@@ -7,7 +7,7 @@
     <meta name="description"
         content="Altair - Your AI-powered financial assistant for portfolio analysis, tax optimization, and goal tracking.">
     <meta name="keywords" content="finance, assistant, portfolio, tax calculator, investment tracker, django">
-    <title>{% block title %}Altair | Financial Assistant{% endblock %}</title>
+    <title>{% block title %}Altair | Oracle{% endblock %}</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,17 +26,15 @@
     {% block extra_css %}{% endblock %}
 </head>
 
-<body
-    class="dark h-full bg-[#0d1117] text-white flex flex-col font-sans bg-[linear-gradient(135deg,#0d1117_0%,#161b22_100%)] overscroll-none"
-    hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
-    {% include "core/header.html" %}
+<body class="h-full flex flex-col font-sans" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+    {% include "core/partials/header.html" %}
 
     <main class="flex-grow w-full">
         {% block content %}
         {% endblock %}
     </main>
 
-    {% include "core/footer.html" %}
+    {% include "core/partials/footer.html" %}
 
     {% block extra_js %}{% endblock %}
 </body>

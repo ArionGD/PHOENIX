@@ -11,23 +11,23 @@
     {% block extra_head %}{% endblock %}
 </head>
 
-<body class="bg-gray-100 text-gray-900 font-sans flex h-screen overflow-hidden" x-data="{ upgradeVisible: true }">
+<body class="font-sans flex h-screen overflow-hidden" x-data="{ upgradeVisible: true }">
 
     <!--Side Nav Bar-->
     <aside class="w-64 min-h-screen bg-white border-r border-gray-200 flex flex-col fixed top-0 left-0 z-50">
         <a href="{% url 'home' %}" class="flex items-center gap-2 px-4 py-4 border-b border-gray-200 no-underline">
-            <div class="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0">
-                <img src="{% static 'img/logo.jpg' %}" alt="Logo" class="w-full h-full object-cover w-12 h-12">
+            <div class="w-12 h-12 rounded-full overflow-hidden border border-gray-100 flex-shrink-0 p-0.5">
+                <img src="{% static 'img/phoneix.jpg' %}" alt="Logo" class="w-full h-full object-cover rounded-full">
             </div>
             <span
-                class="text-lg font-extrabold text-blue-600 bg-white px-2 py-1 rounded-lg tracking-[0.2em] uppercase">ALTAIR</span>
+                class="text-lg font-extrabold text-[#020617] bg-white px-2 py-1 rounded-lg tracking-[0.2em] uppercase">PHOENIX</span>
         </a>
 
         <nav class="flex-1 px-3 py-4 overflow-y-auto">
 
             <!--Menu Options-->
             <p class="text-[10.5px] font-semibold text-gray-400 uppercase tracking-widest px-2 mb-1.5">Menu</p>
-            <a href="{% url 'user_dashboard:dashboard' %}" id="nav-dashboard"
+            <a href="{% url 'user:dashboard' %}" id="nav-dashboard"
                 class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition-colors mb-0.5 {% block nav_dashboard %}{% endblock %}">
                 <i data-lucide="layout-dashboard" class="w-4 h-4 flex-shrink-0"></i> Dashboard
             </a>

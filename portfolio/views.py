@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
+from django.core.cache import cache
 from django.utils import timezone
 from .models import Holding
 from transactions.models import Transaction
@@ -12,12 +13,16 @@ from decimal import Decimal
 from datetime import timedelta
 
 # Curated list of specific assets with types
+SHORTABLE_STOCKS = [
+    {'symbol': 'NYKAA', 'name': 'FSN E-Commerce Ventures (Nykaa)', 'type': 'stock'},
+    {'symbol': 'PAYTM', 'name': 'One 97 Communications (Paytm)', 'type': 'stock'},
+    {'symbol': 'ZOMATO', 'name': 'Zomato Limited', 'type': 'stock'},
+]
+
 NSE_STOCKS = [
     {'symbol': 'RELIANCE', 'name': 'Reliance Industries Ltd.', 'type': 'stock'},
     {'symbol': 'SBIN', 'name': 'State Bank of India', 'type': 'stock'},
     {'symbol': 'MARUTI', 'name': 'Maruti Suzuki India Ltd.', 'type': 'stock'},
-    {'symbol': 'GOLDBEES', 'name': 'Nippon India Gold BeES ETF', 'type': 'etf'},
-    {'symbol': 'SILVERBEES', 'name': 'Nippon India Silver ETF', 'type': 'etf'},
 ]
 
 CRYPTO_ASSETS = [
@@ -29,14 +34,16 @@ CRYPTO_ASSETS = [
 INDEX_FUNDS = [
     {'symbol': 'NIFTY_50', 'name': 'Nifty 50 Index', 'type': 'index'},
     {'symbol': 'NIFTY_NEXT_50', 'name': 'Nifty Next 50', 'type': 'index'},
-    {'symbol': 'NIFTY_MIDCAP_150', 'name': 'Nifty Midcap 150', 'type': 'index'},
-    {'symbol': 'NIFTY_SMALLCAP_250', 'name': 'Nifty Smallcap 250', 'type': 'index'},
 ]
 
 MASTER_LIST = NSE_STOCKS + CRYPTO_ASSETS + INDEX_FUNDS
 
 def get_live_price(symbol, asset_type='stock'):
     try:
+        # Special handling for shortable stocks in test
+        if symbol.upper() in [s['symbol'] for s in SHORTABLE_STOCKS]:
+            asset_type = 'stock' # Ensure they are treated as stocks
+
         if asset_type == 'crypto':
             # Find the CoinGecko ID
             crypto = next((c for c in CRYPTO_ASSETS if c['symbol'] == symbol.upper()), None)
@@ -78,95 +85,115 @@ def get_live_price(symbol, asset_type='stock'):
 
 @login_required
 def portfolio_overview(request):
-    holdings = Holding.objects.filter(user=request.user)
+    # Try to get data from cache first for speed
+    cache_key = f'portfolio_data_{request.user.id}'
+    cached_data = cache.get(cache_key)
     
-    # Auto-update prices ONLY if they are older than 5 minutes
-    now = timezone.now()
-    cooldown = timedelta(minutes=5)
-    
-    for holding in holdings:
-        if not holding.current_price or (now - holding.last_updated) > cooldown:
-            new_price = get_live_price(holding.symbol, holding.asset_type)
-            if new_price:
-                holding.current_price = new_price
-                holding.save()
-
-    # Separate holdings
-    stock_holdings = holdings.filter(asset_type='stock')
-    etf_holdings = holdings.filter(asset_type='etf')
-    crypto_holdings = holdings.filter(asset_type='crypto')
-    index_holdings = holdings.filter(asset_type='index')
-
-    # Calculate totals
-    total_market_value = sum(h.market_value() for h in holdings)
-    total_cost = sum(h.total_cost() for h in holdings)
-    total_profit_loss = total_market_value - total_cost
-    
-    if total_cost > 0:
-        total_profit_loss_pct = (total_profit_loss / total_cost) * 100
+    if cached_data and 'refresh' not in request.GET:
+        context = cached_data
     else:
-        total_profit_loss_pct = 0
+        holdings = Holding.objects.filter(user=request.user)
+        # Sort holdings
+        stock_holdings = holdings.filter(asset_type='stock', position_type='long')
+        short_holdings = holdings.filter(position_type='short')
+        etf_holdings = holdings.filter(asset_type='etf')
+        crypto_holdings = holdings.filter(asset_type='crypto')
+        index_holdings = holdings.filter(asset_type='index')
+
+        total_market_value = sum(h.market_value() for h in holdings)
+        total_cost = sum(h.total_cost() for h in holdings)
+        total_profit_loss = sum(h.profit_loss() for h in holdings)
         
-    context = {
-        'stock_holdings': stock_holdings,
-        'etf_holdings': etf_holdings,
-        'crypto_holdings': crypto_holdings,
-        'index_holdings': index_holdings,
-        'total_market_value': total_market_value,
-        'total_investment': total_cost,
-        'total_profit_loss': total_profit_loss,
-        'total_profit_loss_pct': total_profit_loss_pct,
-        'master_list': MASTER_LIST,
-        'master_list_json': json.dumps(MASTER_LIST),
-    }
+        total_profit_loss_pct = (total_profit_loss / total_cost * 100) if total_cost > 0 else 0
+            
+        context = {
+            'stock_holdings': stock_holdings,
+            'short_holdings': short_holdings,
+            'etf_holdings': etf_holdings,
+            'crypto_holdings': crypto_holdings,
+            'index_holdings': index_holdings,
+            'total_market_value': total_market_value,
+            'total_investment': total_cost,
+            'total_profit_loss': total_profit_loss,
+            'total_profit_loss_pct': total_profit_loss_pct,
+            'master_list': MASTER_LIST,
+            'shortable_stocks': SHORTABLE_STOCKS,
+            'master_list_json': json.dumps(MASTER_LIST),
+        }
+        # Cache results for 5 minutes
+        cache.set(cache_key, context, 300)
     
     return render(request, 'portfolio/portfolio.html', context)
 
 @login_required
+def get_live_price_json(request, pk):
+    holding = get_object_or_404(Holding, pk=pk, user=request.user)
+    new_price = get_live_price(holding.symbol, holding.asset_type)
+    if new_price:
+        holding.current_price = new_price
+        holding.save()
+        # Clear cache since data changed
+        cache.delete(f'portfolio_data_{request.user.id}')
+    
+    # Render price with icon for HTMX
+    return render(request, 'portfolio/partials/price_update.html', {'price': holding.current_price})
+
+@login_required
+def get_market_value_json(request, pk):
+    holding = get_object_or_404(Holding, pk=pk, user=request.user)
+    return render(request, 'portfolio/partials/market_value_update.html', {'value': holding.market_value()})
+
+@login_required
 @require_POST
 def add_asset(request):
-    symbol = request.POST.get('symbol', '').upper().replace(".NS", "").replace(".BO", "")
-    name = request.POST.get('name')
-    quantity = request.POST.get('quantity')
-    purchase_price = request.POST.get('purchase_price')
-    purchase_date = request.POST.get('purchase_date')
-    asset_type = request.POST.get('asset_type', 'stock')
-    
-    if not (symbol and quantity and purchase_price):
-        return redirect('portfolio:overview')
+    if request.method == 'POST':
+        symbol = request.POST.get('symbol', '').upper().replace(".NS", "").replace(".BO", "")
+        name = request.POST.get('name')
+        quantity = request.POST.get('quantity')
+        purchase_price = request.POST.get('purchase_price')
+        purchase_date = request.POST.get('purchase_date')
+        asset_type = request.POST.get('asset_type', 'stock')
+        position_type = request.POST.get('position_type', 'long')
+        use_market_price = request.POST.get('use_market_price') == 'true'
         
-    # Get direct live price
-    curr_price = get_live_price(symbol, asset_type)
-    if not curr_price:
-        curr_price = Decimal(purchase_price) # Fallback to purchase price
-    
-    qty = Decimal(str(quantity))
-    price = Decimal(str(purchase_price))
+        if not (symbol and quantity):
+            return redirect('portfolio:overview')
+            
+        curr_price = get_live_price(symbol, asset_type)
+        if use_market_price or not purchase_price or purchase_price == '0':
+            price = curr_price if curr_price else Decimal(str(purchase_price or 0))
+        else:
+            price = Decimal(str(purchase_price))
+        
+        if not curr_price: curr_price = price
+        
+        qty = Decimal(str(quantity))
 
-    holding = Holding.objects.create(
-        user=request.user,
-        symbol=symbol,
-        name=name or symbol,
-        quantity=qty,
-        purchase_price=price,
-        current_price=curr_price,
-        purchase_date=purchase_date if purchase_date else None,
-        asset_type=asset_type
-    )
+        holding = Holding.objects.create(
+            user=request.user, symbol=symbol, name=name or symbol,
+            quantity=qty, purchase_price=price, current_price=curr_price,
+            purchase_date=purchase_date if purchase_date else None,
+            asset_type=asset_type, position_type=position_type
+        )
 
-    # Auto-log a BUY transaction
-    Transaction.objects.create(
-        user=request.user,
-        transaction_type='buy',
-        asset_type=asset_type,
-        symbol=symbol,
-        name=name or symbol,
-        quantity=qty,
-        price=price,
-        total_value=qty * price,
-    )
+        Transaction.objects.create(
+            user=request.user, transaction_type='sell' if position_type == 'short' else 'buy',
+            asset_type=asset_type, symbol=symbol, name=name or symbol,
+            quantity=qty, price=price, total_value=qty * price,
+        )
 
-    return redirect('portfolio:overview')
+        # Clear cache
+        cache.delete(f'portfolio_data_{request.user.id}')
+
+        if request.headers.get('HX-Request'):
+            # Return appropriate partial
+            holdings = Holding.objects.filter(user=request.user)
+            if position_type == 'short':
+                return render(request, 'portfolio/partials/short_rows.html', {'short_holdings': holdings.filter(position_type='short')})
+            else:
+                return render(request, 'portfolio/partials/stock_rows.html', {'stock_holdings': holdings.filter(asset_type='stock', position_type='long')})
+
+        return redirect('portfolio:overview')
 
 @login_required
 @require_POST

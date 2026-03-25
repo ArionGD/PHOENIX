@@ -15,11 +15,11 @@ def login_view(request):
         
         if user is not None:
             login(request, user)
-            # Redirect based on role
-            if user.role in ['manager', 'superuser']:
-                return redirect('manager_dashboard:overview')
+            # Redirect based on role (Admin vs User)
+            if user.role == 'admin' or user.is_staff:
+                return redirect('dashboard_admin:overview')
             else:
-                return redirect('user_dashboard:dashboard')
+                return redirect('user:dashboard')
         else:
             messages.error(request, 'Invalid username or password')
             
