@@ -1,4 +1,4 @@
-import google.generativeai as genai
+from google import genai
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
@@ -8,8 +8,8 @@ from django.utils import timezone
 from datetime import timedelta
 import markdown
 
-# Configure Gemini
-genai.configure(api_key=settings.GEMINI_API_KEY)
+# Configure Gemini Client (v2.0 SDK)
+client = genai.Client(api_key=settings.GEMINI_API_KEY)
 
 @login_required
 def explain_market(request):
@@ -90,14 +90,18 @@ def explain_market(request):
                 Formatting: Use bold text, bullet points, and clean headers. Be specific to the symbols (e.g., RELIANCE, NIFTY_50).
                 """
 
-                # Call Gemini
-                model_name = 'gemini-2.0-flash'
+                # Call Gemini (v2 GenAI SDK)
+                model_name = 'models/gemini-2.5-flash'
                 try:
-                    model = genai.GenerativeModel(model_name)
-                    response = model.generate_content(prompt)
+                    response = client.models.generate_content(
+                        model=model_name,
+                        contents=prompt
+                    )
                 except Exception:
-                    model = genai.GenerativeModel('gemini-flash-latest')
-                    response = model.generate_content(prompt)
+                    response = client.models.generate_content(
+                        model='models/gemini-2.5-flash-lite-preview-09-2025',
+                        contents=prompt
+                    )
                 
                 # Convert Markdown to HTML
                 explanation_html = markdown.markdown(response.text, extensions=['extra', 'nl2br'])

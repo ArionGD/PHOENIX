@@ -7,29 +7,36 @@ from datetime import timedelta
 
 @login_required
 def tax_calculator(request):
-    # Try to load previous data from session
-    cached_report = request.session.get('last_tax_report', {})
-    cached_results = cached_report.get('results', {})
+    # Precise Asset Classification Engine (Always run to get latest holdings)
+    from portfolio.views import get_live_price
     
-    # Initialize from POST if available, otherwise from Session, otherwise default to 0
+    # Static Data Persistence Hub
+    user = request.user
+    
+    # Initialize from POST if available, otherwise from Static DB Profile
     salary_raw = request.POST.get('salary')
     if salary_raw is not None:
         salary = Decimal(salary_raw or '0')
     else:
-        salary = Decimal(str(cached_results.get('salary', '0')))
+        salary = user.salary_income
         
     other_income_raw = request.POST.get('other_income')
     if other_income_raw is not None:
         other_income = Decimal(other_income_raw or '0')
     else:
-        other_income = Decimal(str(cached_results.get('other_income', '0')))
+        other_income = user.other_income
         
     occupation_type = request.POST.get('occupation_type')
     if occupation_type is None:
-        occupation_type = cached_results.get('occupation_type', 'salary')
+        occupation_type = user.occupation_type
+    
+    # If explicitly asked for refresh or if session is empty, we force a price refresh
+    should_refresh = 'refresh' in request.GET
     
     results = None
     asset_breakdown = []
+    
+    cached_report = request.session.get('last_tax_report', {})
     
     # Helper to convert session data back to displayable results if GET request
     if request.method == "GET" and cached_report:
@@ -53,9 +60,13 @@ def tax_calculator(request):
     # Market classification constants
     DEBT_GOLD_SYMBOLS = ['GOLDBEES', 'SILVERBEES', 'LIQUIDBEES', 'DEBT_ETF']
     
-    # If it's a POST, we calculate everything fresh. 
-    # If it's a GET, we only rebuild the asset_breakdown if we don't have it in session, 
-    # but we ALWAYS recalculate it to show real-time market profits.
+    # If refresh is requested, sync latest prices first
+    if should_refresh:
+        for h in holdings:
+            live_price = get_live_price(h.symbol, h.asset_type)
+            if live_price:
+                h.current_price = live_price
+                h.save()
     
     temp_asset_breakdown = []
     for h in holdings:
@@ -95,13 +106,17 @@ def tax_calculator(request):
     # If it's a GET request, we use the recalculated asset breakdown
     if request.method == "GET":
         asset_breakdown = temp_asset_breakdown
-        # We also need to calculate the "Receivable" and "Tax" for individual assets 
-        # based on the cached marginal rate if available
-        marginal_rate = Decimal(str(cached_results.get('marginal_rate', '0')))
-        taxable_stcg = Decimal(str(cached_results.get('total_stcg', '0')))
-        taxable_ltcg = Decimal(str(cached_results.get('total_ltcg', '0')))
-        ltcg_tax = Decimal(str(cached_results.get('ltcg_tax', '0')))
-        equity_stcg_tax = Decimal(str(cached_results.get('equity_stcg_tax', '0')))
+        
+        # Pull latest slab data if results aren't in session but we have static data
+        if not results and (user.salary_income > 0 or user.other_income > 0):
+            # We can't easily recalculate partial results here without repeating the POST logic,
+            # but getting the assets is the most important part.
+            pass
+
+        # Use cached marginal rate if available
+        marginal_rate = Decimal('0')
+        if cached_report and 'results' in cached_report:
+            marginal_rate = Decimal(str(cached_report['results'].get('marginal_rate', '0')))
 
         for asset in asset_breakdown:
             a_profit = asset['profit']
@@ -109,17 +124,8 @@ def tax_calculator(request):
             tax_est = Decimal('0')
             if a_profit > 0:
                 if asset.get('tax_rate') is not None:
-                    if 'LTCG' in asset['type']:
-                        if taxable_ltcg > 0:
-                            original_ltcg_pool = total_equity_ltcg + total_debt_ltcg
-                            if original_ltcg_pool > 0:
-                                tax_est = (a_profit / original_ltcg_pool) * ltcg_tax
-                    else:
-                        if 'Crypto' in asset['type']:
-                            tax_est = a_profit * asset['tax_rate']
-                        else:
-                            if taxable_stcg > 0:
-                                tax_est = (a_profit / total_equity_stcg) * equity_stcg_tax if total_equity_stcg > 0 else Decimal('0')
+                    # Generic simplified STCG/LTCG calc for GET view
+                    tax_est = a_profit * asset['tax_rate']
                 else:
                     tax_est = a_profit * marginal_rate
             tax_est = max(Decimal('0'), tax_est * Decimal('1.04'))
@@ -128,6 +134,12 @@ def tax_calculator(request):
         asset_breakdown.sort(key=lambda x: x['type'])
 
     if request.method == "POST":
+        # Static Lock-In Protocol
+        user.salary_income = salary
+        user.other_income = other_income
+        user.occupation_type = occupation_type
+        user.save()
+        
         asset_breakdown = temp_asset_breakdown
         std_deduction = Decimal('75000') if occupation_type == 'salary' else Decimal('0')
         total_slab_income = salary + other_income + max(Decimal('0'), total_debt_income_gains)

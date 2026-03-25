@@ -16,7 +16,7 @@ from datetime import timedelta
 SHORTABLE_STOCKS = [
     {'symbol': 'NYKAA', 'name': 'FSN E-Commerce Ventures (Nykaa)', 'type': 'stock'},
     {'symbol': 'PAYTM', 'name': 'One 97 Communications (Paytm)', 'type': 'stock'},
-    {'symbol': 'ZOMATO', 'name': 'Zomato Limited', 'type': 'stock'},
+    {'symbol': 'ETERNAL', 'name': 'Zomato Limited (Eternal)', 'type': 'stock'},
 ]
 
 NSE_STOCKS = [
@@ -31,12 +31,19 @@ CRYPTO_ASSETS = [
     {'symbol': 'DOGE', 'name': 'Dogecoin', 'type': 'crypto', 'cg_id': 'dogecoin'},
 ]
 
+ETF_ASSETS = [
+    {'symbol': 'NIFTYBEES', 'name': 'Nippon India Nifty 50 ETF', 'type': 'etf'},
+    {'symbol': 'GOLDBEES', 'name': 'Nippon India Gold ETF', 'type': 'etf'},
+    {'symbol': 'MON100', 'name': 'Motilal Oswal NASDAQ 100 ETF', 'type': 'etf'},
+    {'symbol': 'SILVERBEES', 'name': 'Nippon India Silver ETF', 'type': 'etf'},
+]
+
 INDEX_FUNDS = [
     {'symbol': 'NIFTY_50', 'name': 'Nifty 50 Index', 'type': 'index'},
     {'symbol': 'NIFTY_NEXT_50', 'name': 'Nifty Next 50', 'type': 'index'},
 ]
 
-MASTER_LIST = NSE_STOCKS + CRYPTO_ASSETS + INDEX_FUNDS
+MASTER_LIST = NSE_STOCKS + CRYPTO_ASSETS + INDEX_FUNDS + ETF_ASSETS
 
 def get_live_price(symbol, asset_type='stock'):
     try:
@@ -58,7 +65,12 @@ def get_live_price(symbol, asset_type='stock'):
 
         # Google Finance symbols for indices use INDEXNSE
         suffix = ":INDEXNSE" if asset_type == 'index' else ":NSE"
-        url = f"https://www.google.com/finance/quote/{symbol}{suffix}"
+        
+        # Zomato rebranded to Eternal, add fallback
+        search_symbol = symbol.upper()
+        if search_symbol == 'ZOMATO': search_symbol = 'ETERNAL'
+        
+        url = f"https://www.google.com/finance/quote/{search_symbol}{suffix}"
         
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36'
@@ -186,12 +198,24 @@ def add_asset(request):
         cache.delete(f'portfolio_data_{request.user.id}')
 
         if request.headers.get('HX-Request'):
-            # Return appropriate partial
+            # Fetch updated holdings
             holdings = Holding.objects.filter(user=request.user)
+            
             if position_type == 'short':
                 return render(request, 'portfolio/partials/short_rows.html', {'short_holdings': holdings.filter(position_type='short')})
-            else:
+                
+            if asset_type == 'stock':
                 return render(request, 'portfolio/partials/stock_rows.html', {'stock_holdings': holdings.filter(asset_type='stock', position_type='long')})
+            
+            # For ETFs, Crypto, Index - since they might not have specific partials in the user's current logic, 
+            # I will ensure the page refreshes or we provide a more generic response.
+            # Actually, looking at the template, there are loops for etf_holdings, etc.
+            # I'll return a Trigger for a full page refresh if it's not a Stock/Short or 
+            # I can just redirect which HTMX handles via HX-Redirect
+            from django.http import HttpResponse
+            response = HttpResponse("")
+            response['HX-Redirect'] = request.build_absolute_uri()
+            return response
 
         return redirect('portfolio:overview')
 

@@ -1,9 +1,16 @@
+import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+# Load mission-critical credentials from .env
+load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-)cqtk1kj67$l04*!w7+#-%d4$a#@3f8w(=$l=*+wjpx7bez#kk'
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-default-fallback-key-replace-me')
 
+# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -27,7 +34,7 @@ INSTALLED_APPS = [
     'tax.apps.TaxConfig',
 ]
 
-GEMINI_API_KEY = "AIzaSyBzzyqz3m2D9BsyWBIAEBshock_9K24C0s"
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
