@@ -12,7 +12,13 @@ class CustomUser(AbstractUser):
     # Static Tax Configuration
     salary_income = models.DecimalField(max_digits=15, decimal_places=2, default=0.00)
     other_income = models.DecimalField(max_digits=15, decimal_places=2, default=0.00)
+    monthly_savings = models.DecimalField(max_digits=15, decimal_places=2, default=0.00)
+    expenses_json = models.TextField(default='[]')
     occupation_type = models.CharField(max_length=20, default='salary')
+
+    @property
+    def total_inflow(self):
+        return self.salary_income + self.other_income
 
     def __str__(self):
         return f"{self.username} ({self.role})"

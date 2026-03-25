@@ -89,6 +89,10 @@ before:rounded-r-[3px]{% endblock %}
                 class="px-3 py-1.5 rounded-lg text-xs font-semibold transition-all {% if filter_type == 'buy' %}bg-white text-emerald-600 shadow-sm{% else %}text-gray-500 hover:text-gray-700{% endif %}">
                 Buys
             </a>
+            <a href="?type=sell"
+                class="px-3 py-1.5 rounded-lg text-xs font-semibold transition-all {% if filter_type == 'sell' %}bg-white text-rose-600 shadow-sm{% else %}text-gray-500 hover:text-gray-700{% endif %}">
+                Sells
+            </a>
             <a href="?type=book_profit"
                 class="px-3 py-1.5 rounded-lg text-xs font-semibold transition-all {% if filter_type == 'book_profit' %}bg-white text-amber-600 shadow-sm{% else %}text-gray-500 hover:text-gray-700{% endif %}">
                 Booked

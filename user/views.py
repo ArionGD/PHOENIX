@@ -173,6 +173,29 @@ def dashboard(request):
         'index_values': index_values,
         'active_period': period,
         'distribution_data': distribution_data,
+        'user_salary': request.user.salary_income,
+        'user_extra': request.user.other_income,
+        'user_savings': request.user.monthly_savings,
+        'user_expenses': request.user.expenses_json,
     }
     
     return render(request, 'user/user_db.html', context)
+
+import json
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+
+@login_required
+@require_POST
+def update_budget(request):
+    try:
+        data = json.loads(request.body)
+        user = request.user
+        user.salary_income = Decimal(str(data.get('salary', 0)))
+        user.other_income = Decimal(str(data.get('extra', 0)))
+        user.monthly_savings = Decimal(str(data.get('savings', 0)))
+        user.expenses_json = json.dumps(data.get('expenses', []))
+        user.save()
+        return JsonResponse({'status': 'success'})
+    except Exception as e:
+        return JsonResponse({'status': 'error', 'message': str(e)}, status=400)
