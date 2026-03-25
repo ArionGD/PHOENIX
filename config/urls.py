@@ -6,6 +6,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', core_views.home, name='home'),
     path('support/', core_views.support, name='support'),
+    path('features/', core_views.feature, name='feature'),
     path('accounts/', include('accounts.urls', namespace='accounts')),
     path('dashboard/', include('user.urls', namespace='user')),
     path('manager/', include('admin.urls', namespace='dashboard_admin')),

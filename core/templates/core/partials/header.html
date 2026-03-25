@@ -1,5 +1,5 @@
 {% load static %}
-<header class="sticky top-0 z-[100] w-full border-b border-white/5 bg-black/40 backdrop-blur-2xl shadow-2xl">
+<header class="fixed top-0 z-[999] w-full border-b border-white/5 bg-black/40 backdrop-blur-3xl shadow-2xl">
     <div class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-50"></div>
     <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between font-bold">
         <!-- Logo Left (Identity) -->
@@ -11,9 +11,19 @@
         </a>
 
         <!-- Nexus Center (Navigation) -->
-        <div class="hidden md:flex items-center justify-center gap-12 flex-1 font-outfit">
+        <div class="hidden md:flex items-center justify-center gap-10 flex-1 font-outfit">
             <a href="/" class="text-[11px] font-black text-gray-400 hover:text-white transition-colors uppercase tracking-[0.4em]">Home</a>
+            <a href="{% url 'feature' %}" class="text-[11px] font-black text-gray-400 hover:text-white transition-colors uppercase tracking-[0.4em]">Features</a>
             <a href="{% url 'support' %}" class="text-[11px] font-black text-gray-400 hover:text-white transition-colors uppercase tracking-[0.4em]">Support</a>
+            {% if user.is_authenticated %}
+                {% if user.role == 'admin' or user.is_staff %}
+                    <a href="{% url 'dashboard_admin:overview' %}" class="text-[11px] font-black text-gray-400 hover:text-white transition-colors uppercase tracking-[0.4em]">Portal</a>
+                {% else %}
+                    <a href="{% url 'user:dashboard' %}" class="text-[11px] font-black text-gray-400 hover:text-white transition-colors uppercase tracking-[0.4em]">Portal</a>
+                {% endif %}
+            {% else %}
+                <a href="{% url 'accounts:login' %}" class="text-[11px] font-black text-gray-400 hover:text-white transition-colors uppercase tracking-[0.4em]">Portal</a>
+            {% endif %}
         </div>
 
         <!-- Nexus Right (Protocol) -->

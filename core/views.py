@@ -5,3 +5,6 @@ def home(request):
 
 def support(request):
     return render(request, 'core/support.html')
+
+def feature(request):
+    return render(request, 'core/feature.html')
