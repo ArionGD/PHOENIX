@@ -160,15 +160,24 @@ def get_market_value_json(request, pk):
 def add_asset(request):
     if request.method == 'POST':
         symbol = request.POST.get('symbol', '').upper().replace(".NS", "").replace(".BO", "")
-        name = request.POST.get('name')
-        quantity = request.POST.get('quantity')
+        name = request.POST.get('name', '')
+        
+        # Auto-resolve name from Master List if empty (Simplified Form Protocol)
+        if not name:
+            match = next((item for item in MASTER_LIST if item['symbol'] == symbol), None)
+            if match:
+                name = match['name']
+            else:
+                name = symbol
+        
+        qty = Decimal(request.POST.get('quantity', '0'))
         purchase_price = request.POST.get('purchase_price')
         purchase_date = request.POST.get('purchase_date')
         asset_type = request.POST.get('asset_type', 'stock')
         position_type = request.POST.get('position_type', 'long')
         use_market_price = request.POST.get('use_market_price') == 'true'
         
-        if not (symbol and quantity):
+        if not (symbol and qty):
             return redirect('portfolio:overview')
             
         curr_price = get_live_price(symbol, asset_type)
