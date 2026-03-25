@@ -1,89 +1,127 @@
 {% load static %}
-<footer class="relative w-full border-t border-white/10 bg-[#020617]/80 backdrop-blur-3xl py-20 px-6 overflow-hidden">
-    <!-- Bloomberg Shine Overlay -->
-    <div class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
-    <div class="absolute top-0 left-0 w-[500px] h-[500px] bg-indigo-500/10 rounded-full blur-[120px] -translate-y-1/2 -translate-x-1/2"></div>
+<footer class="relative w-full border-t border-white/10 bg-[#020617]/90 backdrop-blur-3xl py-24 px-6 overflow-hidden">
+    <!-- QUANTUM GLASS OVERLAY (GRID + SHINE) -->
+    <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 32px 32px;"></div>
+    <div class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-blue-400/30 to-transparent"></div>
+    <div class="absolute top-0 left-[10%] w-[300px] h-[1px] bg-white/40 blur-[1px]"></div>
+    <div class="absolute -top-40 -right-40 w-[600px] h-[600px] bg-blue-600/5 rounded-full blur-[140px]"></div>
     
     <div class="max-w-7xl mx-auto relative z-10">
-        <div class="grid grid-cols-2 md:grid-cols-5 gap-12 mb-20">
-            <!-- Brand Core -->
+        <!-- TOP TIER: LIVE MARKET SNAPSHOT (BLOOMBERG STYLE) -->
+        <div class="flex items-center gap-10 mb-20 py-4 border-y border-white/5 bg-white/[0.02] -mx-6 px-12 overflow-x-auto whitespace-nowrap no-scrollbar">
+            <div class="flex items-center gap-2 group cursor-default">
+                <span class="text-[10px] font-black text-gray-500 uppercase tracking-widest">NSE</span>
+                <span class="text-xs font-mono font-bold text-white tracking-tight">NIFTY 50</span>
+                <span class="text-[10px] font-bold text-emerald-500 bg-emerald-500/10 px-1.5 py-0.5 rounded">+0.85%</span>
+            </div>
+            <div class="w-px h-3 bg-white/10"></div>
+            <div class="flex items-center gap-2">
+                <span class="text-[10px] font-black text-gray-500 uppercase tracking-widest">SHORT</span>
+                <span class="text-xs font-mono font-bold text-white tracking-tight">PAYTM</span>
+                <span class="text-[10px] font-bold text-rose-500 bg-rose-500/10 px-1.5 py-0.5 rounded">-4.12%</span>
+            </div>
+            <div class="w-px h-3 bg-white/10"></div>
+            <div class="flex items-center gap-2">
+                <span class="text-[10px] font-black text-gray-500 uppercase tracking-widest">BTC</span>
+                <span class="text-xs font-mono font-bold text-white tracking-tight">PRICE</span>
+                <span class="text-[10px] font-bold text-emerald-500 bg-emerald-500/10 px-1.5 py-0.5 rounded">+2.45%</span>
+            </div>
+            <div class="ml-auto flex items-center gap-3">
+                <div class="flex h-1.5 w-1.5">
+                    <span class="animate-ping absolute inline-flex h-1.5 w-1.5 rounded-full bg-blue-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-blue-500"></span>
+                </div>
+                <span class="text-[9px] font-black text-blue-400 uppercase tracking-[0.4em]">Oracle Active Sequence</span>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-16 mb-24">
+            <!-- BRAND HUB -->
             <div class="col-span-2">
-                <div class="flex items-center gap-4 mb-8 group">
-                    <div class="w-14 h-14 rounded-full border border-white/10 overflow-hidden shadow-2xl flex items-center justify-center p-0.5 bg-white/5 shadow-indigo-600/10">
-                        <img src="{% static 'img/phoneix.jpg' %}" alt="PHOENIX" class="w-full h-full object-cover rounded-full">
+                <div class="flex items-center gap-5 mb-10 group">
+                    <div class="w-16 h-16 rounded-full border-2 border-white/10 overflow-hidden shadow-2xl p-1 bg-white/5 backdrop-blur-md group-hover:scale-110 transition-transform duration-700">
+                        <img src="{% static 'img/phoneix.jpg' %}" alt="Phoenix" class="w-full h-full object-cover rounded-full">
                     </div>
                     <div class="flex flex-col">
-                        <span class="text-2xl font-black text-white tracking-[0.3em] uppercase leading-none">PHOENIX</span>
-                        <span class="text-[9px] font-black text-indigo-400 uppercase tracking-[0.5em] mt-1.5 border-t border-white/10 pt-1">Oracle Strike Engine</span>
+                        <span class="text-3xl font-black text-white tracking-[0.4em] uppercase leading-none italic font-syncopate">PHOENIX</span>
+                        <div class="flex items-center gap-2 mt-2">
+                            <span class="h-px w-8 bg-blue-500"></span>
+                            <span class="text-[9px] font-black text-blue-500 uppercase tracking-[0.5em]">Global Strike Terminal</span>
+                        </div>
                     </div>
                 </div>
-                <p class="max-w-sm text-sm text-gray-400 leading-relaxed font-medium mb-8">
-                    The definitive terminal for high-precision wealth extraction. Analyzing 1,200+ global assets across the Phoenix corridor.
+                <p class="max-w-sm text-sm text-gray-400 leading-relaxed font-medium mb-10 opacity-70">
+                    Proprietary high-frequency wealth extraction engine. Built for the modern structural reset. Engineered with absolute precision.
                 </p>
-                <div class="flex items-center gap-4">
-                    <div class="flex h-2 w-2 relative">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                    </div>
-                    <span class="text-[10px] font-bold text-emerald-500 uppercase tracking-widest">Global Node Status: Optimal</span>
+                <div class="flex items-center gap-5">
+                    <a href="#" class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-blue-600 transition-all active:scale-95">
+                        <i data-lucide="twitter" class="w-4 h-4"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-slate-700 transition-all active:scale-95">
+                        <i data-lucide="github" class="w-4 h-4"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-indigo-600 transition-all active:scale-95">
+                        <i data-lucide="message-square" class="w-4 h-4"></i>
+                    </a>
                 </div>
             </div>
 
-            <!-- Intelligence Column -->
+            <!-- TERMINAL LINKS -->
             <div>
-                <h4 class="text-xs font-black text-white uppercase tracking-[0.3em] mb-8 pb-3 border-b border-white/5">Markets</h4>
+                <h4 class="text-xs font-black text-white uppercase tracking-[0.3em] mb-8 pb-3 border-b border-white/5 font-outfit">Markets</h4>
                 <ul class="space-y-4 text-xs font-bold text-gray-500 uppercase tracking-widest">
+                    <li><a href="{% url 'support' %}" class="hover:text-blue-400 transition-colors">Terminal Support</a></li>
                     <li><a href="#" class="hover:text-blue-400 transition-colors">NSE Strike List</a></li>
                     <li><a href="#" class="hover:text-blue-400 transition-colors">Crypto Arbitrage</a></li>
-                    <li><a href="#" class="hover:text-blue-400 transition-colors">Index Analytics</a></li>
                     <li><a href="#" class="hover:text-blue-400 transition-colors">Short Targets</a></li>
                 </ul>
             </div>
 
-            <!-- Technology Column -->
             <div>
-                <h4 class="text-xs font-black text-white uppercase tracking-[0.3em] mb-8 pb-3 border-b border-white/5">Core</h4>
+                <h4 class="text-[10px] font-black text-white uppercase tracking-[0.4em] mb-10 opacity-50 font-outfit">Systems</h4>
                 <ul class="space-y-4 text-xs font-bold text-gray-500 uppercase tracking-widest">
-                    <li><a href="#" class="hover:text-blue-400 transition-colors">AI Diagnostics</a></li>
-                    <li><a href="#" class="hover:text-blue-400 transition-colors">Risk Scenarios</a></li>
-                    <li><a href="#" class="hover:text-blue-400 transition-colors">Wealth Mint</a></li>
-                    <li><a href="#" class="hover:text-blue-400 transition-colors">Terminal API</a></li>
+                    <li><a href="#" class="hover:text-white flex items-center gap-2 transition-all"><span>•</span> AI PREDICT</a></li>
+                    <li><a href="#" class="hover:text-white flex items-center gap-2 transition-all"><span>•</span> RISK ENGINE</a></li>
+                    <li><a href="#" class="hover:text-white flex items-center gap-2 transition-all"><span>•</span> TERMINAL</a></li>
                 </ul>
             </div>
 
-            <!-- Documentation Column -->
             <div>
-                <h4 class="text-xs font-black text-white uppercase tracking-[0.3em] mb-8 pb-3 border-b border-white/5">Protocol</h4>
+                <h4 class="text-[10px] font-black text-white uppercase tracking-[0.4em] mb-10 opacity-50 font-outfit">Compliance</h4>
                 <ul class="space-y-4 text-xs font-bold text-gray-500 uppercase tracking-widest">
-                    <li><a href="#" class="hover:text-blue-400 transition-colors">Whitepaper</a></li>
-                    <li><a href="#" class="hover:text-blue-400 transition-colors">Architecture</a></li>
-                    <li><a href="#" class="hover:text-blue-400 transition-colors">Transparency</a></li>
-                    <li><a href="#" class="hover:text-blue-400 transition-colors">Compliance</a></li>
+                    <li><a href="#" class="hover:text-white flex items-center gap-2 transition-all"><span>•</span> PRIVACY</a></li>
+                    <li><a href="#" class="hover:text-white flex items-center gap-2 transition-all"><span>•</span> TERMS</a></li>
+                    <li><a href="#" class="hover:text-white flex items-center gap-2 transition-all"><span>•</span> SECURE</a></li>
                 </ul>
             </div>
         </div>
 
-        <!-- Terminal Footer Bar -->
-        <div class="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
-            <div class="flex flex-col gap-1">
-                <p class="text-[10px] font-black text-gray-600 uppercase tracking-[0.4em]">
-                    &copy; 2026 PHOENIX ORACLE FINANCIAL SYSTEMS. v4.0.2
+        <!-- LOWER BAR: METRICS -->
+        <div class="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-10">
+            <div class="flex flex-col gap-2">
+                <p class="text-[9px] font-black text-gray-600 uppercase tracking-[0.5em]">
+                    PHOENIX FINANCIAL OS &copy; 2026 • QUANTUM ED. v4.0.2
                 </p>
-                <p class="text-[9px] text-gray-700 font-bold uppercase tracking-widest">
-                    Market data delayed by 15 mins. Non-custodial execution engine.
-                </p>
+                <div class="flex items-center gap-4 py-1.5 px-3 bg-white/[0.03] border border-white/5 rounded-lg w-fit">
+                    <span class="text-[8px] font-bold text-blue-400 uppercase tracking-widest">Server Protocol: 256-AES</span>
+                    <span class="w-px h-2 bg-white/10"></span>
+                    <span class="text-[8px] font-bold text-gray-500 uppercase tracking-widest">Build 1092-ALPHA</span>
+                </div>
             </div>
             
-            <div class="flex items-center gap-8 border-l border-white/10 pl-8">
+            <div class="flex items-center gap-10 group">
                 <div class="flex flex-col items-end">
-                    <span class="text-[9px] font-black text-gray-500 uppercase tracking-widest leading-none">System Load</span>
-                    <span class="text-[11px] font-black text-blue-500 uppercase tracking-widest mt-1">1.2ms PING</span>
+                    <span class="text-[8px] font-black text-gray-600 uppercase tracking-widest leading-none mb-1">Response</span>
+                    <span class="text-[12px] font-mono font-black text-blue-500 tracking-wider">0.8ms</span>
                 </div>
                 <div class="flex flex-col items-end">
-                    <span class="text-[9px] font-black text-gray-500 uppercase tracking-widest leading-none">Protocol</span>
-                    <span class="text-[11px] font-black text-indigo-500 uppercase tracking-widest mt-1">SECURED</span>
+                    <span class="text-[8px] font-black text-gray-600 uppercase tracking-widest leading-none mb-1">Database</span>
+                    <span class="text-[12px] font-mono font-black text-indigo-500 tracking-wider">SYNCED</span>
+                </div>
+                <div class="w-12 h-12 rounded-xl border border-white/10 flex items-center justify-center bg-white/[0.02] group-hover:bg-blue-600/10 transition-all duration-500">
+                    <i data-lucide="shield-check" class="w-5 h-5 text-gray-500 group-hover:text-blue-400"></i>
                 </div>
             </div>
         </div>
     </div>
-</footer>
+</footer><script>lucide.createIcons();</script>

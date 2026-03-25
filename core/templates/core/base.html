@@ -1,18 +1,19 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en" class="h-full">
+<html lang="en" class="h-full overscroll-none">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Altair - Your AI-powered financial assistant for portfolio analysis, tax optimization, and goal tracking.">
-    <meta name="keywords" content="finance, assistant, portfolio, tax calculator, investment tracker, django">
+    <meta name="description" content="Altair - Your AI-powered financial assistant for portfolio analysis, tax optimization.">
+    <meta name="keywords" content="finance, portfolio, tax calculator, investment tracker">
     <title>{% block title %}Altair | Oracle{% endblock %}</title>
+    <link rel="icon" type="image/jpeg" href="{% static 'img/logo.jpg' %}">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800;900&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
 
     <!-- Tailwind Play CDN (Development only) -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -23,10 +24,17 @@
     <!-- Alpine.js -->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
+    <!-- Custom Styling Engine -->
+    <style>
+        .font-syncopate { font-family: 'Syncopate', sans-serif; }
+        .font-outfit { font-family: 'Outfit', sans-serif; }
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+
     {% block extra_css %}{% endblock %}
 </head>
 
-<body class="h-full flex flex-col font-sans" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+<body class="h-full flex flex-col font-sans overscroll-none bg-[#020617] text-white" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
     {% include "core/partials/header.html" %}
 
     <main class="flex-grow w-full">

@@ -1,0 +1,88 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="min-h-screen bg-[#020617] text-white pt-32 pb-24 overscroll-none">
+    <div class="max-w-7xl mx-auto px-6">
+        <!-- HERO SECTION -->
+        <div class="text-center mb-24 relative">
+             <div class="absolute -top-20 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-blue-600/5 rounded-full blur-[120px]"></div>
+             <h1 class="text-5xl md:text-7xl font-black mb-8 bg-gradient-to-b from-white to-gray-500 bg-clip-text text-transparent tracking-tighter">
+                PHOENIX SUPPORT
+            </h1>
+            <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto font-medium opacity-80 leading-relaxed">
+                Direct terminal assistance for Oracle Strike tactics, asset diagnostic errors, and protocol synchronization.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            <!-- FAQ STATION -->
+            <div class="lg:col-span-2 space-y-8">
+                <h3 class="text-xs font-black text-white uppercase tracking-[0.4em] mb-10 opacity-50 flex items-center gap-4">
+                    <span class="w-8 h-px bg-white/20"></span> Frequent Intelligence
+                </h3>
+                
+                <div class="bg-white/[0.02] backdrop-blur-3xl border border-white/5 rounded-3xl p-8 hover:bg-white/[0.04] transition-all duration-500 group">
+                    <h4 class="text-xl font-black mb-4 tracking-tight group-hover:text-blue-400 transition-colors">How do I execute an Oracle Short Strike?</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed opacity-70">
+                        Navigate to the Portfolio Nexus, select your asset from the curated strike list (NYKAA, PAYTM, ZOMATO), and use the "Market Execution" toggle to strike at current LTP. 
+                    </p>
+                </div>
+
+                <div class="bg-white/[0.02] backdrop-blur-3xl border border-white/5 rounded-3xl p-8 hover:bg-white/[0.04] transition-all duration-500 group">
+                    <h4 class="text-xl font-black mb-4 tracking-tight group-hover:text-blue-400 transition-colors">Why is my Market Value not updating instantly?</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed opacity-70">
+                        The Phoenix Terminal uses an Async HTMX Poller. If your connection is unstable, prices snap into place as soon as they are fetched from the Google Finance or CoinGecko hubs.
+                    </p>
+                </div>
+
+                <div class="bg-white/[0.02] backdrop-blur-3xl border border-white/5 rounded-3xl p-8 hover:bg-white/[0.04] transition-all duration-500 group">
+                    <h4 class="text-xl font-black mb-4 tracking-tight group-hover:text-blue-400 transition-colors">How do I terminate my terminal session?</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed opacity-70">
+                        Click the "Terminate" command in the high-stakes Obsidian Header or the sidebar "Logout" toggle in your Personal Dashboard.
+                    </p>
+                </div>
+            </div>
+
+            <!-- CONTACT PROTOCOL -->
+            <div class="flex flex-col gap-10">
+                <h3 class="text-xs font-black text-white uppercase tracking-[0.4em] mb-2 opacity-50 flex items-center gap-4">
+                    <span class="w-8 h-px bg-white/20"></span> Terminal Contact
+                </h3>
+
+                <div class="bg-white/[0.03] backdrop-blur-3xl border border-white/10 rounded-3xl p-10 shadow-2xl">
+                    <form action="#" class="space-y-6">
+                        <div>
+                            <label class="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-3">Identity Tag</label>
+                            <input type="text" placeholder="USER-7429" class="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-sm font-bold text-white placeholder-gray-700 focus:outline-none focus:border-blue-500 transition-colors">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-3">Protocol Issue</label>
+                            <textarea rows="4" placeholder="Report terminal anomaly..." class="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-sm font-bold text-white placeholder-gray-700 focus:outline-none focus:border-blue-500 transition-colors resize-none"></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-5 bg-white text-black text-xs font-black uppercase tracking-[0.3em] rounded-xl hover:bg-gray-100 transition-all active:scale-95 shadow-xl shadow-white/5">
+                            Submit Strike Req
+                        </button>
+                    </form>
+                </div>
+
+                <!-- DIRECT NODES -->
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="p-6 bg-white/[0.02] border border-white/5 rounded-2xl text-center hover:bg-white/5 transition-all">
+                        <span class="text-[10px] font-black text-gray-500 uppercase tracking-widest block mb-2">Discord</span>
+                        <span class="text-xs font-black text-white">ORACLE-HUB</span>
+                    </div>
+                    <div class="p-6 bg-white/[0.02] border border-white/5 rounded-2xl text-center hover:bg-white/5 transition-all">
+                        <span class="text-[10px] font-black text-gray-500 uppercase tracking-widest block mb-2">Priority</span>
+                        <span class="text-xs font-black text-white uppercase">24/7 NODES</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- LUCIDE ICON INJECTION -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>lucide.createIcons();</script>
+{% endblock %}
