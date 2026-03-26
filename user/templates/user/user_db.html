@@ -17,12 +17,34 @@ before:rounded-r-[3px]{% endblock %}
         <p class="text-sm text-gray-500 mt-1">Overview of financials and recent activity.</p>
     </div>
     <div class="flex gap-2.5 items-center">
-        <button
-            class="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+        <!-- Market Mood Indicator -->
+        <div class="flex items-center gap-3 px-4 py-1.5 bg-slate-900 border border-slate-800 rounded-xl mr-2 shadow-xl shadow-slate-900/10 hover:border-indigo-500/50 transition-colors cursor-help group/mmi" 
+             title="MMI < 30 (Extreme Fear): High Probability Buying Zone. Indiscriminate selling detected. Look for quality entries.">
+            <div class="w-9 h-9 rounded-full border-4 flex items-center justify-center
+                {% if mmi_value < 30 %} border-rose-500 text-rose-400
+                {% elif mmi_value < 50 %} border-amber-500 text-amber-400
+                {% elif mmi_value < 70 %} border-emerald-500 text-emerald-400
+                {% else %} border-indigo-500 text-indigo-400 {% endif %}">
+                <span class="text-[11px] font-black">{{ mmi_value|floatformat:0 }}</span>
+            </div>
+            <div>
+                <div class="flex items-center gap-1 leading-none mb-1">
+                    <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest">Market Mode</p>
+                    <i data-lucide="info" class="w-2.5 h-2.5 text-slate-500 group-hover/mmi:text-indigo-400 transition-colors"></i>
+                </div>
+                <p class="text-xs font-bold text-white leading-none">
+                    {% if mmi_value < 30 %} Extreme Fear
+                    {% elif mmi_value < 50 %} Fear
+                    {% elif mmi_value < 70 %} Greed
+                    {% else %} Extreme Greed {% endif %}
+                </p>
+            </div>
+        </div>
+        
+        <button class="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
             This Month <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
         </button>
-        <button
-            class="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+        <button class="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
             <i data-lucide="upload" class="w-3.5 h-3.5"></i> Export
         </button>
     </div>
