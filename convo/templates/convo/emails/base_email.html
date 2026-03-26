@@ -6,7 +6,7 @@
     <title>{% block subject %}{% endblock %}</title>
     <style>
         body { background-color: #f6f9fc; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; font-size: 16px; line-height: 1.6; margin: 0; padding: 0; }
-        table { border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; }
+        table { border-collapse: separate; width: 100%; }
         .wrapper { background-color: #f6f9fc; padding: 20px; }
         .container { background-color: #ffffff; margin: 0 auto; max-width: 600px; padding: 40px; border-radius: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
         .header { text-align: center; padding-bottom: 40px; }
@@ -16,6 +16,11 @@
         .footer { text-align: center; padding-top: 40px; color: #94a3b8; font-size: 12px; }
         .button { background-color: #2563eb; border-radius: 12px; color: #ffffff; display: inline-block; font-size: 14px; font-weight: 900; line-height: 1; padding: 18px 30px; text-align: center; text-decoration: none; text-transform: uppercase; letter-spacing: 1px; }
     </style>
+    <!--[if mso]>
+    <style type="text/css">
+        table { mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; }
+    </style>
+    <![endif]-->
 </head>
 <body>
     <div class="wrapper">
