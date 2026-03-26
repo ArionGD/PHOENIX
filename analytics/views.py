@@ -172,4 +172,7 @@ def analytics_overview(request):
         'total_pl': total_mv - total_cost,
     }
     
+    if request.headers.get('HX-Request'):
+        return render(request, 'analytics/partials/growth_terminal.html', context)
+        
     return render(request, 'analytics/detailed_analytics.html', context)
