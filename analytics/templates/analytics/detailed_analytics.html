@@ -140,7 +140,6 @@ before:rounded-r-[3px]{% endblock %}
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
-
 <script>
     Chart.register(ChartDataLabels);
     const getJson = (id) => JSON.parse(document.getElementById(id).textContent);
@@ -153,47 +152,53 @@ before:rounded-r-[3px]{% endblock %}
     const colors = { indigo: '#6366f1', emerald: '#10b981', rose: '#ef4444', amber: '#f59e0b', slate: '#9ca3af' };
     const fmtCurr = (val) => '₹' + Number(val).toLocaleString('en-IN', { maximumFractionDigits: 0 });
 
-    const chartDefaults = {
-        grid: () => getThemeColor('#f1f5f9', '#1e293b'),
-        text: () => getThemeColor('#94a3b8', '#64748b'),
-        border: () => getThemeColor('#ffffff', '#0f172a')
-    };
+    const getChartDefaults = () => ({
+        grid: getThemeColor('#f1f5f9', '#1e293b'),
+        text: getThemeColor('#94a3b8', '#64748b'),
+        border: getThemeColor('#ffffff', '#0f172a')
+    });
 
-    // 1-6 Charts
-    new Chart(document.getElementById('typeChart'), {
+    // Global Chart Registry
+    const chartInstances = {};
+
+    // 1. Type Chart
+    chartInstances.typeChart = new Chart(document.getElementById('typeChart'), {
         type: 'doughnut',
         data: {
             labels: getJson('type-labels'),
-            datasets: [{ data: getJson('type-values'), backgroundColor: palette, borderWidth: 8, borderColor: chartDefaults.border() }]
+            datasets: [{ data: getJson('type-values'), backgroundColor: palette, borderWidth: 8, borderColor: getChartDefaults().border }]
         },
-        options: { cutout: '70%', responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { usePointStyle: true, font: { size: 10, weight: '700' }, color: chartDefaults.text() } }, datalabels: { color: '#fff', font: { weight: 'bold', size: 10 }, formatter: (v, ctx) => (v * 100 / ctx.dataset.data.reduce((a, b) => a + b, 0)).toFixed(1) + "%" } } }
+        options: { cutout: '70%', responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { usePointStyle: true, font: { size: 10, weight: '700' }, color: getChartDefaults().text } }, datalabels: { color: '#fff', font: { weight: 'bold', size: 10 }, formatter: (v, ctx) => (v * 100 / ctx.dataset.data.reduce((a, b) => a + b, 0)).toFixed(1) + "%" } } }
     });
 
-    new Chart(document.getElementById('plChart'), {
+    // 2. PL Chart
+    chartInstances.plChart = new Chart(document.getElementById('plChart'), {
         type: 'bar',
         data: {
             labels: getJson('pl-labels'),
             datasets: [{ label: 'Gain / Loss', data: getJson('pl-values'), backgroundColor: (ctx) => ctx.raw >= 0 ? 'rgba(16, 185, 129, 0.8)' : 'rgba(239, 68, 68, 0.8)', borderRadius: 8, barThickness: 20 }]
         },
-        options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, scales: { x: { grid: { display: false }, ticks: { color: chartDefaults.text() } }, y: { grid: { display: false }, border: { display: false }, ticks: { font: { size: 10, weight: '700' }, color: chartDefaults.text() } } }, plugins: { legend: { display: false }, datalabels: { anchor: 'end', align: 'right', color: (ctx) => ctx.raw >= 0 ? colors.emerald : colors.rose, font: { weight: 'bold', size: 10 }, formatter: (val) => (val >= 0 ? '+' : '') + fmtCurr(val) } } }
+        options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, scales: { x: { grid: { display: false }, ticks: { color: getChartDefaults().text } }, y: { grid: { display: false }, border: { display: false }, ticks: { font: { size: 10, weight: '700' }, color: getChartDefaults().text } } }, plugins: { legend: { display: false }, datalabels: { anchor: 'end', align: 'right', color: (ctx) => ctx.raw >= 0 ? colors.emerald : colors.rose, font: { weight: 'bold', size: 10 }, formatter: (val) => (val >= 0 ? '+' : '') + fmtCurr(val) } } }
     });
 
-    new Chart(document.getElementById('riskChart'), {
+    // 3. Risk Chart
+    chartInstances.riskChart = new Chart(document.getElementById('riskChart'), {
         type: 'doughnut',
         data: {
             labels: getJson('risk-labels'),
             datasets: [{ data: getJson('risk-values'), backgroundColor: [colors.rose, colors.amber, colors.emerald], borderWidth: 0 }]
         },
-        options: { cutout: '60%', responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { usePointStyle: true, font: { size: 10, weight: '700' }, color: chartDefaults.text() } }, datalabels: { color: '#fff', font: { weight: 'bold', size: 10 }, formatter: (v, ctx) => (v * 100 / ctx.dataset.data.reduce((a, b) => a + b, 0)).toFixed(0) + "%" } } }
+        options: { cutout: '60%', responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { usePointStyle: true, font: { size: 10, weight: '700' }, color: getChartDefaults().text } }, datalabels: { color: '#fff', font: { weight: 'bold', size: 10 }, formatter: (v, ctx) => (v * 100 / ctx.dataset.data.reduce((a, b) => a + b, 0)).toFixed(0) + "%" } } }
     });
 
-    new Chart(document.getElementById('periodChart'), {
+    // 4. Period Chart
+    chartInstances.periodChart = new Chart(document.getElementById('periodChart'), {
         type: 'bar',
         data: {
             labels: getJson('period-labels'),
             datasets: [{ data: getJson('period-values'), backgroundColor: colors.indigo, borderRadius: 12, barThickness: 45 }]
         },
-        options: { responsive: true, maintainAspectRatio: false, scales: { y: { grid: { color: chartDefaults.grid() }, ticks: { font: { size: 9 }, callback: (v) => fmtCurr(v), color: chartDefaults.text() } }, x: { grid: { display: false }, ticks: { font: { size: 10, weight: '700' }, color: chartDefaults.text() } } }, plugins: { legend: { display: false }, datalabels: { anchor: 'end', align: 'top', color: colors.indigo, font: { weight: 'bold', size: 10 }, formatter: (val) => fmtCurr(val) } } }
+        options: { responsive: true, maintainAspectRatio: false, scales: { y: { grid: { color: getChartDefaults().grid }, ticks: { font: { size: 9 }, callback: (v) => fmtCurr(v), color: getChartDefaults().text } }, x: { grid: { display: false }, ticks: { font: { size: 10, weight: '700' }, color: getChartDefaults().text } } }, plugins: { legend: { display: false }, datalabels: { anchor: 'end', align: 'top', color: colors.indigo, font: { weight: 'bold', size: 10 }, formatter: (val) => fmtCurr(val) } } }
     });
 
 
@@ -201,7 +206,7 @@ before:rounded-r-[3px]{% endblock %}
     const seriesData = getJson('series-data');
     const chartLabels = getJson('chart-labels');
 
-    const datasets = seriesData.map((series, idx) => ({
+    const growthDatasets = seriesData.map((series, idx) => ({
         label: series.symbol,
         data: series.data,
         borderColor: palette[idx % palette.length],
@@ -209,18 +214,18 @@ before:rounded-r-[3px]{% endblock %}
         borderWidth: 2.5,
         pointRadius: 4,
         pointBackgroundColor: palette[idx % palette.length],
-        pointBorderColor: chartDefaults.border(),
+        pointBorderColor: getChartDefaults().border,
         pointBorderWidth: 1.5,
         pointHoverRadius: 6,
         fill: true,
         tension: 0.3
     }));
 
-    new Chart(document.getElementById('growthTrendChart'), {
+    chartInstances.growthTrendChart = new Chart(document.getElementById('growthTrendChart'), {
         type: 'line',
         data: {
             labels: chartLabels,
-            datasets: datasets
+            datasets: growthDatasets
         },
         options: {
             responsive: true,
@@ -229,13 +234,13 @@ before:rounded-r-[3px]{% endblock %}
             scales: {
                 y: {
                     grid: {
-                        color: chartDefaults.grid(),
+                        color: getChartDefaults().grid,
                         drawBorder: false,
                         borderDash: [5, 5]
                     },
                     ticks: {
                         font: { size: 10, weight: '700' },
-                        color: chartDefaults.text(),
+                        color: getChartDefaults().text,
                         callback: (v) => v >= 1000 ? (v / 1000).toFixed(0) + 'k' : v
                     }
                 },
@@ -243,7 +248,7 @@ before:rounded-r-[3px]{% endblock %}
                     grid: { display: false },
                     ticks: {
                         font: { size: 11, weight: '800' },
-                        color: chartDefaults.text()
+                        color: getChartDefaults().text
                     }
                 }
             },
@@ -258,8 +263,6 @@ before:rounded-r-[3px]{% endblock %}
                             tooltipEl = document.createElement('div');
                             tooltipEl.id = 'chartjs-tooltip';
                             tooltipEl.style.cssText = `
-                                background: ${isDark() ? 'rgba(15, 23, 42, 0.95)' : 'rgba(33, 37, 41, 0.95)'};
-                                border: 1px solid ${isDark() ? 'rgba(51, 65, 85, 0.5)' : 'transparent'};
                                 border-radius: 12px;
                                 color: white;
                                 padding: 16px;
@@ -274,6 +277,10 @@ before:rounded-r-[3px]{% endblock %}
                             `;
                             document.body.appendChild(tooltipEl);
                         }
+                        
+                        // Update tooltip style based on theme
+                        tooltipEl.style.background = isDark() ? 'rgba(15, 23, 42, 0.95)' : 'rgba(33, 37, 41, 0.95)';
+                        tooltipEl.style.border = isDark() ? '1px solid rgba(51, 65, 85, 0.5)' : 'transparent';
 
                         const tooltipModel = context.tooltip;
                         if (tooltipModel.opacity === 0) {
@@ -314,9 +321,39 @@ before:rounded-r-[3px]{% endblock %}
         }
     });
 
-    // Theme Switch Observer
+    // Smooth Theme Synchronizer
+    const updateChartsTheme = () => {
+        const d = getChartDefaults();
+        
+        Object.values(chartInstances).forEach(chart => {
+            // Update Text Color globally if applicable
+            if (chart.options.plugins.legend) chart.options.plugins.legend.labels.color = d.text;
+            
+            // Update Scales
+            if (chart.options.scales) {
+                Object.values(chart.options.scales).forEach(scale => {
+                    if (scale.grid) scale.grid.color = d.grid;
+                    if (scale.ticks) scale.ticks.color = d.text;
+                });
+            }
+            
+            // Update Dataset Borders (Doughnuts)
+            if (chart.config.type === 'doughnut') {
+                chart.data.datasets.forEach(ds => ds.borderColor = d.border);
+            }
+            
+            // Update Line Chart point borders
+            if (chart.config.type === 'line') {
+                chart.data.datasets.forEach(ds => ds.pointBorderColor = d.border);
+            }
+
+            chart.update('none'); // Update without animation for instant snap to theme
+        });
+    };
+
+    // Theme Switch Observer (No Reload)
     const observer = new MutationObserver(() => {
-        window.location.reload(); // Refresh to re-initialize charts with correct theme colors
+        updateChartsTheme();
     });
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 
