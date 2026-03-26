@@ -1,7 +1,6 @@
 {% load static %}
 <!-- PHOENIX ORACLE FOOTER REGISTRY v5.7 - SCROLL OPTIMIZED -->
-<footer class="relative w-full border-t border-white/10 pt-20 pb-12 px-6 overflow-hidden" 
-    x-data="{ 
+<footer class="relative w-full border-t border-white/10 pt-20 pb-12 px-6 overflow-hidden" x-data="{ 
         tickerItems: [
             { label: 'NSE', name: 'NIFTY 50', val: '22,419.20', change: '+0.85%', up: true },
             { label: 'NASDAQ', name: 'TECH 100', val: '18,210.50', change: '-1.22%', up: false },
@@ -10,39 +9,51 @@
         ],
         year: new Date().getFullYear()
     }"
-    style="background: linear-gradient(90deg, #020617 0%, #051636 30%, rgba(59, 130, 246, 0.25) 50%, #051636 70%, #020617 100%);">
-    
+    style="background: linear-gradient(90deg, #010413 0%, #06112a 30%, #0c2355 50%, #06112a 70%, #010413 100%);">
+
     <!-- CENTRAL RADIANCE SYNC (True Navy) -->
     <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        <!-- Increased Lighter Navy Bloom (12%) -->
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[40%] h-full bg-blue-500/12 blur-[130px]"></div>
+        <!-- Solid Deep Navy Radiance (No light bleed) -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[40%] h-full bg-[#1e293b]/30 blur-[130px]"></div>
         <!-- High-Intensity Mission Edge -->
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[70%] h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+        <div
+            class="absolute top-0 left-1/2 -translate-x-1/2 w-[70%] h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent">
+        </div>
     </div>
-    
+
     <!-- Horizon Glow Node -->
-    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[60%] h-[1px] bg-gradient-to-r from-transparent via-blue-400/20 to-transparent z-10"></div>
+    <div
+        class="absolute top-0 left-1/2 -translate-x-1/2 w-[60%] h-[1px] bg-gradient-to-r from-transparent via-blue-400/20 to-transparent z-10">
+    </div>
 
     <div class="max-w-7xl mx-auto relative z-10">
-        
+
         <!-- MODULE I: IDENTITY & IDENTITY -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-20">
             <div class="lg:col-span-4 flex flex-col items-start translate-y-[-10px]">
                 <div class="flex items-center gap-4 mb-8">
-                    <div class="w-14 h-14 rounded-full border border-white/10 p-1 bg-white/5 backdrop-blur-md shadow-2xl shadow-blue-500/10 transition-transform hover:scale-110 duration-500 group overflow-hidden">
-                        <img src="{% static 'img/phoneix.jpg' %}" alt="Phoenix Logo" class="w-full h-full object-cover rounded-full saturate-125 transition-transform group-hover:scale-110">
+                    <div
+                        class="w-14 h-14 rounded-full border border-white/10 p-1 bg-white/5 backdrop-blur-md shadow-2xl shadow-blue-500/10 transition-transform hover:scale-110 duration-500 group overflow-hidden">
+                        <img src="{% static 'img/phoneix.jpg' %}" alt="Phoenix Logo"
+                            class="w-full h-full object-cover rounded-full saturate-125 transition-transform group-hover:scale-110">
                     </div>
                     <div class="flex flex-col">
-                        <span class="text-2xl font-black text-white tracking-[0.3em] uppercase leading-none drop-shadow-sm" style="background: linear-gradient(135deg, #94a3b8 0%, #ffffff 50%, #475569 100%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">PHOENIX</span>
-                        <span class="text-[9px] font-black text-blue-400 uppercase tracking-[0.4em] mt-1.5 opacity-90">Oracle Terminal</span>
+                        <span
+                            class="text-2xl font-black text-white tracking-[0.3em] uppercase leading-none drop-shadow-sm"
+                            style="background: linear-gradient(135deg, #94a3b8 0%, #ffffff 50%, #475569 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">PHOENIX</span>
+                        <span
+                            class="text-[9px] font-black text-blue-400 uppercase tracking-[0.4em] mt-1.5 opacity-90">Oracle
+                            Terminal</span>
                     </div>
                 </div>
                 <p class="text-sm text-slate-400 leading-relaxed font-medium mb-8 max-w-sm">
-                    Advanced High-Performance Financial Intelligence OS. Orchestrating professional wealth surveillance and structural arbitrage with absolute precision.
+                    Advanced High-Performance Financial Intelligence OS. Orchestrating professional wealth surveillance
+                    and structural arbitrage with absolute precision.
                 </p>
                 <div class="flex items-center gap-3">
                     <template x-for="social in ['twitter', 'github', 'youtube', 'linkedin']">
-                        <a href="#" class="w-9 h-9 rounded-lg border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:border-white/30 transition-all hover:bg-white/10 active:scale-95 group backdrop-blur-sm">
+                        <a href="#"
+                            class="w-9 h-9 rounded-lg border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:border-white/30 transition-all hover:bg-white/10 active:scale-95 group backdrop-blur-sm">
                             <i :data-lucide="social" class="w-4 h-4 group-hover:scale-110 transition-transform"></i>
                         </a>
                     </template>
@@ -54,53 +65,93 @@
                 <div>
                     <h4 class="text-[11px] font-black text-white/60 uppercase tracking-[0.2em] mb-8">Markets</h4>
                     <ul class="space-y-4">
-                        <li><a href="{% url 'portfolio:overview' %}" class="text-xs font-bold text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest flex items-center gap-2 group"><span class="w-2 h-[1px] bg-blue-500/30 group-hover:w-4 transition-all"></span>Sovereign Stocks</a></li>
-                        <li><a href="{% url 'transactions:list' %}" class="text-xs font-bold text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest flex items-center gap-2 group"><span class="w-2 h-[1px] bg-blue-500/30 group-hover:w-4 transition-all"></span>Strike History</a></li>
-                        <li><a href="#" class="text-xs font-bold text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest flex items-center gap-2 group"><span class="w-2 h-[1px] bg-blue-500/30 group-hover:w-4 transition-all"></span>Option Strike</a></li>
+                        <li><a href="{% url 'portfolio:overview' %}"
+                                class="text-xs font-bold text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest flex items-center gap-2 group"><span
+                                    class="w-2 h-[1px] bg-blue-500/30 group-hover:w-4 transition-all"></span>Sovereign
+                                Stocks</a></li>
+                        <li><a href="{% url 'transactions:list' %}"
+                                class="text-xs font-bold text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest flex items-center gap-2 group"><span
+                                    class="w-2 h-[1px] bg-blue-500/30 group-hover:w-4 transition-all"></span>Strike
+                                History</a></li>
+                        <li><a href="#"
+                                class="text-xs font-bold text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest flex items-center gap-2 group"><span
+                                    class="w-2 h-[1px] bg-blue-500/30 group-hover:w-4 transition-all"></span>Option
+                                Strike</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="text-[11px] font-black text-white/60 uppercase tracking-[0.2em] mb-8">Intelligence</h4>
                     <ul class="space-y-4">
-                        <li><a href="{% url 'analytics:overview' %}" class="text-xs font-bold text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest flex items-center gap-2 group"><span class="w-2 h-[1px] bg-blue-500/30 group-hover:w-4 transition-all"></span>Oracle Scan</a></li>
-                        <li><a href="#" class="text-xs font-bold text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest flex items-center gap-2 group"><span class="w-2 h-[1px] bg-blue-500/30 group-hover:w-4 transition-all"></span>Sentiment Hub</a></li>
-                        <li><a href="#" class="text-xs font-bold text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest flex items-center gap-2 group"><span class="w-2 h-[1px] bg-blue-500/30 group-hover:w-4 transition-all"></span>MMI Logic</a></li>
+                        <li><a href="{% url 'analytics:overview' %}"
+                                class="text-xs font-bold text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest flex items-center gap-2 group"><span
+                                    class="w-2 h-[1px] bg-blue-500/30 group-hover:w-4 transition-all"></span>Oracle
+                                Scan</a></li>
+                        <li><a href="#"
+                                class="text-xs font-bold text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest flex items-center gap-2 group"><span
+                                    class="w-2 h-[1px] bg-blue-500/30 group-hover:w-4 transition-all"></span>Sentiment
+                                Hub</a></li>
+                        <li><a href="#"
+                                class="text-xs font-bold text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest flex items-center gap-2 group"><span
+                                    class="w-2 h-[1px] bg-blue-500/30 group-hover:w-4 transition-all"></span>MMI
+                                Logic</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="text-[11px] font-black text-white/60 uppercase tracking-[0.2em] mb-8">Wealth</h4>
                     <ul class="space-y-4">
-                        <li><a href="{% url 'tax:calculator' %}" class="text-xs font-bold text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest flex items-center gap-2 group"><span class="w-2 h-[1px] bg-blue-500/30 group-hover:w-4 transition-all"></span>Tax Destruction</a></li>
-                        <li><a href="#" class="text-xs font-bold text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest flex items-center gap-2 group"><span class="w-2 h-[1px] bg-blue-500/30 group-hover:w-4 transition-all"></span>Loan Strike</a></li>
-                        <li><a href="#" class="text-xs font-bold text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest flex items-center gap-2 group"><span class="w-2 h-[1px] bg-blue-500/30 group-hover:w-4 transition-all"></span>Passive Flow</a></li>
+                        <li><a href="{% url 'tax:calculator' %}"
+                                class="text-xs font-bold text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest flex items-center gap-2 group"><span
+                                    class="w-2 h-[1px] bg-blue-500/30 group-hover:w-4 transition-all"></span>Tax
+                                Destruction</a></li>
+                        <li><a href="#"
+                                class="text-xs font-bold text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest flex items-center gap-2 group"><span
+                                    class="w-2 h-[1px] bg-blue-500/30 group-hover:w-4 transition-all"></span>Loan
+                                Strike</a></li>
+                        <li><a href="#"
+                                class="text-xs font-bold text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest flex items-center gap-2 group"><span
+                                    class="w-2 h-[1px] bg-blue-500/30 group-hover:w-4 transition-all"></span>Passive
+                                Flow</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="text-[11px] font-black text-white/60 uppercase tracking-[0.2em] mb-8">Terminal</h4>
                     <ul class="space-y-4">
-                        <li><a href="{% url 'user:dashboard' %}" class="text-xs font-bold text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest flex items-center gap-2 group"><span class="w-2 h-[1px] bg-blue-500/30 group-hover:w-4 transition-all"></span>System Features</a></li>
-                        <li><a href="#" class="text-xs font-bold text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest flex items-center gap-2 group"><span class="w-2 h-[1px] bg-blue-500/30 group-hover:w-4 transition-all"></span>Documentation</a></li>
-                        <li><a href="#" class="text-xs font-bold text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest flex items-center gap-2 group"><span class="w-2 h-[1px] bg-blue-500/30 group-hover:w-4 transition-all"></span>API Gateway</a></li>
+                        <li><a href="{% url 'user:dashboard' %}"
+                                class="text-xs font-bold text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest flex items-center gap-2 group"><span
+                                    class="w-2 h-[1px] bg-blue-500/30 group-hover:w-4 transition-all"></span>System
+                                Features</a></li>
+                        <li><a href="#"
+                                class="text-xs font-bold text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest flex items-center gap-2 group"><span
+                                    class="w-2 h-[1px] bg-blue-500/30 group-hover:w-4 transition-all"></span>Documentation</a>
+                        </li>
+                        <li><a href="#"
+                                class="text-xs font-bold text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest flex items-center gap-2 group"><span
+                                    class="w-2 h-[1px] bg-blue-500/30 group-hover:w-4 transition-all"></span>API
+                                Gateway</a></li>
                     </ul>
                 </div>
             </div>
         </div>
 
         <!-- MODULE III: BLOOMBERG MARKET TICKER (SUB-BAR) -->
-        <div class="flex flex-wrap items-center gap-x-12 gap-y-6 py-6 border-y border-white/10 mb-12 bg-white/5 backdrop-blur-md -mx-6 px-12 overflow-x-auto whitespace-nowrap no-scrollbar transition-colors overscroll-none">
+        <div
+            class="flex flex-wrap items-center gap-x-12 gap-y-6 py-6 border-y border-white/10 mb-12 bg-slate-900/50 backdrop-blur-md -mx-6 px-12 overflow-x-auto whitespace-nowrap no-scrollbar transition-colors overscroll-none">
             <template x-for="item in tickerItems">
                 <div class="flex items-center gap-3 transition-all hover:scale-105">
-                    <span class="text-[10px] font-black text-slate-600 uppercase tracking-widest" x-text="item.label"></span>
+                    <span class="text-[10px] font-black text-slate-600 uppercase tracking-widest"
+                        x-text="item.label"></span>
                     <span class="text-xs font-mono font-bold text-white tracking-tight" x-text="item.name"></span>
-                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full" 
-                          :class="item.up ? 'text-emerald-500 bg-emerald-500/10 border border-emerald-500/20' : 'text-rose-500 bg-rose-500/10 border border-rose-500/20'"
-                          x-text="item.change"></span>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full"
+                        :class="item.up ? 'text-emerald-500 bg-emerald-500/10 border border-emerald-500/20' : 'text-rose-500 bg-rose-500/10 border border-rose-500/20'"
+                        x-text="item.change"></span>
                 </div>
             </template>
             <div class="flex-1 min-w-[100px] lg:min-w-0"></div> <!-- Spacer -->
-            <div class="flex items-center gap-3 py-1.5 px-4 bg-white/5 border border-white/10 rounded-full shadow-inner">
+            <div
+                class="flex items-center gap-3 py-1.5 px-4 bg-slate-900/40 border border-white/10 rounded-full shadow-inner">
                 <div class="flex h-2 w-2 relative">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                    <span
+                        class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
                     <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
                 </div>
                 <span class="text-[9px] font-black text-blue-400 uppercase tracking-[0.4em]">Oracle Data Active</span>
@@ -113,30 +164,37 @@
                 <p class="text-[10px] font-black text-slate-600 uppercase tracking-[0.4em]">
                     &copy; <span x-text="year"></span> PHOENIX ORACLE FINANCIAL SYSTEM • OPERATIONAL v5.2.12
                 </p>
-                <div class="flex items-center gap-4 py-2 px-4 bg-white/5 border border-white/10 rounded-xl w-fit drop-shadow-sm">
-                    <span class="text-[9px] font-bold text-blue-500 uppercase tracking-[0.2em]">NODE: US-E-PHOENIX</span>
+                <div
+                    class="flex items-center gap-4 py-2 px-4 bg-slate-900/40 border border-white/10 rounded-xl w-fit drop-shadow-sm">
+                    <span class="text-[9px] font-bold text-blue-500 uppercase tracking-[0.2em]">NODE:
+                        US-E-PHOENIX</span>
                     <span class="w-px h-3 bg-white/10"></span>
-                    <span class="text-[9px] font-bold text-slate-500 uppercase tracking-[0.2em]">ORACLE SYNC SECURED</span>
+                    <span class="text-[9px] font-bold text-slate-500 uppercase tracking-[0.2em]">ORACLE SYNC
+                        SECURED</span>
                 </div>
             </div>
-            
+
             <div class="flex items-center gap-10">
                 <div class="flex gap-10">
                     <div class="flex flex-col items-end">
-                        <span class="text-[9px] font-black text-slate-600 uppercase tracking-widest opacity-60 mb-2">LATENCY</span>
+                        <span
+                            class="text-[9px] font-black text-slate-600 uppercase tracking-widest opacity-60 mb-2">LATENCY</span>
                         <div class="flex items-center gap-3">
-                            <span class="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]"></span>
+                            <span
+                                class="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]"></span>
                             <span class="text-sm font-mono font-black text-white">0.31ms</span>
                         </div>
                     </div>
                     <div class="flex flex-col items-end">
-                        <span class="text-[9px] font-black text-slate-600 uppercase tracking-widest opacity-60 mb-2">INTEGRITY</span>
+                        <span
+                            class="text-[9px] font-black text-slate-600 uppercase tracking-widest opacity-60 mb-2">INTEGRITY</span>
                         <span class="text-sm font-mono font-black text-blue-400 drop-shadow-sm">MANIFESTED</span>
                     </div>
                 </div>
                 <div class="w-px h-12 bg-white/10"></div>
                 <div class="flex items-center gap-3">
-                    <div class="w-12 h-12 rounded-2xl border border-white/10 flex items-center justify-center bg-white/5 shadow-2xl group hover:bg-white/10 transition-all cursor-help" title="Protection Matrix Active">
+                    <div class="w-12 h-12 rounded-2xl border border-white/10 flex items-center justify-center bg-slate-900/40 shadow-2xl group hover:bg-slate-900/60 transition-all cursor-help"
+                        title="Protection Matrix Active">
                         <i data-lucide="shield-check" class="w-6 h-6 text-emerald-500 group-hover:scale-110"></i>
                     </div>
                 </div>

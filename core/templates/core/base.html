@@ -1,11 +1,42 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en" class="h-auto min-h-full">
+<html lang="en" class="h-auto min-h-full" x-data :class="{ 'dark': $store.theme.dark }">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Altair - Your AI-powered financial assistant for portfolio analysis, tax optimization.">
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Theme Initialization Interface -->
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.store('theme', {
+                dark: localStorage.getItem('darkMode') === 'true',
+                toggle() {
+                    this.dark = !this.dark;
+                    localStorage.setItem('darkMode', this.dark);
+                    // Explicit fallback to ensure HTML class is updated
+                    if (this.dark) {
+                        document.documentElement.classList.add('dark');
+                    } else {
+                        document.documentElement.classList.remove('dark');
+                    }
+                }
+            });
+        });
+    </script>
+
+    <!-- Theme Lock Script (Defaults to Light) -->
+    <script>
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+    <meta name="description"
+        content="Altair - Your AI-powered financial assistant for portfolio analysis, tax optimization.">
     <meta name="keywords" content="finance, portfolio, tax calculator, investment tracker">
     <title>{% block title %}Altair | Oracle{% endblock %}</title>
     <link rel="icon" type="image/jpeg" href="{% static 'img/logo.jpg' %}">
@@ -13,10 +44,17 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800;900&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800;900&family=Syncopate:wght@400;700&display=swap"
+        rel="stylesheet">
 
     <!-- Tailwind Play CDN (Development only) -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
 
     <!-- HTMX -->
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
@@ -26,42 +64,62 @@
 
     <!-- Custom Styling Engine -->
     <style>
-        .font-syncopate { font-family: 'Syncopate', sans-serif; }
-        .font-outfit { font-family: 'Outfit', sans-serif; }
-        body { font-family: 'Inter', sans-serif; }
-        [x-cloak] { display: none !important; }
+        .font-syncopate {
+            font-family: 'Syncopate', sans-serif;
+        }
+
+        .font-outfit {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        [x-cloak] {
+            display: none !important;
+        }
 
         /* Obsidian Terminal Global Scrollbar Control */
         ::-webkit-scrollbar {
             width: 10px !important;
             height: 10px !important;
         }
+
         ::-webkit-scrollbar-track {
-            background: #0f172a !important; /* Slate-900 */
+            background: #0f172a !important;
+            /* Slate-900 */
         }
+
         ::-webkit-scrollbar-thumb {
-            background: #ffffff !important; /* Pure White Thumb */
+            background: #ffffff !important;
+            /* Pure White Thumb */
             border-radius: 100px !important;
             border: 3px solid #0f172a !important;
         }
+
         ::-webkit-scrollbar-thumb:hover {
             background: #e2e8f0 !important;
         }
 
         /* Mission Horizon Edge Damping (Slow-down Effect) */
-        html, body, main {
+        html,
+        body,
+        main {
             overscroll-behavior: contain !important;
             overscroll-behavior-y: contain !important;
             scrollbar-width: thin;
             scrollbar-color: #ffffff #0f172a;
         }
     </style>
-    
+
     {% block extra_css %}{% endblock %}
 </head>
 
-<body class="min-h-screen flex flex-col font-sans bg-[#020617] text-white overflow-y-auto overflow-x-hidden overscroll-none" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
-    
+<body
+    class="min-h-screen flex flex-col font-sans bg-white dark:bg-black text-gray-900 dark:text-white transition-colors duration-300 overflow-y-auto overflow-x-hidden overscroll-none"
+    hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+
     <!-- Head Nav Hub -->
     {% include "core/partials/header.html" %}
 
@@ -80,7 +138,7 @@
         const lenis = new Lenis({
             duration: 1.8,    // Heavier, slower scroll duration
             lerp: 0.05,       // High friction for 'heavy' feel
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
             orientation: 'vertical',
             gestureOrientation: 'vertical',
             smoothWheel: true,
@@ -101,6 +159,11 @@
             // Logic to slow down additionally as we approach limits is handled by the lerp/easing,
             // but we can add secondary opacity/blur effects if needed.
         });
+
+        // Initialize Icons
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
     </script>
 
     {% block extra_js %}{% endblock %}

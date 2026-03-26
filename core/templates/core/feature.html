@@ -3,74 +3,80 @@
 
 {% block content %}
 <!-- HERO SECTION (SPACEX STYLE) -->
-<section class="mb-32 relative pt-32 px-6 text-center flex flex-col items-center">
-    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-blue-600/5 rounded-full blur-[120px]"></div>
-    <p class="text-[10px] font-black text-blue-500 uppercase tracking-[0.6em] mb-6 font-syncopate">Mission Capabilities</p>
-    <h1 class="text-6xl md:text-9xl font-black mb-8 bg-gradient-to-b from-white to-gray-600 bg-clip-text text-transparent tracking-tighter font-outfit uppercase">
+<section class="mb-32 relative pt-48 pb-20 px-6 text-center flex flex-col items-center overflow-hidden transition-colors duration-500 bg-gray-50/30 dark:bg-black">
+    <!-- Light Mode Background Artifact -->
+    <div class="absolute inset-0 z-0 opacity-30 dark:hidden">
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-blue-100 rounded-full blur-[120px]"></div>
+    </div>
+    <!-- Dark Mode Bloom -->
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-blue-600/10 rounded-full blur-[120px] hidden dark:block"></div>
+    
+    <p class="text-[10px] font-black text-blue-600 dark:text-blue-500 uppercase tracking-[0.6em] mb-6 font-syncopate relative z-10">Mission Capabilities</p>
+    <h1 class="text-6xl md:text-9xl font-black mb-8 bg-gradient-to-b from-gray-950 to-gray-600 dark:from-white dark:to-gray-600 bg-clip-text text-transparent tracking-tighter font-outfit uppercase relative z-10 transition-all duration-700">
        PHOENIX OPS
-   </h1>
-   <p class="text-gray-400 text-xl md:text-2xl max-w-3xl font-medium opacity-80 leading-relaxed font-outfit mx-auto">
-       Proprietary financial OS built for the modern reset. High-frequency structural risk diagnostics and wealth extraction.
-   </p>
+    </h1>
+    <p class="text-gray-700 dark:text-gray-400 text-xl md:text-2xl max-w-3xl font-medium opacity-90 leading-relaxed font-outfit mx-auto relative z-10 transition-colors">
+        Proprietary financial OS built for the modern reset. High-frequency structural risk diagnostics and wealth extraction.
+    </p>
 </section>
 
 <!-- PRIMARY FEATURE GRID -->
 <section class="max-w-7xl mx-auto px-6">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
         <!-- Oracle Strike Module -->
-        <div class="bg-white/[0.02] backdrop-blur-3xl border border-white/5 rounded-3xl p-10 hover:bg-white/[0.04] transition-all duration-700 group cursor-default">
-            <div class="w-16 h-16 rounded-2xl bg-blue-600/10 flex items-center justify-center text-3xl mb-10 group-hover:scale-110 transition-transform">📉</div>
-            <h3 class="text-2xl font-black mb-4 tracking-tight font-outfit text-white">Oracle Strike Logic</h3>
-            <p class="text-gray-500 text-sm leading-relaxed mb-8 font-medium">
+        <div class="bg-white dark:bg-white/[0.02] backdrop-blur-3xl border border-gray-100 dark:border-white/5 rounded-3xl p-10 hover:bg-gray-50 dark:hover:bg-white/[0.04] transition-all duration-700 group cursor-default shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none">
+            <div class="w-16 h-16 rounded-2xl bg-blue-100 dark:bg-blue-600/10 flex items-center justify-center text-3xl mb-10 group-hover:scale-110 transition-transform shadow-inner">📉</div>
+            <h3 class="text-2xl font-black mb-4 tracking-tight font-outfit text-gray-900 dark:text-white transition-colors">Oracle Strike Logic</h3>
+            <p class="text-gray-600 dark:text-gray-500 text-sm leading-relaxed mb-8 font-medium transition-colors">
                 Execute high-precision short strategies on structural vulnerabilities. Instant P/L inversion across target equity clusters.
             </p>
-            <div class="flex items-center gap-3 text-blue-500 text-[9px] font-black uppercase tracking-widest bg-blue-500/5 py-1.5 px-3 rounded-lg w-fit">
-                <span class="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span> Deploy Ready
+            <div class="flex items-center gap-3 text-blue-600 dark:text-blue-500 text-[9px] font-black uppercase tracking-widest bg-blue-50 dark:bg-blue-500/5 py-1.5 px-3 rounded-lg w-fit transition-colors">
+                <span class="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-blue-500 animate-pulse"></span> Deploy Ready
             </div>
         </div>
 
         <!-- Portfolio Nexus Module -->
-        <div class="bg-white/[0.02] backdrop-blur-3xl border border-white/5 rounded-3xl p-10 hover:bg-white/[0.04] transition-all duration-700 group cursor-default">
-            <div class="w-16 h-16 rounded-2xl bg-indigo-600/10 flex items-center justify-center text-3xl mb-10 group-hover:scale-110 transition-transform">💎</div>
-            <h3 class="text-2xl font-black mb-4 tracking-tight font-outfit text-white">Quantum Portfolio</h3>
-            <p class="text-gray-500 text-sm leading-relaxed mb-8 font-medium">
+        <div class="bg-white dark:bg-white/[0.02] backdrop-blur-3xl border border-gray-100 dark:border-white/5 rounded-3xl p-10 hover:bg-gray-50 dark:hover:bg-white/[0.04] transition-all duration-700 group cursor-default shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none">
+            <div class="w-16 h-16 rounded-2xl bg-indigo-100 dark:bg-indigo-600/10 flex items-center justify-center text-3xl mb-10 group-hover:scale-110 transition-transform shadow-inner">💎</div>
+            <h3 class="text-2xl font-black mb-4 tracking-tight font-outfit text-gray-900 dark:text-white transition-colors">Quantum Portfolio</h3>
+            <p class="text-gray-600 dark:text-gray-500 text-sm leading-relaxed mb-8 font-medium transition-colors">
                 Real-time data ingestion via HTMX poller engine. Monitor asset diagnostic errors and structural exposure in obsidian glass.
             </p>
-            <div class="flex items-center gap-3 text-indigo-500 text-[9px] font-black uppercase tracking-widest bg-indigo-500/5 py-1.5 px-3 rounded-lg w-fit">
-                <span class="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse"></span> Polling Active
+            <div class="flex items-center gap-3 text-indigo-600 dark:text-indigo-500 text-[9px] font-black uppercase tracking-widest bg-indigo-50 dark:bg-indigo-500/5 py-1.5 px-3 rounded-lg w-fit transition-colors">
+                <span class="w-1.5 h-1.5 rounded-full bg-indigo-600 dark:bg-indigo-500 animate-pulse"></span> Polling Active
             </div>
         </div>
 
         <!-- AI Arbitrage Module -->
-        <div class="bg-white/[0.02] backdrop-blur-3xl border border-white/5 rounded-3xl p-10 hover:bg-white/[0.04] transition-all duration-700 group cursor-default">
-            <div class="w-16 h-16 rounded-2xl bg-violet-600/10 flex items-center justify-center text-3xl mb-10 group-hover:scale-110 transition-transform">🛰️</div>
-            <h3 class="text-2xl font-black mb-4 tracking-tight font-outfit text-white">Safe Haven AI</h3>
-            <p class="text-gray-500 text-sm leading-relaxed mb-8 font-medium">
+        <div class="bg-white dark:bg-white/[0.02] backdrop-blur-3xl border border-gray-100 dark:border-white/5 rounded-3xl p-10 hover:bg-gray-50 dark:hover:bg-white/[0.04] transition-all duration-700 group cursor-default shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none">
+            <div class="w-16 h-16 rounded-2xl bg-violet-100 dark:bg-violet-600/10 flex items-center justify-center text-3xl mb-10 group-hover:scale-110 transition-transform shadow-inner">🛰️</div>
+            <h3 class="text-2xl font-black mb-4 tracking-tight font-outfit text-gray-900 dark:text-white transition-colors">Safe Haven AI</h3>
+            <p class="text-gray-600 dark:text-gray-500 text-sm leading-relaxed mb-8 font-medium transition-colors">
                 Automated "Flight to Safety" signal detection. Neutralize volatility variables with proprietary AI-driven asset migration.
             </p>
-            <div class="flex items-center gap-3 text-violet-500 text-[9px] font-black uppercase tracking-widest bg-violet-500/5 py-1.5 px-3 rounded-lg w-fit">
-                <span class="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse"></span> Signal Diagnostic
+            <div class="flex items-center gap-3 text-violet-600 dark:text-violet-500 text-[9px] font-black uppercase tracking-widest bg-violet-50 dark:bg-violet-500/5 py-1.5 px-3 rounded-lg w-fit transition-colors">
+                <span class="w-1.5 h-1.5 rounded-full bg-violet-600 dark:bg-violet-500 animate-pulse"></span> Signal Diagnostic
             </div>
         </div>
     </div>
 
     <!-- SECONDARY TECHNICAL BAR -->
     <div class="mt-32 grid grid-cols-1 lg:grid-cols-4 gap-8 pb-32">
-        <div class="lg:col-span-2 bg-gradient-to-br from-blue-600/20 to-transparent border border-white/5 rounded-3xl p-12 relative overflow-hidden group">
-             <div class="absolute inset-0 bg-black/10 backdrop-blur-sm group-hover:backdrop-blur-none transition-all duration-700"></div>
-             <h2 class="text-4xl font-black mb-6 relative z-10 font-outfit text-white">Direct Engine Interface</h2>
-             <p class="text-gray-400 font-medium relative z-10 italic mb-8">Low-latency communication with the Phoenix Oracle Backend.</p>
-             <a href="{% url 'accounts:login' %}" class="relative z-10 px-8 py-3 bg-white text-black text-[10px] font-black uppercase tracking-[0.3em] rounded-xl inline-block hover:scale-105 transition-transform font-bold">Initialize</a>
+        <div class="lg:col-span-2 bg-gradient-to-br from-blue-600/5 to-transparent dark:from-blue-600/20 dark:to-transparent border border-gray-100 dark:border-white/5 rounded-3xl p-12 relative overflow-hidden group shadow-sm dark:shadow-none">
+             <div class="absolute inset-0 bg-gray-50/10 dark:bg-black/10 backdrop-blur-sm group-hover:backdrop-blur-none transition-all duration-700"></div>
+             <h2 class="text-4xl font-black mb-6 relative z-10 font-outfit text-gray-900 dark:text-white transition-colors">Direct Engine Interface</h2>
+             <p class="text-gray-700 dark:text-gray-400 font-medium relative z-10 italic mb-8 transition-colors">Low-latency communication with the Phoenix Oracle Backend.</p>
+             <a href="{% url 'accounts:login' %}" class="relative z-10 px-8 py-3 bg-blue-600 dark:bg-white text-white dark:text-black text-[10px] font-black uppercase tracking-[0.3em] rounded-xl inline-block hover:scale-105 transition-transform font-bold shadow-lg shadow-blue-500/20">Initialize</a>
         </div>
         
-        <div class="bg-white/[0.02] border border-white/5 rounded-3xl p-10 flex flex-col justify-center text-center">
-             <span class="text-4xl font-black text-white font-mono mb-2 tracking-tighter">0.8ms</span>
-             <span class="text-[9px] font-black text-gray-600 uppercase tracking-widest font-syncopate">Response Protocol</span>
+        <div class="bg-white dark:bg-white/[0.02] border border-gray-100 dark:border-white/5 rounded-3xl p-10 flex flex-col justify-center text-center shadow-sm dark:shadow-none">
+             <span class="text-4xl font-black text-gray-900 dark:text-white font-mono mb-2 tracking-tighter transition-colors">0.8ms</span>
+             <span class="text-[9px] font-black text-gray-500 dark:text-gray-600 uppercase tracking-widest font-syncopate transition-colors">Response Protocol</span>
         </div>
 
-        <div class="bg-white/[0.02] border border-white/5 rounded-3xl p-10 flex flex-col justify-center text-center">
-             <span class="text-4xl font-black text-white font-mono mb-2 tracking-tighter">AES-256</span>
-             <span class="text-[9px] font-black text-gray-600 uppercase tracking-widest font-syncopate">Encryption Grid</span>
+        <div class="bg-white dark:bg-white/[0.02] border border-gray-100 dark:border-white/5 rounded-3xl p-10 flex flex-col justify-center text-center shadow-sm dark:shadow-none">
+             <span class="text-4xl font-black text-gray-900 dark:text-white font-mono mb-2 tracking-tighter transition-colors">AES-256</span>
+             <span class="text-[9px] font-black text-gray-500 dark:text-gray-600 uppercase tracking-widest font-syncopate transition-colors">Encryption Grid</span>
         </div>
     </div>
 </section>
