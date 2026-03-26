@@ -163,16 +163,16 @@ def dashboard(request):
     import json
     from django.core.cache import cache
     
-    mmi_value = cache.get('tickertape_mmi')
-    if not mmi_value:
+    mmi_data = cache.get('tickertape_mmi_full')
+    if not mmi_data:
         try:
             req = urllib.request.Request('https://api.tickertape.in/mmi/now', headers={'User-Agent': 'Mozilla/5.0'})
             res = urllib.request.urlopen(req, timeout=3)
-            data = json.loads(res.read().decode('utf-8'))
-            mmi_value = round(data['data']['currentValue'], 2)
-            cache.set('tickertape_mmi', mmi_value, 600)
+            raw_data = json.loads(res.read().decode('utf-8'))
+            mmi_data = raw_data['data']
+            cache.set('tickertape_mmi_full', mmi_data, 600)
         except Exception:
-            mmi_value = 50.0
+            mmi_data = None
 
     context = {
         'total_market_value': total_market_value,
@@ -192,7 +192,8 @@ def dashboard(request):
         'user_extra': request.user.other_income,
         'user_savings': request.user.monthly_savings,
         'user_expenses': request.user.expenses_json,
-        'mmi_value': mmi_value,
+        'mmi_data': mmi_data,
+        'mmi_value': mmi_data['currentValue'] if mmi_data else 50.0,
     }
     
     return render(request, 'user/user_db.html', context)
