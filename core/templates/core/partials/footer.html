@@ -1,128 +1,155 @@
 {% load static %}
-<footer class="relative w-full border-t border-white/10 bg-[#020617]/90 backdrop-blur-3xl py-24 px-6 overflow-hidden">
-    <!-- QUANTUM GLASS OVERLAY (GRID + SHINE) -->
-    <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 32px 32px;"></div>
-    <div class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-blue-400/30 to-transparent"></div>
-    <div class="absolute top-0 left-[10%] w-[300px] h-[1px] bg-white/40 blur-[1px]"></div>
-    <div class="absolute -top-40 -right-40 w-[600px] h-[600px] bg-blue-600/5 rounded-full blur-[140px]"></div>
+<!-- PHOENIX ORACLE FOOTER REGISTRY v5.7 - SCROLL OPTIMIZED -->
+<footer class="relative w-full border-t border-white/10 pt-20 pb-12 px-6 overflow-hidden" 
+    x-data="{ 
+        tickerItems: [
+            { label: 'NSE', name: 'NIFTY 50', val: '22,419.20', change: '+0.85%', up: true },
+            { label: 'NASDAQ', name: 'TECH 100', val: '18,210.50', change: '-1.22%', up: false },
+            { label: 'COMMODITY', name: 'GOLD SPOT', val: '$2,164.20', change: '+0.34%', up: true },
+            { label: 'CRYPTO', name: 'BTC/USD', val: '$68,432.10', change: '+2.15%', up: true }
+        ],
+        year: new Date().getFullYear()
+    }"
+    style="background: linear-gradient(90deg, #020617 0%, #051636 30%, rgba(59, 130, 246, 0.25) 50%, #051636 70%, #020617 100%);">
     
-    <div class="max-w-7xl mx-auto relative z-10">
-        <!-- TOP TIER: LIVE MARKET SNAPSHOT (BLOOMBERG STYLE) -->
-        <div class="flex items-center gap-10 mb-20 py-4 border-y border-white/5 bg-white/[0.02] -mx-6 px-12 overflow-x-auto whitespace-nowrap no-scrollbar">
-            <div class="flex items-center gap-2 group cursor-default">
-                <span class="text-[10px] font-black text-gray-500 uppercase tracking-widest">NSE</span>
-                <span class="text-xs font-mono font-bold text-white tracking-tight">NIFTY 50</span>
-                <span class="text-[10px] font-bold text-emerald-500 bg-emerald-500/10 px-1.5 py-0.5 rounded">+0.85%</span>
-            </div>
-            <div class="w-px h-3 bg-white/10"></div>
-            <div class="flex items-center gap-2">
-                <span class="text-[10px] font-black text-gray-500 uppercase tracking-widest">SHORT</span>
-                <span class="text-xs font-mono font-bold text-white tracking-tight">PAYTM</span>
-                <span class="text-[10px] font-bold text-rose-500 bg-rose-500/10 px-1.5 py-0.5 rounded">-4.12%</span>
-            </div>
-            <div class="w-px h-3 bg-white/10"></div>
-            <div class="flex items-center gap-2">
-                <span class="text-[10px] font-black text-gray-500 uppercase tracking-widest">BTC</span>
-                <span class="text-xs font-mono font-bold text-white tracking-tight">PRICE</span>
-                <span class="text-[10px] font-bold text-emerald-500 bg-emerald-500/10 px-1.5 py-0.5 rounded">+2.45%</span>
-            </div>
-            <div class="ml-auto flex items-center gap-3">
-                <div class="flex h-1.5 w-1.5">
-                    <span class="animate-ping absolute inline-flex h-1.5 w-1.5 rounded-full bg-blue-400 opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-blue-500"></span>
-                </div>
-                <span class="text-[9px] font-black text-blue-400 uppercase tracking-[0.4em]">Oracle Active Sequence</span>
-            </div>
-        </div>
+    <!-- CENTRAL RADIANCE SYNC (True Navy) -->
+    <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <!-- Increased Lighter Navy Bloom (12%) -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[40%] h-full bg-blue-500/12 blur-[130px]"></div>
+        <!-- High-Intensity Mission Edge -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[70%] h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+    </div>
+    
+    <!-- Horizon Glow Node -->
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[60%] h-[1px] bg-gradient-to-r from-transparent via-blue-400/20 to-transparent z-10"></div>
 
-        <div class="grid grid-cols-2 md:grid-cols-5 gap-16 mb-24">
-            <!-- BRAND HUB -->
-            <div class="col-span-2">
-                <div class="flex items-center gap-5 mb-10 group">
-                    <div class="w-16 h-16 rounded-full border-2 border-white/10 overflow-hidden shadow-2xl p-1 bg-white/5 backdrop-blur-md group-hover:scale-110 transition-transform duration-700">
-                        <img src="{% static 'img/phoneix.jpg' %}" alt="Phoenix" class="w-full h-full object-cover rounded-full">
+    <div class="max-w-7xl mx-auto relative z-10">
+        
+        <!-- MODULE I: IDENTITY & IDENTITY -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-20">
+            <div class="lg:col-span-4 flex flex-col items-start translate-y-[-10px]">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="w-14 h-14 rounded-full border border-white/10 p-1 bg-white/5 backdrop-blur-md shadow-2xl shadow-blue-500/10 transition-transform hover:scale-110 duration-500 group overflow-hidden">
+                        <img src="{% static 'img/phoneix.jpg' %}" alt="Phoenix Logo" class="w-full h-full object-cover rounded-full saturate-125 transition-transform group-hover:scale-110">
                     </div>
                     <div class="flex flex-col">
-                        <span class="text-3xl font-black text-white tracking-[0.4em] uppercase leading-none italic font-syncopate">PHOENIX</span>
-                        <div class="flex items-center gap-2 mt-2">
-                            <span class="h-px w-8 bg-blue-500"></span>
-                            <span class="text-[9px] font-black text-blue-500 uppercase tracking-[0.5em]">Global Strike Terminal</span>
-                        </div>
+                        <span class="text-2xl font-black text-white tracking-[0.3em] uppercase leading-none drop-shadow-sm" style="background: linear-gradient(135deg, #94a3b8 0%, #ffffff 50%, #475569 100%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">PHOENIX</span>
+                        <span class="text-[9px] font-black text-blue-400 uppercase tracking-[0.4em] mt-1.5 opacity-90">Oracle Terminal</span>
                     </div>
                 </div>
-                <p class="max-w-sm text-sm text-gray-400 leading-relaxed font-medium mb-10 opacity-70">
-                    Proprietary high-frequency wealth extraction engine. Built for the modern structural reset. Engineered with absolute precision.
+                <p class="text-sm text-slate-400 leading-relaxed font-medium mb-8 max-w-sm">
+                    Advanced High-Performance Financial Intelligence OS. Orchestrating professional wealth surveillance and structural arbitrage with absolute precision.
                 </p>
-                <div class="flex items-center gap-5">
-                    <a href="#" class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-blue-600 transition-all active:scale-95">
-                        <i data-lucide="twitter" class="w-4 h-4"></i>
-                    </a>
-                    <a href="#" class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-slate-700 transition-all active:scale-95">
-                        <i data-lucide="github" class="w-4 h-4"></i>
-                    </a>
-                    <a href="#" class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-indigo-600 transition-all active:scale-95">
-                        <i data-lucide="message-square" class="w-4 h-4"></i>
-                    </a>
+                <div class="flex items-center gap-3">
+                    <template x-for="social in ['twitter', 'github', 'youtube', 'linkedin']">
+                        <a href="#" class="w-9 h-9 rounded-lg border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:border-white/30 transition-all hover:bg-white/10 active:scale-95 group backdrop-blur-sm">
+                            <i :data-lucide="social" class="w-4 h-4 group-hover:scale-110 transition-transform"></i>
+                        </a>
+                    </template>
                 </div>
             </div>
 
-            <!-- TERMINAL LINKS -->
-            <div>
-                <h4 class="text-xs font-black text-white uppercase tracking-[0.3em] mb-8 pb-3 border-b border-white/5 font-outfit">Markets</h4>
-                <ul class="space-y-4 text-xs font-bold text-gray-500 uppercase tracking-widest">
-                    <li><a href="{% url 'support' %}" class="hover:text-blue-400 transition-colors">Terminal Support</a></li>
-                    <li><a href="#" class="hover:text-blue-400 transition-colors">NSE Strike List</a></li>
-                    <li><a href="#" class="hover:text-blue-400 transition-colors">Crypto Arbitrage</a></li>
-                    <li><a href="#" class="hover:text-blue-400 transition-colors">Short Targets</a></li>
-                </ul>
-            </div>
-
-            <div>
-                <h4 class="text-[10px] font-black text-white uppercase tracking-[0.4em] mb-10 opacity-50 font-outfit">Systems</h4>
-                <ul class="space-y-4 text-xs font-bold text-gray-500 uppercase tracking-widest">
-                    <li><a href="{% url 'feature' %}" class="hover:text-white flex items-center gap-2 transition-all"><span>•</span> FEATURES</a></li>
-                    <li><a href="#" class="hover:text-white flex items-center gap-2 transition-all"><span>•</span> AI PREDICT</a></li>
-                    <li><a href="#" class="hover:text-white flex items-center gap-2 transition-all"><span>•</span> RISK ENGINE</a></li>
-                    <li><a href="#" class="hover:text-white flex items-center gap-2 transition-all"><span>•</span> TERMINAL</a></li>
-                </ul>
-            </div>
-
-            <div>
-                <h4 class="text-[10px] font-black text-white uppercase tracking-[0.4em] mb-10 opacity-50 font-outfit">Compliance</h4>
-                <ul class="space-y-4 text-xs font-bold text-gray-500 uppercase tracking-widest">
-                    <li><a href="#" class="hover:text-white flex items-center gap-2 transition-all"><span>•</span> PRIVACY</a></li>
-                    <li><a href="#" class="hover:text-white flex items-center gap-2 transition-all"><span>•</span> TERMS</a></li>
-                    <li><a href="#" class="hover:text-white flex items-center gap-2 transition-all"><span>•</span> SECURE</a></li>
-                </ul>
+            <!-- MODULE II: LINK MATRIX -->
+            <div class="lg:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-12">
+                <div>
+                    <h4 class="text-[11px] font-black text-white/60 uppercase tracking-[0.2em] mb-8">Markets</h4>
+                    <ul class="space-y-4">
+                        <li><a href="{% url 'portfolio:overview' %}" class="text-xs font-bold text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest flex items-center gap-2 group"><span class="w-2 h-[1px] bg-blue-500/30 group-hover:w-4 transition-all"></span>Sovereign Stocks</a></li>
+                        <li><a href="{% url 'transactions:list' %}" class="text-xs font-bold text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest flex items-center gap-2 group"><span class="w-2 h-[1px] bg-blue-500/30 group-hover:w-4 transition-all"></span>Strike History</a></li>
+                        <li><a href="#" class="text-xs font-bold text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest flex items-center gap-2 group"><span class="w-2 h-[1px] bg-blue-500/30 group-hover:w-4 transition-all"></span>Option Strike</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-[11px] font-black text-white/60 uppercase tracking-[0.2em] mb-8">Intelligence</h4>
+                    <ul class="space-y-4">
+                        <li><a href="{% url 'analytics:overview' %}" class="text-xs font-bold text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest flex items-center gap-2 group"><span class="w-2 h-[1px] bg-blue-500/30 group-hover:w-4 transition-all"></span>Oracle Scan</a></li>
+                        <li><a href="#" class="text-xs font-bold text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest flex items-center gap-2 group"><span class="w-2 h-[1px] bg-blue-500/30 group-hover:w-4 transition-all"></span>Sentiment Hub</a></li>
+                        <li><a href="#" class="text-xs font-bold text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest flex items-center gap-2 group"><span class="w-2 h-[1px] bg-blue-500/30 group-hover:w-4 transition-all"></span>MMI Logic</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-[11px] font-black text-white/60 uppercase tracking-[0.2em] mb-8">Wealth</h4>
+                    <ul class="space-y-4">
+                        <li><a href="{% url 'tax:calculator' %}" class="text-xs font-bold text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest flex items-center gap-2 group"><span class="w-2 h-[1px] bg-blue-500/30 group-hover:w-4 transition-all"></span>Tax Destruction</a></li>
+                        <li><a href="#" class="text-xs font-bold text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest flex items-center gap-2 group"><span class="w-2 h-[1px] bg-blue-500/30 group-hover:w-4 transition-all"></span>Loan Strike</a></li>
+                        <li><a href="#" class="text-xs font-bold text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest flex items-center gap-2 group"><span class="w-2 h-[1px] bg-blue-500/30 group-hover:w-4 transition-all"></span>Passive Flow</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-[11px] font-black text-white/60 uppercase tracking-[0.2em] mb-8">Terminal</h4>
+                    <ul class="space-y-4">
+                        <li><a href="{% url 'user:dashboard' %}" class="text-xs font-bold text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest flex items-center gap-2 group"><span class="w-2 h-[1px] bg-blue-500/30 group-hover:w-4 transition-all"></span>System Features</a></li>
+                        <li><a href="#" class="text-xs font-bold text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest flex items-center gap-2 group"><span class="w-2 h-[1px] bg-blue-500/30 group-hover:w-4 transition-all"></span>Documentation</a></li>
+                        <li><a href="#" class="text-xs font-bold text-slate-500 hover:text-blue-400 transition-colors uppercase tracking-widest flex items-center gap-2 group"><span class="w-2 h-[1px] bg-blue-500/30 group-hover:w-4 transition-all"></span>API Gateway</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
 
-        <!-- LOWER BAR: METRICS -->
-        <div class="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-10">
-            <div class="flex flex-col gap-2">
-                <p class="text-[9px] font-black text-gray-600 uppercase tracking-[0.5em]">
-                    PHOENIX FINANCIAL OS &copy; 2026 • QUANTUM ED. v4.0.2
+        <!-- MODULE III: BLOOMBERG MARKET TICKER (SUB-BAR) -->
+        <div class="flex flex-wrap items-center gap-x-12 gap-y-6 py-6 border-y border-white/10 mb-12 bg-white/5 backdrop-blur-md -mx-6 px-12 overflow-x-auto whitespace-nowrap no-scrollbar transition-colors overscroll-none">
+            <template x-for="item in tickerItems">
+                <div class="flex items-center gap-3 transition-all hover:scale-105">
+                    <span class="text-[10px] font-black text-slate-600 uppercase tracking-widest" x-text="item.label"></span>
+                    <span class="text-xs font-mono font-bold text-white tracking-tight" x-text="item.name"></span>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full" 
+                          :class="item.up ? 'text-emerald-500 bg-emerald-500/10 border border-emerald-500/20' : 'text-rose-500 bg-rose-500/10 border border-rose-500/20'"
+                          x-text="item.change"></span>
+                </div>
+            </template>
+            <div class="flex-1 min-w-[100px] lg:min-w-0"></div> <!-- Spacer -->
+            <div class="flex items-center gap-3 py-1.5 px-4 bg-white/5 border border-white/10 rounded-full shadow-inner">
+                <div class="flex h-2 w-2 relative">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                </div>
+                <span class="text-[9px] font-black text-blue-400 uppercase tracking-[0.4em]">Oracle Data Active</span>
+            </div>
+        </div>
+
+        <!-- MODULE IV: SYSTEM METRICS & COPYRIGHT -->
+        <div class="flex flex-col md:flex-row justify-between items-center gap-12">
+            <div class="flex flex-col gap-3">
+                <p class="text-[10px] font-black text-slate-600 uppercase tracking-[0.4em]">
+                    &copy; <span x-text="year"></span> PHOENIX ORACLE FINANCIAL SYSTEM • OPERATIONAL v5.2.12
                 </p>
-                <div class="flex items-center gap-4 py-1.5 px-3 bg-white/[0.03] border border-white/5 rounded-lg w-fit">
-                    <span class="text-[8px] font-bold text-blue-400 uppercase tracking-widest">Server Protocol: 256-AES</span>
-                    <span class="w-px h-2 bg-white/10"></span>
-                    <span class="text-[8px] font-bold text-gray-500 uppercase tracking-widest">Build 1092-ALPHA</span>
+                <div class="flex items-center gap-4 py-2 px-4 bg-white/5 border border-white/10 rounded-xl w-fit drop-shadow-sm">
+                    <span class="text-[9px] font-bold text-blue-500 uppercase tracking-[0.2em]">NODE: US-E-PHOENIX</span>
+                    <span class="w-px h-3 bg-white/10"></span>
+                    <span class="text-[9px] font-bold text-slate-500 uppercase tracking-[0.2em]">ORACLE SYNC SECURED</span>
                 </div>
             </div>
             
-            <div class="flex items-center gap-10 group">
-                <div class="flex flex-col items-end">
-                    <span class="text-[8px] font-black text-gray-600 uppercase tracking-widest leading-none mb-1">Response</span>
-                    <span class="text-[12px] font-mono font-black text-blue-500 tracking-wider">0.8ms</span>
+            <div class="flex items-center gap-10">
+                <div class="flex gap-10">
+                    <div class="flex flex-col items-end">
+                        <span class="text-[9px] font-black text-slate-600 uppercase tracking-widest opacity-60 mb-2">LATENCY</span>
+                        <div class="flex items-center gap-3">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]"></span>
+                            <span class="text-sm font-mono font-black text-white">0.31ms</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-end">
+                        <span class="text-[9px] font-black text-slate-600 uppercase tracking-widest opacity-60 mb-2">INTEGRITY</span>
+                        <span class="text-sm font-mono font-black text-blue-400 drop-shadow-sm">MANIFESTED</span>
+                    </div>
                 </div>
-                <div class="flex flex-col items-end">
-                    <span class="text-[8px] font-black text-gray-600 uppercase tracking-widest leading-none mb-1">Database</span>
-                    <span class="text-[12px] font-mono font-black text-indigo-500 tracking-wider">SYNCED</span>
-                </div>
-                <div class="w-12 h-12 rounded-xl border border-white/10 flex items-center justify-center bg-white/[0.02] group-hover:bg-blue-600/10 transition-all duration-500">
-                    <i data-lucide="shield-check" class="w-5 h-5 text-gray-500 group-hover:text-blue-400"></i>
+                <div class="w-px h-12 bg-white/10"></div>
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-2xl border border-white/10 flex items-center justify-center bg-white/5 shadow-2xl group hover:bg-white/10 transition-all cursor-help" title="Protection Matrix Active">
+                        <i data-lucide="shield-check" class="w-6 h-6 text-emerald-500 group-hover:scale-110"></i>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</footer><script>lucide.createIcons();</script>
+</footer>
+
+<script>
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
+    document.addEventListener('alpine:initialized', () => {
+        lucide.createIcons();
+    });
+</script>

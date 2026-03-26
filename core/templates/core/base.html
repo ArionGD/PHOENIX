@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en" class="h-full overscroll-none">
+<html lang="en" class="h-auto min-h-full">
 
 <head>
     <meta charset="UTF-8">
@@ -29,19 +29,49 @@
         .font-syncopate { font-family: 'Syncopate', sans-serif; }
         .font-outfit { font-family: 'Outfit', sans-serif; }
         body { font-family: 'Inter', sans-serif; }
-    </style>
+        [x-cloak] { display: none !important; }
 
+        /* Obsidian Terminal Global Scrollbar Control */
+        ::-webkit-scrollbar {
+            width: 10px !important;
+            height: 10px !important;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a !important; /* Slate-900 */
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ffffff !important; /* Pure White Thumb */
+            border-radius: 100px !important;
+            border: 3px solid #0f172a !important;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #e2e8f0 !important;
+        }
+
+        /* Prevent Bouncy 'Overscroll' Behavior Entirely */
+        html, body, main {
+            overscroll-behavior: none !important;
+            overscroll-behavior-y: none !important;
+            scrollbar-width: thin;
+            scrollbar-color: #ffffff #0f172a;
+        }
+    </style>
+    
     {% block extra_css %}{% endblock %}
 </head>
 
-<body class="h-full flex flex-col font-sans overscroll-none bg-[#020617] text-white" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+<body class="min-h-screen flex flex-col font-sans bg-[#020617] text-white overflow-y-auto overflow-x-hidden overscroll-none" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+    
+    <!-- Head Nav Hub -->
     {% include "core/partials/header.html" %}
 
+    <!-- Main Horizon Node -->
     <main class="flex-grow w-full pt-20">
         {% block content %}
         {% endblock %}
     </main>
 
+    <!-- Global Footer Registry Node -->
     {% include "core/partials/footer.html" %}
 
     {% block extra_js %}{% endblock %}
