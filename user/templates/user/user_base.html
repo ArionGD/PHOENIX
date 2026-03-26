@@ -62,50 +62,33 @@
             background: #e2e8f0 !important;
         }
 
-        /* Mission Horizon Edge Damping (Glass Bounce) */
+        /* Mission Horizon Edge Damping (Solid Terminal) */
         html, body, main {
-            overscroll-behavior: contain !important;
-            overscroll-behavior-y: contain !important;
+            overscroll-behavior: none !important;
+            overscroll-behavior-y: none !important;
             scrollbar-width: thin;
             scrollbar-color: #ffffff #0f172a;
         }
     </style>
 </head>
 
-<body class="font-sans flex flex-col h-screen overflow-hidden bg-gray-50 dark:bg-slate-950 transition-colors duration-300" x-data="{ upgradeVisible: true }">
+<body class="font-sans flex flex-col min-h-screen bg-gray-50 dark:bg-slate-950 transition-colors duration-300" x-data="{ upgradeVisible: true }">
 
     <!--Head Nav Bar (Full Width Horizon)-->
     {% include "user/partials/header.html" %}
 
     <!-- Main Terminal Registry (Sidebar + Content Cluster) -->
-    <div class="flex flex-1 overflow-hidden">
+    <div class="flex flex-1">
         <!--Side Nav Bar-->
         {% include "user/partials/sidebar.html" %}
 
         <!--Main Page Content Node-->
-        <main class="ml-64 flex-1 p-6 overflow-y-auto bg-gray-50 dark:bg-slate-950 transition-colors duration-300 overscroll-none" id="page-content">
+        <main class="ml-64 flex-1 p-6 bg-gray-50 dark:bg-slate-950 transition-colors duration-300" id="page-content">
             {% block content %}{% endblock %}
         </main>
     </div>
     <!--END (Head Nav Bar)-->
 
-    <!-- Global Obsidian High-End Interactions (Smooth Scroll) -->
-    <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
-    <script>
-        const lenis = new Lenis({
-            duration: 1.8,
-            lerp: 0.05,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            wheelMultiplier: 0.8,
-            smoothWheel: true,
-        });
-
-        function raf(time) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
-        }
-        requestAnimationFrame(raf);
-    </script>
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
