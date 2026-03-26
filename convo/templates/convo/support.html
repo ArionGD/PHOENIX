@@ -1,0 +1,117 @@
+{% extends "user/user_base.html" %}
+{% load static %}
+
+{% block title %}Altair — Mission Support{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto py-12" x-data="{ currentTicket: null, showForm: false }">
+    <!-- Header Protocol -->
+    <div class="flex flex-col md:flex-col lg:flex-row items-start lg:items-center justify-between gap-8 mb-16 bg-gradient-to-br from-white to-gray-50 dark:from-slate-900/40 dark:to-slate-950 p-10 rounded-[2.5rem] border border-gray-100 dark:border-slate-800 shadow-sm transition-all duration-700">
+        <div>
+            <h2 class="text-4xl font-black text-gray-950 dark:text-white tracking-tighter font-outfit uppercase">
+                Protocol <span class="text-blue-600">Assistance</span>
+            </h2>
+            <p class="text-sm text-gray-400 dark:text-slate-500 mt-2 font-medium tracking-wide">Direct sync with Phoenix Engineering & Oracle Support.</p>
+        </div>
+        <button @click="showForm = !showForm" 
+            class="px-10 py-5 bg-blue-600 dark:bg-white text-white dark:text-black text-xs font-black uppercase tracking-[0.3em] rounded-2xl hover:bg-blue-500 dark:hover:bg-gray-100 transition-all active:scale-95 shadow-xl shadow-blue-500/20 dark:shadow-white/5 flex items-center gap-3">
+            <i data-lucide="plus" class="w-4 h-4"></i> Initialize Strike Req
+        </button>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        
+        <!-- Sidebar Navigation (Ticket Registry) -->
+        <div class="lg:col-span-4 space-y-4">
+            <h3 class="text-[10px] font-black text-gray-400 dark:text-slate-600 uppercase tracking-[0.4em] mb-4 flex items-center gap-4">
+                <span class="w-2 h-2 rounded-full bg-blue-500"></span> Active Frequency
+            </h3>
+            
+            <div class="flex flex-col gap-3">
+                {% for ticket in tickets %}
+                <div @click="currentTicket = {{ ticket.id }}; showForm = false"
+                    class="p-6 rounded-3xl border border-gray-100 dark:border-slate-800/80 bg-white dark:bg-slate-900/30 cursor-pointer transition-all duration-300 hover:border-blue-500/50 hover:bg-white/50 dark:hover:bg-slate-800/20 group relative overflow-hidden"
+                    :class="currentTicket === {{ ticket.id }} ? 'border-blue-500 bg-blue-50/50 dark:bg-blue-500/5 ring-1 ring-blue-500/20' : ''">
+                    
+                    {% if ticket.status == 'open' %}
+                    <div class="absolute top-0 right-0 p-3">
+                        <span class="flex w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span>
+                    </div>
+                    {% endif %}
+
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-[9px] font-black uppercase tracking-widest {% if ticket.status == 'open' %}text-blue-600 dark:text-blue-400{% else %}text-gray-400 dark:text-slate-600{% endif %}">
+                            ID-{{ ticket.id|stringformat:"04d" }} — {{ ticket.status }}
+                        </span>
+                        <span class="text-[9px] font-bold text-gray-400 dark:text-slate-600 uppercase">{{ ticket.created_at|date:"M d" }}</span>
+                    </div>
+                    <h5 class="text-sm font-black text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors uppercase font-outfit tracking-tight leading-none mb-1">
+                        {{ ticket.subject }}
+                    </h5>
+                    <p class="text-[11px] text-gray-500 dark:text-slate-500 font-medium whitespace-nowrap overflow-hidden text-ellipsis opacity-80">
+                        {{ ticket.message }}
+                    </p>
+                </div>
+                {% empty %}
+                <!-- Empty State -->
+                <div class="p-10 text-center border-2 border-dashed border-gray-100 dark:border-slate-800/50 rounded-[3rem]">
+                    <p class="text-xs font-black text-gray-300 dark:text-slate-700 uppercase tracking-widest">No Active Comms</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Main Workspace (Ticket Detail or New Form) -->
+        <div class="lg:col-span-8">
+            
+            <!-- NEW TICKET FORM -->
+            <div x-show="showForm || !currentTicket" class="bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-[3rem] p-12 shadow-2xl shadow-gray-200/50 dark:shadow-none transition-all" x-transition>
+                <div class="mb-10 text-center">
+                    <div class="w-16 h-16 bg-blue-600/10 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-6">🛰️</div>
+                    <h3 class="text-2xl font-black text-gray-950 dark:text-white tracking-tighter uppercase font-outfit">Identity Protocol</h3>
+                    <p class="text-xs text-gray-500 dark:text-slate-500 mt-2 font-medium tracking-wide">Enter the details of your diagnostic anomaly.</p>
+                </div>
+
+                <form action="{% url 'convo:support' %}" method="POST" class="space-y-8">
+                    {% csrf_token %}
+                    <div>
+                        <label class="block text-[10px] font-black text-gray-500 dark:text-slate-500 uppercase tracking-[0.2em] mb-4">Subject Domain</label>
+                        <input type="text" name="subject" required
+                            class="w-full bg-gray-50 dark:bg-slate-800/50 border border-gray-100 dark:border-slate-800 rounded-2xl px-6 py-5 text-sm font-bold text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-700 focus:outline-none focus:border-blue-500 transition-all shadow-inner" 
+                            placeholder="e.g. Asset Inversion Error">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-black text-gray-500 dark:text-slate-500 uppercase tracking-[0.2em] mb-4">Message Diagnostic</label>
+                        <textarea name="message" rows="6" required
+                            class="w-full bg-gray-50 dark:bg-slate-800/50 border border-gray-100 dark:border-slate-800 rounded-2xl px-6 py-5 text-sm font-bold text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-700 focus:outline-none focus:border-blue-500 transition-all shadow-inner resize-none" 
+                            placeholder="Describe the structural failure..."></textarea>
+                    </div>
+                    <button type="submit" 
+                        class="w-full py-6 bg-gray-950 dark:bg-white text-white dark:text-black text-xs font-black uppercase tracking-[0.4em] rounded-[1.5rem] hover:bg-blue-600 hover:text-white transition-all active:scale-[0.98] shadow-2xl shadow-blue-500/10 font-syncopate">
+                        Transmit Registry
+                    </button>
+                </form>
+            </div>
+
+            <!-- TICKET DETAIL VIEW (DYNAMIC) -->
+            <div x-show="currentTicket && !showForm" class="bg-white dark:bg-slate-900/40 border border-gray-100 dark:border-slate-800 rounded-[3rem] p-12 shadow-sm transition-all" x-transition>
+                <div class="flex items-center justify-between mb-12">
+                    <span class="px-5 py-2 rounded-xl bg-gray-50 dark:bg-slate-800 text-[10px] font-black text-gray-600 dark:text-slate-400 uppercase tracking-[0.2em] border border-gray-100 dark:border-slate-700">Protocol Detailed</span>
+                    <button @click="currentTicket = null" class="text-[10px] font-black text-red-500 uppercase tracking-widest hover:underline flex items-center gap-2">
+                        <i data-lucide="x" class="w-3 h-3"></i> Close Stream
+                    </button>
+                </div>
+                
+                <h2 class="text-3xl font-black text-gray-950 dark:text-white tracking-tighter uppercase font-outfit mb-6">
+                    Ticket #<span x-text="currentTicket"></span>
+                </h2>
+                
+                <div class="prose dark:prose-invert max-w-none">
+                    <p class="text-gray-600 dark:text-slate-400 italic">This is the secure transmission channel for ticket #<span x-text="currentTicket"></span>. Support operatives are analyzing your diagnostic trace.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

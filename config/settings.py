@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'analysis.apps.AnalysisConfig',
     'analytics.apps.AnalyticsConfig',
     'tax.apps.TaxConfig',
+    'convo',
 ]
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
