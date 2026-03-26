@@ -48,10 +48,10 @@
             background: #e2e8f0 !important;
         }
 
-        /* Prevent Bouncy 'Overscroll' Behavior Entirely */
+        /* Mission Horizon Edge Damping (Slow-down Effect) */
         html, body, main {
-            overscroll-behavior: none !important;
-            overscroll-behavior-y: none !important;
+            overscroll-behavior: contain !important;
+            overscroll-behavior-y: contain !important;
             scrollbar-width: thin;
             scrollbar-color: #ffffff #0f172a;
         }
@@ -73,6 +73,35 @@
 
     <!-- Global Footer Registry Node -->
     {% include "core/partials/footer.html" %}
+
+    <!-- Phoenix Mission Engineering: Heavy Inerital Scroll Registry -->
+    <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
+    <script>
+        const lenis = new Lenis({
+            duration: 1.8,    // Heavier, slower scroll duration
+            lerp: 0.05,       // High friction for 'heavy' feel
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
+            orientation: 'vertical',
+            gestureOrientation: 'vertical',
+            smoothWheel: true,
+            wheelMultiplier: 0.8, // Slightly lower sensitivity for weight
+            touchMultiplier: 1.2,
+            infinite: false,
+        });
+
+        // Frame Sync for Oracle Terminal Scroll
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // Edge Friction / Rubber Banding Registry
+        lenis.on('scroll', ({ scroll, limit, velocity }) => {
+            // Logic to slow down additionally as we approach limits is handled by the lerp/easing,
+            // but we can add secondary opacity/blur effects if needed.
+        });
+    </script>
 
     {% block extra_js %}{% endblock %}
 </body>

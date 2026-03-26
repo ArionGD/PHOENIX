@@ -62,14 +62,10 @@
             background: #e2e8f0 !important;
         }
 
-        /* Prevent Bouncy 'Overscroll' at Page Ends */
+        /* Mission Horizon Edge Damping (Glass Bounce) */
         html, body, main {
-            overscroll-behavior: none !important;
-            overscroll-behavior-y: none !important;
-        }
-
-        /* Firefox Compatibility */
-        * {
+            overscroll-behavior: contain !important;
+            overscroll-behavior-y: contain !important;
             scrollbar-width: thin;
             scrollbar-color: #ffffff #0f172a;
         }
@@ -93,6 +89,23 @@
     </div>
     <!--END (Head Nav Bar)-->
 
+    <!-- Global Obsidian High-End Interactions (Smooth Scroll) -->
+    <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
+    <script>
+        const lenis = new Lenis({
+            duration: 1.8,
+            lerp: 0.05,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            wheelMultiplier: 0.8,
+            smoothWheel: true,
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+    </script>
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
