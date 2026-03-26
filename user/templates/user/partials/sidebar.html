@@ -1,0 +1,83 @@
+{% load static %}
+<!--Side Nav Bar-->
+<aside class="w-64 bg-white dark:bg-slate-900 border-r border-gray-200 dark:border-slate-800 flex flex-col fixed top-20 left-0 z-30 transition-colors duration-300 h-[calc(100vh-80px)]">
+    <nav class="flex-1 px-3 py-4 overflow-y-auto">
+
+        <!--Menu Options-->
+        <p class="text-[10.5px] font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-widest px-2 mb-1.5">Menu</p>
+
+        <!-- Dashboard -->
+        <a href="{% url 'user:dashboard' %}" 
+            class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-medium transition-colors mb-0.5
+            {% if request.resolver_match.url_name == 'dashboard' %}bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-semibold relative before:content-[''] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:w-[3px] before:h-[20px] before:bg-indigo-600 dark:before:bg-indigo-400 before:rounded-r-[3px]{% else %}text-gray-500 dark:text-slate-400 hover:bg-gray-100 dark:hover:bg-slate-800 hover:text-gray-900 dark:hover:text-white{% endif %}">
+            <i data-lucide="layout-dashboard" class="w-4 h-4 flex-shrink-0"></i> Dashboard
+        </a>
+
+        <!-- AI Analysis -->
+        <a href="{% url 'analysis:explain' %}" 
+            class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-medium transition-colors mb-0.5
+            {% if request.resolver_match.app_name == 'analysis' %}bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-semibold relative before:content-[''] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:w-[3px] before:h-[20px] before:bg-indigo-600 dark:before:bg-indigo-400 before:rounded-r-[3px]{% else %}text-gray-500 dark:text-slate-400 hover:bg-gray-100 dark:hover:bg-slate-800 hover:text-gray-900 dark:hover:text-white{% endif %}">
+            <i data-lucide="sparkles" class="w-4 h-4 flex-shrink-0"></i> AI Analysis
+        </a>
+
+        <!-- Portfolio -->
+        <a href="{% url 'portfolio:overview' %}" 
+            class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-medium transition-colors mb-0.5
+            {% if request.resolver_match.app_name == 'portfolio' %}bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-semibold relative before:content-[''] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:w-[3px] before:h-[20px] before:bg-indigo-600 dark:before:bg-indigo-400 before:rounded-r-[3px]{% else %}text-gray-500 dark:text-slate-400 hover:bg-gray-100 dark:hover:bg-slate-800 hover:text-gray-900 dark:hover:text-white{% endif %}">
+            <i data-lucide="briefcase" class="w-4 h-4 flex-shrink-0"></i> Portfolio
+        </a>
+
+        <!-- Transactions -->
+        <a href="{% url 'transactions:list' %}" 
+            class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-medium transition-colors mb-0.5
+            {% if request.resolver_match.app_name == 'transactions' %}bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-semibold relative before:content-[''] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:w-[3px] before:h-[20px] before:bg-indigo-600 dark:before:bg-indigo-400 before:rounded-r-[3px]{% else %}text-gray-500 dark:text-slate-400 hover:bg-gray-100 dark:hover:bg-slate-800 hover:text-gray-900 dark:hover:text-white{% endif %}">
+            <i data-lucide="arrow-left-right" class="w-4 h-4 flex-shrink-0"></i> Transactions
+        </a>
+
+        <!-- Analytics -->
+        <a href="{% url 'analytics:overview' %}" 
+            class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-medium transition-colors mb-0.5
+            {% if request.resolver_match.app_name == 'analytics' %}bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-semibold relative before:content-[''] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:w-[3px] before:h-[20px] before:bg-indigo-600 dark:before:bg-indigo-400 before:rounded-r-[3px]{% else %}text-gray-500 dark:text-slate-400 hover:bg-gray-100 dark:hover:bg-slate-800 hover:text-gray-900 dark:hover:text-white{% endif %}">
+            <i data-lucide="bar-chart-3" class="w-4 h-4 flex-shrink-0"></i> Analytics
+        </a>
+
+        <!-- Tax -->
+        <a href="{% url 'tax:calculator' %}" 
+            class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-medium transition-colors mb-0.5
+            {% if request.resolver_match.app_name == 'tax' %}bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-semibold relative before:content-[''] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:w-[3px] before:h-[20px] before:bg-indigo-600 dark:before:bg-indigo-400 before:rounded-r-[3px]{% else %}text-gray-500 dark:text-slate-400 hover:bg-gray-100 dark:hover:bg-slate-800 hover:text-gray-900 dark:hover:text-white{% endif %}">
+            <i data-lucide="receipt" class="w-4 h-4 flex-shrink-0"></i> Tax
+        </a>
+
+        <a href="#" id="nav-notifications"
+            class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-medium text-gray-500 dark:text-slate-400 hover:bg-gray-100 dark:hover:bg-slate-800 hover:text-gray-900 dark:hover:text-white transition-colors mb-0.5">
+            <i data-lucide="bell" class="w-4 h-4 flex-shrink-0"></i> Notifications
+            <span class="ml-auto bg-gray-100 dark:bg-slate-800 text-gray-500 dark:text-slate-400 text-[11px] font-semibold px-2 py-0.5 rounded-full">5</span>
+        </a>
+        <!--END (Menu Options)-->
+
+        <!--General Options-->
+        <p class="text-[10.5px] font-semibold text-gray-400 dark:text-slate-500 uppercase tracking-widest px-2 mt-4 mb-1.5">General</p>
+        <a href="#" id="nav-settings"
+            class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-medium text-gray-500 dark:text-slate-400 hover:bg-gray-100 dark:hover:bg-slate-800 hover:text-gray-900 dark:hover:text-white transition-colors mb-0.5">
+            <i data-lucide="settings" class="w-4 h-4 flex-shrink-0"></i> Settings
+        </a>
+        <a href="{% url 'accounts:logout' %}"
+            class="flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-medium text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors mt-2">
+            <i data-lucide="log-out" class="w-4 h-4 flex-shrink-0"></i> Logout
+        </a>
+        <!--End (General Options)-->
+    </nav>
+    <div class="mx-3 mb-4 rounded-2xl bg-gradient-to-br from-orange-500 to-amber-400 p-4 relative text-white"
+        x-show="upgradeVisible" x-transition>
+        <button @click="upgradeVisible = false"
+            class="absolute top-2.5 right-2.5 w-5 h-5 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors">
+            <i data-lucide="x" class="w-3 h-3"></i>
+        </button>
+        <div class="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center text-lg mb-2.5">👑</div>
+        <h4 class="font-bold text-sm mb-1 text-white">Upgrade Pro!</h4>
+        <p class="text-xs opacity-85 leading-relaxed mb-3">Unlock advanced analytics, risk & report tools.</p>
+        <a href="#"
+            class="block bg-slate-900 text-white text-center text-xs font-semibold py-2 rounded-lg hover:opacity-85 transition-opacity no-underline">Upgrade Pro</a>
+    </div>
+</aside>
+<!--END (Side Nav Bar)-->
