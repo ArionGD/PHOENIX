@@ -10,9 +10,9 @@
         </div>
         <div class="flex items-center gap-3 border-l-2 border-gray-100 dark:border-slate-800 pl-4">
             <div class="bg-gray-50 dark:bg-slate-800 p-1 rounded-xl flex gap-1">
-                <button hx-get="{% url 'analytics_overview' %}?timeline=month" hx-target="#growth-terminal-container" hx-swap="outerHTML" hx-push-url="true"
+                <button hx-get="{% url 'analytics:overview' %}?timeline=month" hx-target="#growth-terminal-container" hx-swap="outerHTML" hx-push-url="true"
                     class="px-4 py-1.5 rounded-lg text-[10px] font-black transition-all {% if timeline == 'month' or not timeline %}bg-slate-900 dark:bg-indigo-600 text-white shadow-xl shadow-slate-200 dark:shadow-none{% else %}text-gray-400 dark:text-slate-500 hover:text-gray-700 dark:hover:text-slate-300{% endif %}">MONTH</button>
-                <button hx-get="{% url 'analytics_overview' %}?timeline=year" hx-target="#growth-terminal-container" hx-swap="outerHTML" hx-push-url="true"
+                <button hx-get="{% url 'analytics:overview' %}?timeline=year" hx-target="#growth-terminal-container" hx-swap="outerHTML" hx-push-url="true"
                     class="px-4 py-1.5 rounded-lg text-[10px] font-black transition-all {% if timeline == 'year' %}bg-slate-900 dark:bg-indigo-600 text-white shadow-xl shadow-slate-200 dark:shadow-none{% else %}text-gray-400 dark:text-slate-500 hover:text-gray-700 dark:hover:text-slate-300{% endif %}">YEAR</button>
             </div>
         </div>
