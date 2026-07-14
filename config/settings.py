@@ -1,17 +1,20 @@
 import os
 from pathlib import Path
-from dotenv import load_dotenv
 
-# Load mission-critical credentials from .env
-load_dotenv()
+# Optional: load a .env if present, but hardcoded defaults below make it non-essential.
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-default-fallback-key-replace-me')
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-)cqtk1kj67$l04*!w7+#-%d4$a#@3f8w(=$l=*+wjpx7bez#kk')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG', 'True') == 'True'
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1,.pythonanywhere.com').split(',')
 
@@ -35,7 +38,8 @@ INSTALLED_APPS = [
     'convo',
 ]
 
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+# AI (Gemini) is disabled; key is read from env only, no default committed.
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

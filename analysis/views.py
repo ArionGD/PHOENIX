@@ -1,4 +1,3 @@
-from google import genai
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
@@ -8,8 +7,9 @@ from django.utils import timezone
 from datetime import timedelta
 import markdown
 
-# Configure Gemini Client (v2.0 SDK)
-client = genai.Client(api_key=settings.GEMINI_API_KEY)
+# AI analysis (Gemini) is currently disabled. The rest of the analysis
+# features work normally; the AI explanation is turned off.
+AI_ENABLED = False
 
 @login_required
 def explain_market(request):
@@ -90,21 +90,14 @@ def explain_market(request):
                 Formatting: Use bold text, bullet points, and clean headers. Be specific to the symbols (e.g., RELIANCE, NIFTY_50).
                 """
 
-                # Call Gemini (v2 GenAI SDK)
-                model_name = 'models/gemini-2.5-flash'
-                try:
-                    response = client.models.generate_content(
-                        model=model_name,
-                        contents=prompt
+                # AI analysis is currently disabled.
+                if not AI_ENABLED:
+                    disabled_msg = (
+                        "## AI Analysis Unavailable\n\n"
+                        "The AI-powered market explanation is temporarily disabled. "
+                        "Your portfolio metrics above are still fully up to date."
                     )
-                except Exception:
-                    response = client.models.generate_content(
-                        model='models/gemini-2.5-flash-lite-preview-09-2025',
-                        contents=prompt
-                    )
-                
-                # Convert Markdown to HTML
-                explanation_html = markdown.markdown(response.text, extensions=['extra', 'nl2br'])
+                    explanation_html = markdown.markdown(disabled_msg, extensions=['extra', 'nl2br'])
                 
                 # PERSIST TO SESSION: Save the analysis so it stays when navigating back
                 request.session['last_ai_analysis'] = {
